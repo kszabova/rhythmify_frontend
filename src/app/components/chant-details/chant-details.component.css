@@ -1,0 +1,9 @@
+.edit-form {
+    max-width: 400px;
+    margin: auto;
+  }
+
+.melody {
+  font-family: 'volpiano', 'arial', sans-serif;
+  font-size: large;
+}

@@ -1,0 +1,63 @@
+<div class="list row">
+    <div class="col-md-8">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by incipit"
+          [(ngModel)]="incipit"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="searchIncipit()"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h4>Chants List</h4>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let chant of chants; let i = index"
+          [class.active]="i == currentIndex"
+          (click)="setActiveChant(chant, i)"
+        >
+          {{ chant.incipit }}
+        </li>
+      </ul>
+  
+      <button class="m-3 btn btn-sm btn-danger" (click)="removeAllChants()">
+        Remove All
+      </button>
+    </div>
+    <div class="col-md-6">
+      <div *ngIf="currentChant">
+        <h4>Chant</h4>
+        <div>
+          <label><strong>incipit:</strong></label> {{ currentChant.incipit }}
+        </div>
+        <div>
+          <label><strong>Volpiano:</strong></label>
+          {{ currentChant.volpiano }}
+        </div>
+        <div>
+            <label><strong>Full Text:</strong></label>
+            {{ currentChant.full_text }}
+          </div>
+  
+        <a class="badge badge-warning" routerLink="/chants/{{ currentChant.id }}">
+          Edit
+        </a>
+      </div>
+  
+      <div *ngIf="!currentChant">
+        <br />
+        <p>Please click on a Chant...</p>
+      </div>
+    </div>
+  </div>

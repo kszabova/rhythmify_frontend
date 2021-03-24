@@ -1,0 +1,59 @@
+<div>
+    <div *ngIf="currentChant.id" class="edit-form">
+      <h4>Chant</h4>
+      <form>
+        <div class="form-group">
+          <label for="incipit">Incipit</label>
+          <input
+            type="text"
+            class="form-control"
+            id="incipit"
+            [(ngModel)]="currentChant.incipit"
+            name="incipit"
+          />
+        </div>
+        <div class="form-group">
+          <label for="volpiano">Volpiano</label>
+          <input
+            type="text"
+            class="form-control"
+            id="volpiano"
+            [(ngModel)]="currentChant.volpiano"
+            name="volpiano"
+          />
+        </div>
+        
+        <div class="melody">{{ currentChant.volpiano }}</div>
+        <div class="full_text">{{ currentChant.full_text }}</div>
+  
+        <div class="form-group">
+            <label for="full_text">Full Text</label>
+            <input
+              type="text"
+              class="form-control"
+              id="full_text"
+              [(ngModel)]="currentChant.full_text"
+              name="full_text"
+            />
+          </div>
+      </form>
+  
+      <button class="badge badge-danger mr-2" (click)="deleteChant()">
+        Delete
+      </button>
+  
+      <button
+        type="submit"
+        class="badge badge-success mb-2"
+        (click)="updateChant()"
+      >
+        Update
+      </button>
+      <p>{{ message }}</p>
+    </div>
+  
+    <div *ngIf="!currentChant.id">
+      <br />
+      <p>Cannot access this Chant...</p>
+    </div>
+  </div>
