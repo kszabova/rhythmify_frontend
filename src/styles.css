@@ -2,3 +2,152 @@
     font-family: volpiano;
     src: url(assets/fonts/volpiano.otf) format("opentype");
 }
+
+/* .edit-form {
+    max-width: 400px;
+    margin: auto;
+  }
+
+.melody {
+  font-family: 'volpiano', 'arial', sans-serif;
+  font-size: large;
+} */
+
+.chant { 
+    line-height: 1; 
+    position: relative; 
+    font-family: serif; 
+  } 
+  
+  .section, .word { 
+    display: inline; 
+  } 
+  
+  .syllable { 
+    display: inline-block;
+    height: 4.5em;
+    padding-top: .4em;
+    margin-bottom: .2em;
+    margin-top: .2em; 
+  } 
+  
+  .neume {
+    display: inline-block; 
+  } 
+  
+  .volpiano {
+    font-family: volpiano; 
+    font-size: 2em; 
+  } 
+  
+  .text {
+    position: absolute;
+    margin-top: 1em; 
+  } 
+  
+  .unaligned .text { 
+    color: #666; font-style: italic; 
+  } 
+  
+  .unaligned .volpiano {
+    color: #666; 
+  } 
+  
+  .lyric {
+    background: #fff; 
+  } 
+  
+  .annotation {
+    font-style: italic;
+    color: #c00; 
+  } 
+  
+  .showMisalignments .misaligned, .showMisalignments.misaligned {
+    color: #C00;
+  } 
+  
+  .showMisalignments .misaligned .text, .showMisalignments.misaligned .text { 
+    font-style: italic; 
+  } 
+  
+  .showSections .section {
+    display: inline-block; 
+    border: 1px dotted#c00; 
+    margin-bottom: 1em; 
+    margin-right: 1em; 
+    padding: .5em 1.5em; 
+  } 
+  
+  .sectionHeader {
+    display: none; 
+  } 
+  
+  .showSections .sectionHeader { 
+    display: block; 
+    font-family: sans-serif; 
+    color:#c00; 
+    font-weight: bold; 
+    font-size: .8em; 
+  } 
+  
+  .showWords .word { 
+    display: inline-block; 
+    margin: .2em;
+    padding-right: .5em; 
+    padding-left: .5em; 
+    border: 1px solid #ccc; 
+  } 
+  
+  .showNeumes .neume { 
+    margin-left: .1em; 
+    margin-right: .05em;
+    border-right: 1px solid#ccc; 
+    border-left: 1px solid#ccc; 
+  } 
+  
+  .showNeumes .volpiano > *:not(.neume) { 
+    color: #ccc; 
+  } 
+  
+  .showSyllables .syllable { 
+    border-right: 1px dotted #c00; 
+    margin-right: .3em; 
+    padding-right: .4em; 
+  } 
+  
+  .showSyllables.showWords .syllable:last-of-type { 
+    border: 0; 
+    padding-right: 0; 
+    margin-right: 0; 
+  } 
+  
+  .section.boundary { 
+    display: inline-block; 
+    border: 0; 
+    border-bottom: 1px dashed black; 
+    margin-bottom: 1em; 
+  } 
+  
+  .metadata { 
+    display: none; 
+  } 
+  
+  .showMetadata .metadata { 
+    display: inline-block; 
+    margin-top: 2em; 
+    font-family: sans-serif; 
+    line-height: 1.5em; 
+    border-collapse: collapse; 
+    font-size: .8em; 
+    width: 100%; 
+    color: #999; 
+  } 
+  
+  .metadata td { 
+    border-bottom: 1px solid #eee; 
+  } 
+  
+  .metadata .field { 
+    font-weight: bold; 
+    padding-right: 1em; 
+  }

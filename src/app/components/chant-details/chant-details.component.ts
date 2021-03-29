@@ -9,34 +9,41 @@ import { Chant } from 'src/app/models/chant.model';
   styleUrls: ['./chant-details.component.css']
 })
 export class ChantDetailsComponent implements OnInit {
-  currentChant: Chant = {
-    incipit: '',
-    volpiano: '',
-    full_text: ''
-  };
-  message = '';
+  // currentChant: Chant = {
+  //   incipit: '',
+  //   volpiano: '',
+  //   full_text: ''
+  // };
+  // message = '';
+
+  chant: any;
 
   constructor(
     private chantService: ChantService,
     private route: ActivatedRoute,
     private router: Router) { }
 
-  ngOnInit(): void {
-    this.message = '';
-    this.getChant(this.route.snapshot.params.id);
-  }
+  // ngOnInit(): void {
+  //   this.message = '';
+  //   this.getChant(this.route.snapshot.params.id);
+  // }
 
-  getChant(id: string): void {
-    this.chantService.get(id)
-      .subscribe(
-        data => {
-          this.currentChant = data;
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
+  ngOnInit(): void {
+    this.chantService.get(645).subscribe(
+      (data:(any)) => this.chant = data.html
+    );
   }
+  // getChant(id: string): void {
+  //   this.chantService.get(id)
+  //     .subscribe(
+  //       data => {
+  //         this.currentChant = data;
+  //         console.log(data);
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       });
+  // }
 
   updatePublished(status: string): void {
     // const data = {
@@ -57,27 +64,27 @@ export class ChantDetailsComponent implements OnInit {
     //     });
   }
 
-  updateChant(): void {
-    this.chantService.update(this.currentChant.id, this.currentChant)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.message = response.message;
-        },
-        error => {
-          console.log(error);
-        });
-  }
+  // updateChant(): void {
+  //   this.chantService.update(this.currentChant.id, this.currentChant)
+  //     .subscribe(
+  //       response => {
+  //         console.log(response);
+  //         this.message = response.message;
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       });
+  // }
 
-  deleteChant(): void {
-    this.chantService.delete(this.currentChant.id)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.router.navigate(['/chants']);
-        },
-        error => {
-          console.log(error);
-        });
-  }
+  // deleteChant(): void {
+  //   this.chantService.delete(this.currentChant.id)
+  //     .subscribe(
+  //       response => {
+  //         console.log(response);
+  //         this.router.navigate(['/chants']);
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       });
+  // }
 }

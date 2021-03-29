@@ -17,7 +17,7 @@ export class ChantService {
   }
 
   get(id: any): Observable<Chant> {
-    return this.http.get(`${baseUrl}/${id}`);
+    return this.http.get(`${baseUrl}/${id}/detail`);
   }
 
   create(data: any): Observable<any> {
