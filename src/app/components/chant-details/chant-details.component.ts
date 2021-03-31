@@ -9,12 +9,6 @@ import { Chant } from 'src/app/models/chant.model';
   styleUrls: ['./chant-details.component.css']
 })
 export class ChantDetailsComponent implements OnInit {
-  // currentChant: Chant = {
-  //   incipit: '',
-  //   volpiano: '',
-  //   full_text: ''
-  // };
-  // message = '';
 
   chant: any;
 
@@ -23,68 +17,9 @@ export class ChantDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router) { }
 
-  // ngOnInit(): void {
-  //   this.message = '';
-  //   this.getChant(this.route.snapshot.params.id);
-  // }
-
   ngOnInit(): void {
     this.chantService.get(645).subscribe(
-      (data:(any)) => this.chant = data.json
+      (data:(any)) => this.chant = data
     );
   }
-  // getChant(id: string): void {
-  //   this.chantService.get(id)
-  //     .subscribe(
-  //       data => {
-  //         this.currentChant = data;
-  //         console.log(data);
-  //       },
-  //       error => {
-  //         console.log(error);
-  //       });
-  // }
-
-  updatePublished(status: string): void {
-    // const data = {
-    //   incipit: this.currentChant.incipit,
-    //   description: this.currentChant.volpiano,
-    //   full_text: status
-    // };
-
-    // this.chantService.update(this.currentChant.id, data)
-    //   .subscribe(
-    //     response => {
-    //       this.currentChant.full_text = status;
-    //       console.log(response);
-    //       this.message = response.message;
-    //     },
-    //     error => {
-    //       console.log(error);
-    //     });
-  }
-
-  // updateChant(): void {
-  //   this.chantService.update(this.currentChant.id, this.currentChant)
-  //     .subscribe(
-  //       response => {
-  //         console.log(response);
-  //         this.message = response.message;
-  //       },
-  //       error => {
-  //         console.log(error);
-  //       });
-  // }
-
-  // deleteChant(): void {
-  //   this.chantService.delete(this.currentChant.id)
-  //     .subscribe(
-  //       response => {
-  //         console.log(response);
-  //         this.router.navigate(['/chants']);
-  //       },
-  //       error => {
-  //         console.log(error);
-  //       });
-  // }
 }
