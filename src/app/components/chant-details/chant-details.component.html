@@ -58,4 +58,37 @@
     </div>
   </div> -->
 
-  <div [innerHTML]="chant"></div>
+  <div *ngIf="chant" class="chant">
+    <div class="section" *ngFor="let section of chant.elements">
+      <div class="word" *ngFor="let word of section.elements; let lastWord = last">
+        <div class="syllable" *ngFor="let syllable of word.elements; let lastSyllable = last">
+          <div class="volpiano">
+            <ng-container *ngIf="!syllable.elements">-</ng-container>
+            <ng-container *ngFor="let element of syllable.elements; let lastElem = last">
+              <ng-container *ngIf="element.type === 'neume'; else elseType">
+                <ng-container *ngFor="let note of element.elements; let lastNote = last">
+                  <span class="neume" *ngIf="note.editorial">{{ note.editorial.volpianoPosition }}</span>
+                  <span *ngIf="syllable.elements.length > 1 && !lastNote" class="neumeBoundary boundary">-</span>
+                </ng-container>
+              </ng-container>
+              <ng-template #elseType>
+                <span class="{{ element.type }}">{{ element.editorial.volpiano }}</span>
+              </ng-template>
+            </ng-container>
+            <span *ngIf="word.elements.length > 1 && !lastSyllable; else elseSyllable" class="syllableBoundary boundary">--</span>
+            <ng-template #elseSyllable>
+              <span *ngIf="lastSyllable && !lastWord" class="wordBoundary boundary">---</span>
+            </ng-template>
+          </div>
+          <div class="text">
+            <span *ngIf="syllable.annotation" class="annotation">{{ syllable.annotation }}</span>
+            <ng-container *ngIf="syllable.lyric; else noLyric">
+              <span class="lyric">{{ syllable.lyric }}</span>
+              <span *ngIf="word.elements.length > 1 && !lastSyllable" class="hyphen">-</span>
+            </ng-container>
+            <ng-template #noLyric>&nbsp;</ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

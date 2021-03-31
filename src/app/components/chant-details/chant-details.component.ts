@@ -30,7 +30,7 @@ export class ChantDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.chantService.get(645).subscribe(
-      (data:(any)) => this.chant = data.html
+      (data:(any)) => this.chant = data.json
     );
   }
   // getChant(id: string): void {
