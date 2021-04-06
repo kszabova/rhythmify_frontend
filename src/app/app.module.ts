@@ -6,11 +6,11 @@ import { AppComponent } from './app.component';
 import { AddChantComponent } from './components/add-chant/add-chant.component';
 import { ChantDetailsComponent } from './components/chant-details/chant-details.component';
 import { ChantListComponent } from './components/chant-list/chant-list.component';
+import { ChantFetchComponent } from './components/chant-fetch/chant-fetch.component';
+import { HistogramComponent } from './components/histogram/histogram.component';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-import { ChantFetchComponent } from './components/chant-fetch/chant-fetch.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,8 @@ import { ChantFetchComponent } from './components/chant-fetch/chant-fetch.compon
     AddChantComponent,
     ChantDetailsComponent,
     ChantListComponent,
-    ChantFetchComponent
+    ChantFetchComponent,
+    HistogramComponent
   ],
   imports: [
     BrowserModule,
