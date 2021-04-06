@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Chant } from '../models/chant.model';
+import { ChantFacadeService } from './chant-facade.service';
 
 const baseUrl = 'http://localhost:8000/api/melodies';
 
@@ -10,7 +11,8 @@ const baseUrl = 'http://localhost:8000/api/melodies';
 })
 export class ChantService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private chantFacadeService: ChantFacadeService) { }
 
   getAll(): Observable<Chant[]> {
     return this.http.get<Chant[]>(baseUrl);
@@ -38,5 +40,9 @@ export class ChantService {
 
   findByIncipit(incipit: any): Observable<Chant[]> {
     return this.http.get<Chant[]>(`${baseUrl}?incipit=${incipit}`);
+  }
+
+  setChant(id: any): void {
+    this.chantFacadeService.chant = this.http.get(`${baseUrl}/${id}/detail`);
   }
 }
