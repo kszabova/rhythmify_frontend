@@ -8,6 +8,7 @@ import { ChantDetailsComponent } from './components/chant-details/chant-details.
 import { ChantListComponent } from './components/chant-list/chant-list.component';
 import { ChantFetchComponent } from './components/chant-fetch/chant-fetch.component';
 import { HistogramComponent } from './components/histogram/histogram.component';
+import { MelodyLengthHistComponent } from './components/melody-length-hist/melody-length-hist.component';
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     ChantDetailsComponent,
     ChantListComponent,
     ChantFetchComponent,
-    HistogramComponent
+    HistogramComponent,
+    MelodyLengthHistComponent
   ],
   imports: [
     BrowserModule,
