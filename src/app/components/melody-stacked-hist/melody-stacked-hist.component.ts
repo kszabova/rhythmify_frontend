@@ -18,11 +18,11 @@ export class MelodyStackedHistComponent implements OnInit {
     bottom: 30,
     left: 50
   }
-  private width = 960;
+  private width = 700;
   private height = 500;
 
-  private minValue;
-  private maxValue;
+  private minLength;
+  private maxLength;
 
   constructor(
     private chantService: ChantService
@@ -37,8 +37,8 @@ export class MelodyStackedHistComponent implements OnInit {
             "genre": chant.genre_id
           })
         );
-        this.minValue = d3.min(this.data, (d: any) => d.melody_length);
-        this.maxValue = d3.max(this.data, (d: any) => d.melody_length);
+        this.minLength = d3.min(this.data, (d: any) => d.melody_length);
+        this.maxLength = d3.max(this.data, (d: any) => d.melody_length);
         this.createSvg();
         this.drawHist(this.data);
       }
@@ -55,7 +55,7 @@ export class MelodyStackedHistComponent implements OnInit {
   }
 
   drawHist(data: any[]): void {
-    const bins = d3.bin().domain([0, this.maxValue]).thresholds(100);
+    const bins = d3.bin().domain([0, this.maxLength]).thresholds(100);
     const groupedGenres = d3.group(data, d => d.genre);
     const genres = Array.from(groupedGenres.keys());
     const histDataByGenre = []
@@ -72,25 +72,27 @@ export class MelodyStackedHistComponent implements OnInit {
       });
     });
 
+    // stack data by genre
+    // the stacked data looks like this:
+    // [ [genre1_value1, genre1_value2, genre1_value3, ... ],
+    //   [genre2_value1, genre2_value2, genre2_value3, ... ], ... ]
     var stackedHistData = d3.stack()
                             .keys(genres)(histDataByGenre)
                             .slice(0, 10);
     
+    // create scales
     const xScale = d3.scaleLinear()
                      .domain([0, stackedHistData[0].length])
-                     .range([this.margin.left, this.width - this.margin.right]);
+                     .range([0, this.width - this.margin.right]);
 
     var upperLimit = d3.max(stackedHistData[stackedHistData.length - 1], d => d[1] as number);
     const yScale = d3.scaleLinear()
                      .domain([0, upperLimit])
                      .range([this.height - this.margin.bottom, this.margin.top]);
 
-    console.log(yScale(upperLimit));
     var color = d3.schemeCategory10;
-    console.log(yScale(0));
-    console.log(yScale(2));
-    console.log(yScale(1598));
-    this.svg.selectAll(".genre")
+    // create groups for each genre and populate them with their data
+    var sel = this.svg.selectAll(".genre")
             .data(stackedHistData)
             .enter()
             .append("g")
@@ -98,20 +100,25 @@ export class MelodyStackedHistComponent implements OnInit {
             .attr("id", (d, i) => genres[i])
             .style("fill", (d, i) => color[i])
             .style("stroke", (d, i) => d3.rgb(color[i]).darker())
-            .selectAll(".bar")
+
+    // for each genre group, draw the bars
+    sel.selectAll(".bar")
             .data((d) => d)
             .enter()
             .append("rect")
             .attr("class", "bar")
-            .attr("x", (d, i) => i * 20)
-            .attr("width", 20)
+            .attr("x", (d, i) => i * xScale(2))
+            .attr("width", xScale(2))
             .attr("y", (d, i) => yScale(d[1]))
             .attr("height", (d, i) => yScale(d[0]) - yScale(d[1]));    
     
+    // draw y-axis
     this.svg.append("g")
             .call(d3.axisLeft(yScale));
+
+    // draw x-axis
     const xAxis = g => g
-            .attr("transform", `translate(${-this.margin.left},${this.height - this.margin.bottom})`)
+            .attr("transform", `translate(0,${this.height - this.margin.bottom})`)
             .call(d3.axisBottom(xScale).ticks(this.width / 40 ).tickSizeOuter(0))
             .call(g => g.append("text")
                 .attr("x", this.width - this.margin.left)
@@ -120,6 +127,7 @@ export class MelodyStackedHistComponent implements OnInit {
                 .attr("font-weight", "bold")
                 .attr("text-anchor", "end")
                 .text((d, i) => i * 2 + ""));
+
     this.svg.append("g").call(xAxis);
   }
 
