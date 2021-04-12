@@ -11,3 +11,19 @@
     [data]="textLengthHistData"
     id="textLengthHist">
 </app-histogram>
+
+<app-stacked-histogram
+    *ngIf="melodyStackedHistData"
+    [chartTitle]="melodyStackedHistTitle"
+    [data]="melodyStackedHistData"
+    [groupName]="melodyStackedHistGroupName"
+    id="melodyStackedHist">
+</app-stacked-histogram>
+
+<app-stacked-histogram
+    *ngIf="textStackedHistData"
+    [chartTitle]="textStackedHistTitle"
+    [data]="textStackedHistData"
+    [groupName]="textStackedHistGroupName"
+    id="textStackedHist">
+</app-stacked-histogram>

@@ -14,6 +14,14 @@ export class DashboardComponent implements OnInit {
   textLengthHistTitle = "Text Length";
   textLengthHistData: any;
 
+  melodyStackedHistTitle = "Melody Length by Genre";
+  melodyStackedHistData: any;
+  melodyStackedHistGroupName: "genre";
+
+  textStackedHistTitle = "Text Length by Genre";
+  textStackedHistData: any;
+  textStackedHistGroupName: "genre";
+
   constructor(
     private chantService: ChantService
   ) { }
@@ -27,6 +35,16 @@ export class DashboardComponent implements OnInit {
         this.textLengthHistData = data.map(
           chant => chant.full_text.split(" ").length
         );
+        this.melodyStackedHistData = data.map(
+          chant => ({
+            "value": chant.volpiano.split("---").length,
+            "group": chant.genre_id
+        }));
+        this.textStackedHistData = data.map(
+          chant => ({
+            "value": chant.full_text.split(" ").length,
+            "group": chant.genre_id
+        }));
       }
     )
   }

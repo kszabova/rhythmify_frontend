@@ -20,7 +20,6 @@ export class HistogramComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("histogram " + this.chartTitle);
     this.createSvg();
     this.drawHist(this.data);
   }

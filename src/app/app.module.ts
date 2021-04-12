@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddChantComponent } from './components/add-chant/add-chant.component';
@@ -11,9 +14,8 @@ import { HistogramComponent } from './components/histogram/histogram.component';
 import { MelodyLengthHistComponent } from './components/melody-length-hist/melody-length-hist.component';
 import { MelodyStackedHistComponent } from './components/melody-stacked-hist/melody-stacked-hist.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { StackedHistogramComponent } from './components/stacked-histogram/stacked-histogram.component';
 
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     HistogramComponent,
     MelodyLengthHistComponent,
     MelodyStackedHistComponent,
-    DashboardComponent
+    DashboardComponent,
+    StackedHistogramComponent
   ],
   imports: [
     BrowserModule,
