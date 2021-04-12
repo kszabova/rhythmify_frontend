@@ -1,0 +1,13 @@
+<app-histogram 
+    *ngIf="melodyLengthHistData" 
+    [chartTitle]="melodyLengthHistTitle" 
+    [data]="melodyLengthHistData"
+    id="melodyLengthHist">
+</app-histogram>
+
+<app-histogram
+    *ngIf="textLengthHistData"
+    [chartTitle]="textLengthHistTitle"
+    [data]="textLengthHistData"
+    id="textLengthHist">
+</app-histogram>
