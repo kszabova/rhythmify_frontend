@@ -16,11 +16,16 @@ export class DashboardComponent implements OnInit {
 
   melodyStackedHistTitle = "Melody Length by Genre";
   melodyStackedHistData: any;
-  melodyStackedHistGroupName: "genre";
+  melodyStackedHistGroupName = "genre";
 
   textStackedHistTitle = "Text Length by Genre";
   textStackedHistData: any;
-  textStackedHistGroupName: "genre";
+  textStackedHistGroupName = "genre";
+
+  scatterPlotData: any;
+  scatterPlotTitle = "Melody Length vs. Text Length";
+  scatterPlotXName = "Melody Length";
+  scatterPlotYName = "Text Length";
 
   constructor(
     private chantService: ChantService
@@ -45,6 +50,12 @@ export class DashboardComponent implements OnInit {
             "value": chant.full_text.split(" ").length,
             "group": chant.genre_id
         }));
+        this.scatterPlotData = data.map(
+          chant => ({
+            "x": chant.volpiano.split("---").length,
+            "y": chant.full_text.split(" ").length
+          })
+        );
       }
     )
   }

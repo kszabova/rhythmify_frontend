@@ -15,6 +15,7 @@ import { MelodyLengthHistComponent } from './components/melody-length-hist/melod
 import { MelodyStackedHistComponent } from './components/melody-stacked-hist/melody-stacked-hist.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { StackedHistogramComponent } from './components/stacked-histogram/stacked-histogram.component';
+import { ScatterPlotComponent } from './components/scatter-plot/scatter-plot.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { StackedHistogramComponent } from './components/stacked-histogram/stacke
     MelodyLengthHistComponent,
     MelodyStackedHistComponent,
     DashboardComponent,
-    StackedHistogramComponent
+    StackedHistogramComponent,
+    ScatterPlotComponent
   ],
   imports: [
     BrowserModule,
