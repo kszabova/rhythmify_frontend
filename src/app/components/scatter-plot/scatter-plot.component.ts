@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IScatterData } from 'src/app/interfaces/scatter-data.interface';
 
 import * as d3 from 'd3';
 
@@ -9,7 +10,7 @@ import * as d3 from 'd3';
 })
 export class ScatterPlotComponent implements OnInit {
 
-  @Input() data: any;
+  @Input() data: IScatterData[];
   @Input() chartTitle: string;
   @Input() valueXName: string;
   @Input() valueYName: string;
@@ -39,16 +40,16 @@ export class ScatterPlotComponent implements OnInit {
                  .attr("height", this.height);
   }
 
-  drawPlot(data: any): void {
+  drawPlot(data: IScatterData[]): void {
     // create scales
-    var minX = Math.min(d3.min(data, (d: any) => d.x as number));
-    var maxX = Math.max(d3.max(data, (d: any) => d.x as number));
+    var minX = Math.min(d3.min(data, d => d.x));
+    var maxX = Math.max(d3.max(data, d => d.x));
     var x = d3.scaleLinear()
               .domain([Math.min(0, minX), maxX])
               .range([this.margin.left, this.width - this.margin.right]);
 
-    var minY = Math.min(d3.min(data, (d: any) => d.y as number));
-    var maxY = Math.max(d3.max(data, (d: any) => d.y as number));
+    var minY = Math.min(d3.min(data, d => d.y));
+    var maxY = Math.max(d3.max(data, d => d.y));
     var y = d3.scaleLinear()
               .domain([Math.min(0, minY), maxY])
               .range([this.height - this.margin.bottom, this.margin.top]);
@@ -74,8 +75,7 @@ export class ScatterPlotComponent implements OnInit {
                 .attr("x", this.width)
                 .attr("y", this.margin.bottom - 4)
                 .attr("fill", "currentColor")
-                .attr("text-anchor", "end")
-                .text(data.x))
+                .attr("text-anchor", "end"));
 
     var yAxis = g => g
             .attr("transform", `translate(${this.margin.left},0)`)
@@ -85,8 +85,7 @@ export class ScatterPlotComponent implements OnInit {
                 .attr("x", -this.margin.left)
                 .attr("y", 10)
                 .attr("fill", "currentColor")
-                .attr("text-anchor", "start")
-                .text(data.y))
+                .attr("text-anchor", "start"));
         
     this.svg.append("g").call(xAxis);
     this.svg.append("g").call(yAxis);

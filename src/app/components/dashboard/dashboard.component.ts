@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IScatterData } from 'src/app/interfaces/scatter-data.interface';
 import { ChantService } from 'src/app/services/chant.service';
 
 @Component({
@@ -22,7 +23,7 @@ export class DashboardComponent implements OnInit {
   textStackedHistData: any;
   textStackedHistGroupName = "genre";
 
-  scatterPlotData: any;
+  scatterPlotData: IScatterData[];
   scatterPlotTitle = "Melody Length vs. Text Length";
   scatterPlotXName = "Melody Length";
   scatterPlotYName = "Text Length";
