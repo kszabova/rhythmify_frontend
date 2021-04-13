@@ -8,7 +8,7 @@ import * as d3 from 'd3';
 })
 export class HistogramComponent implements OnInit {
 
-  @Input() data: any;
+  @Input() data: number[];
   @Input() chartTitle: string;
 
   private svg;
@@ -33,7 +33,7 @@ export class HistogramComponent implements OnInit {
                  .attr("transform", "translate(" + this.margin + "," + this.margin + ")");
   }
 
-  private drawHist(data: any): void {
+  private drawHist(data: number[]): void {
     // create data bins
     const bins = d3.bin().thresholds(100)(data)
 
@@ -54,8 +54,7 @@ export class HistogramComponent implements OnInit {
                          .attr("y", -4)
                          .attr("fill", "currentColor")
                          .attr("font-weight", "bold")
-                         .attr("text-anchor", "end")
-                         .text(data.x))
+                         .attr("text-anchor", "end"));
 
     const yAxis = g => g
                       .attr("transform", `translate(${this.margin - 10},0)`)
@@ -64,8 +63,7 @@ export class HistogramComponent implements OnInit {
                       .call(g => g.select(".tick:last-of-type text").clone()
                           .attr("x", 4)
                           .attr("text-anchor", "start")
-                          .attr("font-weight", "bold")
-                          .text(data.y))
+                          .attr("font-weight", "bold"));
 
     // draw the rectangles for each data
     this.svg.append("g")

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IScatterData } from 'src/app/interfaces/scatter-data.interface';
+import { IStackedHistogram } from 'src/app/interfaces/stacked-histogram.interface';
 import { ChantService } from 'src/app/services/chant.service';
 
 @Component({
@@ -10,17 +11,17 @@ import { ChantService } from 'src/app/services/chant.service';
 export class DashboardComponent implements OnInit {
 
   melodyLengthHistTitle = "Melody Length";
-  melodyLengthHistData: any;
+  melodyLengthHistData: number[];
 
   textLengthHistTitle = "Text Length";
-  textLengthHistData: any;
+  textLengthHistData: number[];
 
-  melodyStackedHistTitle = "Melody Length by Genre";
-  melodyStackedHistData: any;
+  melodyStackedHistData: IStackedHistogram[]
+  melodyStackedHistTitle = "Melody Length by Genre";;
   melodyStackedHistGroupName = "genre";
 
+  textStackedHistData: IStackedHistogram[];
   textStackedHistTitle = "Text Length by Genre";
-  textStackedHistData: any;
   textStackedHistGroupName = "genre";
 
   scatterPlotData: IScatterData[];

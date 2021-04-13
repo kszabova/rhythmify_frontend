@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IStackedHistogram } from 'src/app/interfaces/stacked-histogram.interface';
 
 import * as d3 from 'd3';
 
@@ -9,7 +10,7 @@ import * as d3 from 'd3';
 })
 export class StackedHistogramComponent implements OnInit {
 
-  @Input() data: any;
+  @Input() data: IStackedHistogram[];
   @Input() chartTitle: string;
   @Input() groupName: string;
 
@@ -41,7 +42,7 @@ export class StackedHistogramComponent implements OnInit {
                  .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
   }
 
-  drawHist(data: any[]): void {
+  drawHist(data: IStackedHistogram[]): void {
 
     // create the bin function
     const bins = d3.bin().domain([0, this.maxValue]).thresholds(100);
@@ -76,7 +77,7 @@ export class StackedHistogramComponent implements OnInit {
                      .domain([0, stackedHistData[0].length])
                      .range([0, this.width - this.margin.right]);
 
-    var upperLimit = d3.max(stackedHistData[stackedHistData.length - 1], d => d[1] as number);
+    var upperLimit = d3.max(stackedHistData[stackedHistData.length - 1], d => d[1]);
     const yScale = d3.scaleLinear()
                      .domain([0, upperLimit])
                      .range([this.height - this.margin.bottom, this.margin.top]);
