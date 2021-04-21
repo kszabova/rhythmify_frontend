@@ -45,4 +45,8 @@ export class ChantService {
   setChant(id: any): void {
     this.chantFacadeService.chant = this.http.get(`${baseUrl}/${id}/detail`);
   }
+
+  getAligned(data: number[]): Observable<any> {
+    return this.http.post(`${baseUrl}/align/`, data);
+  }
 }

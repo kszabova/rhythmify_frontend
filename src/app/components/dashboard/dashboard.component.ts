@@ -16,8 +16,8 @@ export class DashboardComponent implements OnInit {
   textLengthHistTitle = "Text Length";
   textLengthHistData: number[];
 
-  melodyStackedHistData: IStackedHistogram[]
-  melodyStackedHistTitle = "Melody Length by Genre";;
+  melodyStackedHistData: IStackedHistogram[];
+  melodyStackedHistTitle = "Melody Length by Genre";
   melodyStackedHistGroupName = "genre";
 
   textStackedHistData: IStackedHistogram[];

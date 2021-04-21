@@ -1,0 +1,14 @@
+<div *ngIf="obj">
+    <div *ngFor="let chant of obj.chants" class="chant">
+        <div *ngFor="let word of chant" class="word">
+            <div *ngFor="let syllable of word" class="syllable">
+                <div class="volpiano">
+                    <span class="neumes">{{ syllable.volpiano }}</span>
+                </div>
+                <div class="text">
+                    <span class="lyric">{{ syllable.text }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
