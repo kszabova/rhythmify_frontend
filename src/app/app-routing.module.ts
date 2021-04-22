@@ -4,6 +4,7 @@ import { ChantListComponent } from './components/chant-list/chant-list.component
 import { AddChantComponent } from './components/add-chant/add-chant.component';
 import { ChantFetchComponent } from './components/chant-fetch/chant-fetch.component';
 import { AlignedComponent } from './components/aligned/aligned.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'chants', component: ChantListComponent },
   { path: 'chants/:id', component: ChantFetchComponent },
   { path: 'add', component: AddChantComponent },
-  { path: 'align', component: AlignedComponent }
+  { path: 'align', component: AlignedComponent },
+  { path: 'dashboard', component: DashboardComponent }
 ];
 
 @NgModule({
