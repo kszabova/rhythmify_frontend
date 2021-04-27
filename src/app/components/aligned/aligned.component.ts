@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlignmentService } from 'src/app/services/alignment.service';
 import { ChantService } from 'src/app/services/chant.service';
 
 @Component({
@@ -9,14 +10,18 @@ import { ChantService } from 'src/app/services/chant.service';
 export class AlignedComponent implements OnInit {
 
   obj: any;
+  data: number[];
 
   constructor(
-    private chantService: ChantService
+    private chantService: ChantService,
+    private alignmentService: AlignmentService
   ) { }
 
   ngOnInit(): void {
-    const data = [621, 645];
-    this.chantService.getAligned(data).subscribe(
+    this.alignmentService.getIds().subscribe(
+      (data:any) => this.data = data
+    );
+    this.chantService.getAligned(this.data).subscribe(
       response => {
         this.obj = response;
         console.log(response);

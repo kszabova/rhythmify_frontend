@@ -20,6 +20,25 @@
     </div>
     <div class="col-md-6">
       <h4>Chants List</h4>
+      <button mat-button [routerLink]="'/align'" (click)="getSelected()">Align</button>
+      <br>
+      <ng-container>
+        <mat-checkbox
+          class="margin-right"
+          (change)="selectAll($event.checked)">
+          Select all
+        </mat-checkbox>
+        <li mat-cell
+          class="list-group-item"
+          *ngFor="let chant of chants; let i = index">
+          <mat-checkbox
+            class="margin-right"
+            (change)="checkboxChanged($event.checked, i)">
+            {{ chant.incipit }}
+          </mat-checkbox>
+        </li>
+      </ng-container>
+      <!-- <mat-checkbox (change)="selectAll();">Select all</mat-checkbox>
       <ul class="list-group">
         <li
           class="list-group-item"
@@ -27,14 +46,13 @@
           [class.active]="i == currentIndex"
           (click)="setActiveChant(chant, i)"
         >
-          {{ chant.incipit }}
+          <mat-checkbox (change)="checkboxChanged($event.checked, chant.id);" class="chant-checkbox">
+            {{ chant.incipit }}
+          </mat-checkbox>
         </li>
-      </ul>
+      </ul> -->
   
-      <button class="m-3 btn btn-sm btn-danger" (click)="removeAllChants()">
-        Remove All
-      </button>
-    </div>
+    <!-- </div>
     <div class="col-md-6">
       <div *ngIf="currentChant">
         <h4>Chant</h4>
@@ -59,5 +77,5 @@
         <br />
         <p>Please click on a Chant...</p>
       </div>
-    </div>
+    </div> -->
   </div>
