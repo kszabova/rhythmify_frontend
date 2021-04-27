@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button'
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddChantComponent } from './components/add-chant/add-chant.component';
@@ -17,6 +20,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { StackedHistogramComponent } from './components/stacked-histogram/stacked-histogram.component';
 import { ScatterPlotComponent } from './components/scatter-plot/scatter-plot.component';
 import { AlignedComponent } from './components/aligned/aligned.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 
 @NgModule({
@@ -32,13 +36,16 @@ import { AlignedComponent } from './components/aligned/aligned.component';
     DashboardComponent,
     StackedHistogramComponent,
     ScatterPlotComponent,
-    AlignedComponent
+    AlignedComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
