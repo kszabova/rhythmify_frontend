@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IChant } from 'src/app/interfaces/chant.interface';
 import { ChantFacadeService } from 'src/app/services/chant-facade.service';
 
 @Component({
@@ -8,14 +9,14 @@ import { ChantFacadeService } from 'src/app/services/chant-facade.service';
 })
 export class ChantDetailsComponent implements OnInit {
 
-  chant: any;
+  chant: IChant;
 
   constructor(
     private chantFacadeService: ChantFacadeService) { }
 
   ngOnInit(): void {
-    this.chantFacadeService.chant.subscribe(
-      (data:(any)) => this.chant = data
+    this.chantFacadeService.getChant().subscribe(
+      (data:(IChant)) => this.chant = data
     );
   }
 }

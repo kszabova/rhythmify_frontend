@@ -11,7 +11,8 @@ export class ChantFetchComponent implements OnInit {
 
   constructor(
     private chantService: ChantService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.chantService.setChant(this.route.snapshot.params.id);
