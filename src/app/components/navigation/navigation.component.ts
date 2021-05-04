@@ -9,6 +9,8 @@ import { ChantService } from 'src/app/services/chant.service';
 })
 export class NavigationComponent implements OnInit {
 
+  searchValue: string = "";
+
   constructor(
     private chantService: ChantService,
     private router: Router
@@ -20,6 +22,7 @@ export class NavigationComponent implements OnInit {
   search(event): void {
     var incipit: string = event.target.value;
     this.chantService.setList(incipit);
+    this.searchValue = null;
     this.router.navigate(['/chants']);
   }
 
