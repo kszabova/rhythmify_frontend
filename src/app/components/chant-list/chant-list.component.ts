@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { element } from 'protractor';
+import { IChant } from 'src/app/interfaces/chant.interface';
 import { Chant } from 'src/app/models/chant.model';
 import { AlignmentService } from 'src/app/services/alignment.service';
+import { ChantFacadeService } from 'src/app/services/chant-facade.service';
 import { ChantService } from 'src/app/services/chant.service';
 
 @Component({
@@ -11,14 +13,15 @@ import { ChantService } from 'src/app/services/chant.service';
 })
 export class ChantListComponent implements OnInit {
 
-  chants: Chant[];
-  currentChant?: Chant;
+  chants: IChant[];
+  currentChant?: IChant;
   currentIndex = -1;
   incipit = '';
   selected: boolean[];
 
   constructor(
     private chantService: ChantService,
+    private chantFacadeService: ChantFacadeService,
     private alignmentService: AlignmentService
   ) { }
 
@@ -27,18 +30,22 @@ export class ChantListComponent implements OnInit {
   }
 
   retrieveChants(): void {
-    this.chantService.getAll()
-      .subscribe(
-        data => {
-          this.chants = data;
-          this.selected = [];
+    //this.chantService.setList();
+    this.chantFacadeService.getList().subscribe(
+      (data: IChant[]) => {
+        this.chants = data;
+        this.selected = [];
+        if (this.chants) {
           for (var i=0; i < this.chants.length; i++) {
             this.selected.push(false);
           }
-        },
-        error => {
-          console.log(error);
-        });
+        }
+        
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   // refreshList(): void {

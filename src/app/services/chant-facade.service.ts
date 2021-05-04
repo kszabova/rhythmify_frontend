@@ -13,6 +13,7 @@ export class ChantFacadeService {
   constructor() { }
 
   private readonly _chant = new BehaviorSubject<IChant>(null);
+  private readonly _chantList = new BehaviorSubject<IChant[]>(null);
 
   // get chant(): any {
   //   return this._chant.getValue();
@@ -22,12 +23,20 @@ export class ChantFacadeService {
   //   this._chant.next(value);
   // }
 
-  getChant(): any {
+  getChant(): BehaviorSubject<IChant> {
     return this._chant;
   }
 
   setChant(chant: IChant): void {
     this._chant.next(chant);
+  }
+
+  getList(): BehaviorSubject<IChant[]> {
+    return this._chantList;
+  }
+
+  setList(list: IChant[]): void {
+    this._chantList.next(list);
   }
 
 }

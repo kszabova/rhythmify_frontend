@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ChantService } from 'src/app/services/chant.service';
 
 @Component({
   selector: 'app-navigation',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private chantService: ChantService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  search(event): void {
+    var incipit: string = event.target.value;
+    this.chantService.setList(incipit);
+    this.router.navigate(['/chants']);
+  }
+
+  resetChantList(): void {
+    this.chantService.setList();
   }
 
 }

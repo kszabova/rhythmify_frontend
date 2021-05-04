@@ -1,8 +1,11 @@
 <div>
     <a mat-button [routerLink]="'/dashboard'"> Dashboard </a>
-    <a mat-button [routerLink]="'/chants'"> All chants </a>
-    <mat-form-field>
-        <mat-label>Search incipit</mat-label>
-        <input matInput>
+    <a mat-button (click)="resetChantList()" [routerLink]="'/chants'"> All chants </a>
+    <mat-form-field floatLabel=never>
+        <mat-icon matPrefix>search</mat-icon>
+        <input type="search" 
+               (keyup.enter)="search($event)" 
+               placeholder="Search incipit"
+               matInput>
     </mat-form-field>
 </div>

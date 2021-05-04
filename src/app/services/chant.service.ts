@@ -51,6 +51,15 @@ export class ChantService {
     );
   }
 
+  setList(incipit: string = null): void {
+    var url: string = incipit ? 
+                        `${baseUrl}?incipit=${incipit}` :
+                        baseUrl;
+    this.http.get<IChant[]>(url).subscribe(
+      (data: IChant[]) => this.chantFacadeService.setList(data)
+    );
+  }
+
   getAligned(data: number[]): Observable<any> {
     return this.http.post(`${baseUrl}/align/`, data);
   }
