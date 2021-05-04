@@ -1,7 +1,7 @@
 <div class="list row">
     <div class="col-md-8">
       <div class="input-group mb-3">
-        <input
+        <!-- <input
           type="text"
           class="form-control"
           placeholder="Search by incipit"
@@ -15,17 +15,18 @@
           >
             Search
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="col-md-6">
-      <h4>Chants List</h4>
-      <button mat-button [routerLink]="'/align'" (click)="getSelected()">Align</button>
+      <h4>Chant List</h4>
+      <button mat-button (click)="getSelected()">Align</button>
       <br>
       <ng-container>
         <mat-checkbox
           class="margin-right"
-          (change)="selectAll($event.checked)">
+          (change)="selectAll()"
+          [(ngModel)]="selectedAll">
           Select all
         </mat-checkbox>
         <li mat-cell
@@ -33,7 +34,7 @@
           *ngFor="let chant of chants; let i = index">
           <mat-checkbox
             class="margin-right"
-            (change)="checkboxChanged($event.checked, i)">
+            [(ngModel)]="selected[i]">
             {{ chant.incipit }}
           </mat-checkbox>
         </li>

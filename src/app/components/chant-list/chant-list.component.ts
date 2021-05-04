@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { element } from 'protractor';
 import { IChant } from 'src/app/interfaces/chant.interface';
 import { Chant } from 'src/app/models/chant.model';
@@ -16,11 +17,11 @@ export class ChantListComponent implements OnInit {
   chants: IChant[];
   currentChant?: IChant;
   currentIndex = -1;
-  incipit = '';
   selected: boolean[];
+  selectedAll: boolean;
 
   constructor(
-    private chantService: ChantService,
+    private router: Router,
     private chantFacadeService: ChantFacadeService,
     private alignmentService: AlignmentService
   ) { }
@@ -30,7 +31,6 @@ export class ChantListComponent implements OnInit {
   }
 
   retrieveChants(): void {
-    //this.chantService.setList();
     this.chantFacadeService.getList().subscribe(
       (data: IChant[]) => {
         this.chants = data;
@@ -71,27 +71,27 @@ export class ChantListComponent implements OnInit {
   //       });
   // }
 
-  searchIncipit(): void {
-    this.chantService.findByIncipit(this.incipit)
-      .subscribe(
-        data => {
-          this.chants = data;
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
-  }
+  // searchIncipit(): void {
+  //   this.chantService.findByIncipit(this.incipit)
+  //     .subscribe(
+  //       data => {
+  //         this.chants = data;
+  //         console.log(data);
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       });
+  // }
 
-  checkboxChanged(checked: boolean, idx: number): void {
-    console.log(this.chants[idx].id);
-    console.log(checked);
-    this.selected[idx] = checked;
-  }
+  // checkboxChanged(idx: number): void {
+  //   // console.log(this.chants[idx].id);
+  //   // console.log(checked);
+  //   // this.selected[idx] = checked;
+  // }
 
-  selectAll(checked: boolean): void {
+  selectAll(): void {
     for (var i=0; i<this.selected.length; i++) {
-      this.selected[i] = checked;
+      this.selected[i] = this.selectedAll;
     }
   }
 
@@ -102,7 +102,14 @@ export class ChantListComponent implements OnInit {
         toAlign.push(this.chants[i].id);
       }
     }
+
+    if (toAlign.length < 2) {
+      alert("Select at least 2 chants to align");
+      return;
+    }
+
     this.alignmentService.setIds(toAlign);
+    this.router.navigate(['/align']);
   }
 
 }
