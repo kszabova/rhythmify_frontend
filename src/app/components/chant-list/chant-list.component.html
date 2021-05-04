@@ -29,15 +29,17 @@
           [(ngModel)]="selectedAll">
           Select all
         </mat-checkbox>
-        <li mat-cell
-          class="list-group-item"
-          *ngFor="let chant of chants; let i = index">
-          <mat-checkbox
-            class="margin-right"
-            [(ngModel)]="selected[i]">
-            {{ chant.incipit }}
-          </mat-checkbox>
-        </li>
+        <ul>
+          <li mat-cell
+            class="list-group-item"
+            *ngFor="let chant of chants; let i = index">
+            <mat-checkbox
+              class="margin-right"
+              [(ngModel)]="selected[i]">
+              {{ chant.incipit }}
+            </mat-checkbox>
+          </li>
+        </ul>
       </ng-container>
       <!-- <mat-checkbox (change)="selectAll();">Select all</mat-checkbox>
       <ul class="list-group">

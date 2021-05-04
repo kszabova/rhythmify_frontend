@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { element } from 'protractor';
 import { IChant } from 'src/app/interfaces/chant.interface';
-import { Chant } from 'src/app/models/chant.model';
 import { AlignmentService } from 'src/app/services/alignment.service';
 import { ChantFacadeService } from 'src/app/services/chant-facade.service';
-import { ChantService } from 'src/app/services/chant.service';
 
 @Component({
   selector: 'app-chant-list',

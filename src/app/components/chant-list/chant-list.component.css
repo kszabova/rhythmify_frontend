@@ -3,3 +3,7 @@
     max-width: 750px;
     margin: auto;
   }
+
+.list-group-item {
+  list-style: none;
+}
