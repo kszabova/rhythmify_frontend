@@ -1,4 +1,7 @@
 <div>
+    <button mat-fab color="accent" aria-label="home" [routerLink]="''">
+        <mat-icon >home</mat-icon>
+      </button>
     <a mat-button [routerLink]="'/dashboard'"> Dashboard </a>
     <a mat-button (click)="resetChantList()" [routerLink]="'/chants'"> All chants </a>
     <mat-form-field floatLabel=never>

@@ -20,7 +20,7 @@
     </div>
     <div class="col-md-6">
       <h4>Chant List</h4>
-      <button mat-button (click)="getSelected()">Align</button>
+      <button mat-raised-button color="accent" (click)="getSelected()">Align</button>
       <br>
       <ng-container>
         <mat-checkbox
@@ -38,6 +38,7 @@
               [(ngModel)]="selected[i]">
               {{ chant.incipit }}
             </mat-checkbox>
+            <mat-icon [routerLink]="['/chants', chant.id]">open_in_new</mat-icon>
           </li>
         </ul>
       </ng-container>
