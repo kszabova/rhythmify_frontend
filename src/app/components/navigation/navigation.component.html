@@ -1,15 +1,19 @@
-<div>
-    <button mat-fab color="accent" aria-label="home" [routerLink]="''">
-        <mat-icon >home</mat-icon>
-      </button>
-    <a mat-button [routerLink]="'/dashboard'"> Dashboard </a>
-    <a mat-button (click)="resetChantList()" [routerLink]="'/chants'"> All chants </a>
-    <mat-form-field floatLabel=never>
-        <mat-icon matPrefix>search</mat-icon>
-        <input type="search" 
-               (keyup.enter)="search($event)" 
-               placeholder="Search incipit"
-               [value]="searchValue"
-               matInput>
-    </mat-form-field>
+<div class=flexbox-container>
+    <div>
+        <button mat-fab color="accent" aria-label="home" [routerLink]="''">
+            <mat-icon >home</mat-icon>
+        </button>
+        <a mat-button [routerLink]="'/dashboard'"> Dashboard </a>
+        <a mat-button (click)="resetChantList()" [routerLink]="'/chants'"> All chants </a>
+    </div>
+    <div>
+        <mat-form-field floatLabel=never class="searchBar">
+            <mat-icon matPrefix>search</mat-icon>
+            <input type="search" 
+                (keyup.enter)="search($event)" 
+                placeholder="Search incipit"
+                [value]="searchValue"
+                matInput>
+        </mat-form-field>
+    </div>
 </div>

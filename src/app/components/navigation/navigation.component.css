@@ -1,0 +1,9 @@
+.flexbox-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.searchBar {
+    font-size: 15px;
+    align-self: flex-end;
+}
