@@ -1,6 +1,6 @@
 <div class="card">
     <mat-card>
-        <div *ngIf="obj">
+        <div *ngIf="obj; else progressSpinner">
             <div *ngFor="let chant of obj.chants; let i = index" class="chant">
                 <button mat-button [routerLink]="['/chants/', obj.success[i]]">Detail</button>
                 <br>
@@ -17,5 +17,8 @@
                 <mat-divider></mat-divider>
             </div>
         </div>
+        <ng-template #progressSpinner>
+            <mat-spinner></mat-spinner>
+        </ng-template>
     </mat-card>
 </div>
