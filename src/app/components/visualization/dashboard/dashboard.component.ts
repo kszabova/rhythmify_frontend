@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
         }));
         this.scatterPlotData = data.map(
           chant => ({
-            "x": chant.volpiano.split("---").length,
+            "x": chant.volpiano.replace('-', '').length,
             "y": chant.full_text.split(" ").length
           })
         );
