@@ -32,6 +32,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { ChantListWrapperComponent } from './components/chant-list-wrapper/chant-list-wrapper.component';
 import { NoChantTextDialogComponent } from './components/dialogs/no-chant-text-dialog/no-chant-text-dialog.component';
 import { NotEnoughToAlingDialogComponent } from './components/dialogs/not-enough-to-aling-dialog/not-enough-to-aling-dialog.component';
+import { AlignmentErrorDialogComponent } from './components/dialogs/alignment-error-dialog/alignment-error-dialog.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { NotEnoughToAlingDialogComponent } from './components/dialogs/not-enough
     NavigationComponent,
     ChantListWrapperComponent,
     NoChantTextDialogComponent,
-    NotEnoughToAlingDialogComponent
+    NotEnoughToAlingDialogComponent,
+    AlignmentErrorDialogComponent
   ],
   imports: [
     BrowserModule,
