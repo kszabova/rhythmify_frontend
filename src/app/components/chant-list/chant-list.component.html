@@ -36,9 +36,9 @@
             <mat-checkbox
               class="margin-right"
               [(ngModel)]="selected[pageIndex * pageSize + i]">
-              {{ chant.incipit }}
+              <a [routerLink]="['/chants', chant.id]">{{ chant.incipit }}</a>
             </mat-checkbox>
-            <mat-icon [routerLink]="['/chants', chant.id]">open_in_new</mat-icon>
+            <!-- <mat-icon [routerLink]="['/chants', chant.id]">open_in_new</mat-icon> -->
           </li>
         </ul>
         <mat-paginator #paginator
