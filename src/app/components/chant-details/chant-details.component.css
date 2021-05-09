@@ -1,7 +1,11 @@
-.chant { 
+.chant-card {
+  margin: 20px;
+}
+
+.chant {
   line-height: 1; 
   position: relative; 
-  font-family: serif; 
+  font-family: serif;
 } 
 
 .section, .word { 

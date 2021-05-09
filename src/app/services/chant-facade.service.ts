@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Chant } from '../models/chant.model';
 import { ChantService } from './chant.service';
 import { IChant } from '../interfaces/chant.interface';
+import { IChantPrecomputed } from '../interfaces/chant-precomputed.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class ChantFacadeService {
   constructor() { }
 
   private readonly _chant = new BehaviorSubject<IChant>(null);
+  private readonly _chantPrecomputed = new BehaviorSubject<IChantPrecomputed>(null);
   private readonly _chantList = new BehaviorSubject<IChant[]>(null);
 
   // get chant(): any {
@@ -29,6 +31,14 @@ export class ChantFacadeService {
 
   setChant(chant: IChant): void {
     this._chant.next(chant);
+  }
+
+  getChantPrecomputed(): BehaviorSubject<IChantPrecomputed> {
+    return this._chantPrecomputed;
+  }
+
+  setChantPrecomputed(chant: IChantPrecomputed): void {
+    this._chantPrecomputed.next(chant);
   }
 
   getList(): BehaviorSubject<IChant[]> {

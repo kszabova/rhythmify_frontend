@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IChant } from '../interfaces/chant.interface';
 import { ChantFacadeService } from './chant-facade.service';
+import { IChantPrecomputed } from '../interfaces/chant-precomputed.interface';
 
 const baseUrl = 'http://localhost:8000/api/melodies';
 
@@ -48,6 +49,12 @@ export class ChantService {
   setChant(id: number): void {
     this.http.get<IChant>(`${baseUrl}/${id}/detail`).subscribe(
       (data: IChant) => this.chantFacadeService.setChant(data)
+    );
+  }
+
+  setChantPrecomputed(id: number): void {
+    this.http.get<IChantPrecomputed>(`${baseUrl}/${id}/detail`).subscribe(
+      (data: IChantPrecomputed) => this.chantFacadeService.setChantPrecomputed(data)
     );
   }
 

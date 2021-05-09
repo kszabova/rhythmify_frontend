@@ -15,7 +15,7 @@ export class ChantFetchComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.chantService.setChant(this.route.snapshot.params.id);
+    this.chantService.setChantPrecomputed(this.route.snapshot.params.id);
   }
 
 }

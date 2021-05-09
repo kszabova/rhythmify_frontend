@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IChant } from 'src/app/interfaces/chant.interface';
+import { IChantPrecomputed } from 'src/app/interfaces/chant-precomputed.interface';
 import { ChantFacadeService } from 'src/app/services/chant-facade.service';
 
 @Component({
@@ -9,14 +9,14 @@ import { ChantFacadeService } from 'src/app/services/chant-facade.service';
 })
 export class ChantDetailsComponent implements OnInit {
 
-  chant: IChant;
+  chant: IChantPrecomputed;
 
   constructor(
     private chantFacadeService: ChantFacadeService) { }
 
   ngOnInit(): void {
-    this.chantFacadeService.getChant().subscribe(
-      (data:(IChant)) => this.chant = data
+    this.chantFacadeService.getChantPrecomputed().subscribe(
+      (data:(IChantPrecomputed)) => this.chant = data
     );
   }
 }
