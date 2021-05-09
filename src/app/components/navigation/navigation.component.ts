@@ -20,10 +20,9 @@ export class NavigationComponent implements OnInit {
   }
 
   search(event): void {
-    var incipit: string = event.target.value;
-    this.chantService.setList(incipit);
+    let incipit: string = event.target.value;
     this.searchValue = null;
-    this.router.navigate(['/chants']);
+    this.router.navigate(['/chants', {'incipit': incipit}]);
   }
 
   resetChantList(): void {

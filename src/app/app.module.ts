@@ -27,6 +27,7 @@ import { StackedHistogramComponent } from './components/stacked-histogram/stacke
 import { ScatterPlotComponent } from './components/scatter-plot/scatter-plot.component';
 import { AlignedComponent } from './components/aligned/aligned.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { ChantListWrapperComponent } from './components/chant-list-wrapper/chant-list-wrapper.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     StackedHistogramComponent,
     ScatterPlotComponent,
     AlignedComponent,
-    NavigationComponent
+    NavigationComponent,
+    ChantListWrapperComponent
   ],
   imports: [
     BrowserModule,

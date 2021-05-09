@@ -57,7 +57,7 @@ export class ChantListComponent implements OnInit {
 
   changePage(event: PageEvent): void {
     this.pageIndex = event ? event.pageIndex : 0;
-    this.pageSize = event ? event.pageSize : 100;
+    this.pageSize = event ? event.pageSize : 50;
     this.chantFacadeService.getList().subscribe(
       (data: IChant[]) => {
         var start = this.pageIndex * this.pageSize;
