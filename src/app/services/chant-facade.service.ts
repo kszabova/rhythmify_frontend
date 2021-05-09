@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { Chant } from '../models/chant.model';
 import { ChantService } from './chant.service';
 import { IChant } from '../interfaces/chant.interface';
@@ -13,8 +13,8 @@ export class ChantFacadeService {
 
   constructor() { }
 
-  private readonly _chant = new BehaviorSubject<IChant>(null);
-  private readonly _chantPrecomputed = new BehaviorSubject<IChantPrecomputed>(null);
+  private readonly _chant = new Subject<IChant>();
+  private readonly _chantPrecomputed = new Subject<IChantPrecomputed>();
   private readonly _chantList = new BehaviorSubject<IChant[]>(null);
 
   // get chant(): any {
@@ -25,7 +25,7 @@ export class ChantFacadeService {
   //   this._chant.next(value);
   // }
 
-  getChant(): BehaviorSubject<IChant> {
+  getChant(): Subject<IChant> {
     return this._chant;
   }
 
@@ -33,7 +33,7 @@ export class ChantFacadeService {
     this._chant.next(chant);
   }
 
-  getChantPrecomputed(): BehaviorSubject<IChantPrecomputed> {
+  getChantPrecomputed(): Subject<IChantPrecomputed> {
     return this._chantPrecomputed;
   }
 
