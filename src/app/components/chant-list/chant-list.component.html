@@ -29,13 +29,6 @@
           [(ngModel)]="selectedAll">
           Select all
         </mat-checkbox>
-        <mat-paginator 
-          [length]="dataLength"
-          [pageSize]="pageSize"
-          [pageIndex]="pageIndex"
-          [pageSizeOptions]="[5, 10, 25, 100]"
-          (page)="changePage($event)">
-        </mat-paginator>
         <ul>
           <li mat-cell
             class="list-group-item"
@@ -48,6 +41,13 @@
             <mat-icon [routerLink]="['/chants', chant.id]">open_in_new</mat-icon>
           </li>
         </ul>
+        <mat-paginator #paginator
+          [length]="dataLength"
+          [pageSize]="pageSize"
+          [pageIndex]="pageIndex"
+          [pageSizeOptions]="[20, 50, 100, 200]"
+          (page)="changePage($event)">
+        </mat-paginator>
       </ng-container>
       <!-- <mat-checkbox (change)="selectAll();">Select all</mat-checkbox>
       <ul class="list-group">

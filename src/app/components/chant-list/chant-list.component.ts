@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { IChant } from 'src/app/interfaces/chant.interface';
 import { AlignmentService } from 'src/app/services/alignment.service';
@@ -12,8 +12,10 @@ import { ChantFacadeService } from 'src/app/services/chant-facade.service';
 })
 export class ChantListComponent implements OnInit {
 
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
   allChants: IChant[];
-   chants: IChant[];
+  chants: IChant[];
   currentChant?: IChant;
   currentIndex = -1;
   selected: boolean[];
@@ -30,8 +32,6 @@ export class ChantListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.pageIndex = 0;
-    this.pageSize = 10;
     this.retrieveChants();
     this.changePage(null);
   }
@@ -39,15 +39,14 @@ export class ChantListComponent implements OnInit {
   retrieveChants(): void {
     this.chantFacadeService.getList().subscribe(
       (data: IChant[]) => {
-        this.allChants = data;
+        this.paginator.firstPage();
         this.selected = [];
-        if (this.allChants) {
-          this.dataLength = this.allChants.length;
-          for (var i=0; i < this.allChants.length; i++) {
+        if (data) {
+          this.dataLength = data.length;
+          for (var i=0; i < data.length; i++) {
             this.selected.push(false);
           }
         }
-        
       },
       error => {
         console.log(error);
@@ -57,16 +56,17 @@ export class ChantListComponent implements OnInit {
 
   changePage(event: PageEvent): void {
     this.pageIndex = event ? event.pageIndex : 0;
+    this.pageSize = event ? event.pageSize : 100;
     this.chantFacadeService.getList().subscribe(
       (data: IChant[]) => {
-        console.log(data);
-        console.log(this.pageIndex);
         var start = this.pageIndex * this.pageSize;
         var end = (this.pageIndex + 1) * this.pageSize;
         if (data) {
           this.chants = data.slice(start, end);
-          console.log(this.chants);
         }
+      },
+      error => {
+        console.log(error);
       }
     )
     // var start = this.pageIndex * this.pageSize;
