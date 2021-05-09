@@ -13,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +30,7 @@ import { ScatterPlotComponent } from './components/scatter-plot/scatter-plot.com
 import { AlignedComponent } from './components/aligned/aligned.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ChantListWrapperComponent } from './components/chant-list-wrapper/chant-list-wrapper.component';
+import { NoChantTextDialogComponent } from './components/no-chant-text-dialog/no-chant-text-dialog.component';
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import { ChantListWrapperComponent } from './components/chant-list-wrapper/chant
     ScatterPlotComponent,
     AlignedComponent,
     NavigationComponent,
-    ChantListWrapperComponent
+    ChantListWrapperComponent,
+    NoChantTextDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ import { ChantListWrapperComponent } from './components/chant-list-wrapper/chant
     MatCheckboxModule,
     MatIconModule,
     MatPaginatorModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
