@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IChantPrecomputed } from 'src/app/interfaces/chant-precomputed.interface';
 import { ChantFacadeService } from 'src/app/services/chant-facade.service';
-import { NoChantTextDialogComponent } from '../no-chant-text-dialog/no-chant-text-dialog.component';
+import { NoChantTextDialogComponent } from '../dialogs/no-chant-text-dialog/no-chant-text-dialog.component';
 
 @Component({
   selector: 'app-chant-details',

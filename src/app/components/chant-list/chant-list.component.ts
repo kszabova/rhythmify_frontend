@@ -1,9 +1,11 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { IChant } from 'src/app/interfaces/chant.interface';
 import { AlignmentService } from 'src/app/services/alignment.service';
 import { ChantFacadeService } from 'src/app/services/chant-facade.service';
+import { NotEnoughToAlingDialogComponent } from '../dialogs/not-enough-to-aling-dialog/not-enough-to-aling-dialog.component';
 
 @Component({
   selector: 'app-chant-list',
@@ -28,7 +30,8 @@ export class ChantListComponent implements OnInit {
   constructor(
     private router: Router,
     private chantFacadeService: ChantFacadeService,
-    private alignmentService: AlignmentService
+    private alignmentService: AlignmentService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -132,7 +135,7 @@ export class ChantListComponent implements OnInit {
     }
 
     if (toAlign.length < 2) {
-      alert("Select at least 2 chants to align");
+      const dialogRef = this.dialog.open(NotEnoughToAlingDialogComponent);
       return;
     }
 

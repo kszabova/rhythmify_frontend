@@ -30,7 +30,8 @@ import { ScatterPlotComponent } from './components/scatter-plot/scatter-plot.com
 import { AlignedComponent } from './components/aligned/aligned.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { ChantListWrapperComponent } from './components/chant-list-wrapper/chant-list-wrapper.component';
-import { NoChantTextDialogComponent } from './components/no-chant-text-dialog/no-chant-text-dialog.component';
+import { NoChantTextDialogComponent } from './components/dialogs/no-chant-text-dialog/no-chant-text-dialog.component';
+import { NotEnoughToAlingDialogComponent } from './components/dialogs/not-enough-to-aling-dialog/not-enough-to-aling-dialog.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { NoChantTextDialogComponent } from './components/no-chant-text-dialog/no
     AlignedComponent,
     NavigationComponent,
     ChantListWrapperComponent,
-    NoChantTextDialogComponent
+    NoChantTextDialogComponent,
+    NotEnoughToAlingDialogComponent
   ],
   imports: [
     BrowserModule,

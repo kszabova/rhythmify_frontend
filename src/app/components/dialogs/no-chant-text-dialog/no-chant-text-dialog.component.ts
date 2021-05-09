@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-no-chant-text-dialog',
@@ -7,10 +6,5 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./no-chant-text-dialog.component.css']
 })
 export class NoChantTextDialogComponent {
-
-  // constructor() { }
-
-  // ngOnInit(): void {
-  // }
 
 }
