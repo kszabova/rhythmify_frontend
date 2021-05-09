@@ -40,6 +40,7 @@ export class ChantListComponent implements OnInit {
     this.chantFacadeService.getList().subscribe(
       (data: IChant[]) => {
         this.paginator.firstPage();
+        this.allChants = data;
         this.selected = [];
         if (data) {
           this.dataLength = data.length;
