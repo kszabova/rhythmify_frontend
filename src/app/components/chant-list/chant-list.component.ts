@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { IChant } from 'src/app/interfaces/chant.interface';
 import { AlignmentService } from 'src/app/services/alignment.service';
@@ -11,11 +12,16 @@ import { ChantFacadeService } from 'src/app/services/chant-facade.service';
 })
 export class ChantListComponent implements OnInit {
 
-  chants: IChant[];
+  allChants: IChant[];
+   chants: IChant[];
   currentChant?: IChant;
   currentIndex = -1;
   selected: boolean[];
   selectedAll: boolean;
+
+  pageIndex: number;
+  pageSize: number;
+  dataLength: number;
 
   constructor(
     private router: Router,
@@ -24,16 +30,20 @@ export class ChantListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.pageIndex = 0;
+    this.pageSize = 10;
     this.retrieveChants();
+    this.changePage(null);
   }
 
   retrieveChants(): void {
     this.chantFacadeService.getList().subscribe(
       (data: IChant[]) => {
-        this.chants = data;
+        this.allChants = data;
         this.selected = [];
-        if (this.chants) {
-          for (var i=0; i < this.chants.length; i++) {
+        if (this.allChants) {
+          this.dataLength = this.allChants.length;
+          for (var i=0; i < this.allChants.length; i++) {
             this.selected.push(false);
           }
         }
@@ -43,6 +53,26 @@ export class ChantListComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  changePage(event: PageEvent): void {
+    this.pageIndex = event ? event.pageIndex : 0;
+    this.chantFacadeService.getList().subscribe(
+      (data: IChant[]) => {
+        console.log(data);
+        console.log(this.pageIndex);
+        var start = this.pageIndex * this.pageSize;
+        var end = (this.pageIndex + 1) * this.pageSize;
+        if (data) {
+          this.chants = data.slice(start, end);
+          console.log(this.chants);
+        }
+      }
+    )
+    // var start = this.pageIndex * this.pageSize;
+    // var end = (this.pageIndex + 1) * this.pageSize;
+    // this.pageChants = this.allChants.slice(start, end);
+    // console.log(this.pageChants);
   }
 
   // refreshList(): void {
@@ -96,7 +126,7 @@ export class ChantListComponent implements OnInit {
     var toAlign: number[] = [];
     for (var i = 0; i < this.selected.length; i++) {
       if (this.selected[i]) {
-        toAlign.push(this.chants[i].id);
+        toAlign.push(this.allChants[i].id);
       }
     }
 

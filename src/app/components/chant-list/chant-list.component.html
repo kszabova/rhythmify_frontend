@@ -29,13 +29,20 @@
           [(ngModel)]="selectedAll">
           Select all
         </mat-checkbox>
+        <mat-paginator 
+          [length]="dataLength"
+          [pageSize]="pageSize"
+          [pageIndex]="pageIndex"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          (page)="changePage($event)">
+        </mat-paginator>
         <ul>
           <li mat-cell
             class="list-group-item"
             *ngFor="let chant of chants; let i = index">
             <mat-checkbox
               class="margin-right"
-              [(ngModel)]="selected[i]">
+              [(ngModel)]="selected[pageIndex * pageSize + i]">
               {{ chant.incipit }}
             </mat-checkbox>
             <mat-icon [routerLink]="['/chants', chant.id]">open_in_new</mat-icon>
