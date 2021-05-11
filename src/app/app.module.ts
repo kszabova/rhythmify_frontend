@@ -35,6 +35,7 @@ import { ChantListWrapperComponent } from './components/chant-list-wrapper/chant
 import { NoChantTextDialogComponent } from './components/dialogs/no-chant-text-dialog/no-chant-text-dialog.component';
 import { NotEnoughToAlingDialogComponent } from './components/dialogs/not-enough-to-aling-dialog/not-enough-to-aling-dialog.component';
 import { AlignmentErrorDialogComponent } from './components/dialogs/alignment-error-dialog/alignment-error-dialog.component';
+import { ZoomableScatterPlotComponent } from './components/visualization/zoomable-scatter-plot/zoomable-scatter-plot.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { AlignmentErrorDialogComponent } from './components/dialogs/alignment-er
     ChantListWrapperComponent,
     NoChantTextDialogComponent,
     NotEnoughToAlingDialogComponent,
-    AlignmentErrorDialogComponent
+    AlignmentErrorDialogComponent,
+    ZoomableScatterPlotComponent
   ],
   imports: [
     BrowserModule,
