@@ -32,7 +32,8 @@ export class AlignedComponent implements OnInit {
         if (this.obj.errors.length > 0) {
           let dialogRef = this.dialog.open(AlignmentErrorDialogComponent);
           let instance = dialogRef.componentInstance;
-          instance.n = this.obj.errors.length;
+          console.log(this.obj.errors);
+          instance.sources = this.obj.errors;
         }
       }
     );

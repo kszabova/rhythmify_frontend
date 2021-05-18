@@ -1,6 +1,9 @@
 <h2 mat-dialog-title>There have been some errors</h2>
 <mat-dialog-content>
-    <p>Couldn't process {{ n }} chants</p>
+    <p>Couldn't process the following chants:</p>
+    <ul>
+        <li *ngFor="let source of sources">{{ source }}</li>
+    </ul>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>OK</button>

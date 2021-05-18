@@ -3,7 +3,7 @@
     <mat-card>
         <div *ngIf="obj; else progressSpinner">
             <div *ngFor="let chant of obj.chants; let i = index" class="chant">
-                <button mat-button [routerLink]="['/chants/', obj.success[i]]">Detail</button>
+                <button mat-button [routerLink]="['/chants/', obj.success.ids[i]]">{{ obj.success.sources[i] }}</button>
                 <br>
                     <div *ngFor="let word of chant" class="word">
                         <div *ngFor="let syllable of word" class="syllable">
