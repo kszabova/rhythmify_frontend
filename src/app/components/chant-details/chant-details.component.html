@@ -1,6 +1,6 @@
 <div class="chant-card">
   <mat-card *ngIf="chant">
-    <mat-card-title>Chant Detail</mat-card-title>
+    <mat-card-title>{{ chant.db_source.siglum }}, {{ chant.db_source.position }}, {{ chant.db_source.folio }}</mat-card-title>
     <mat-card-content>
       <div *ngIf="chant.json_volpiano; else elseVolpiano" class="chant">
         <div class="section" *ngFor="let section of chant.json_volpiano.elements">
