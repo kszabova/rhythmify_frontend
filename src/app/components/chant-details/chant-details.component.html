@@ -1,59 +1,61 @@
-<div class="chant-card">
-  <mat-card *ngIf="chant">
-    <mat-card-title>{{ chant.db_source.siglum }}, {{ chant.db_source.position }}, {{ chant.db_source.folio }}</mat-card-title>
-    <mat-card-content>
-      <div *ngIf="chant.json_volpiano; else elseVolpiano" class="chant">
-        <div class="section" *ngFor="let section of chant.json_volpiano.elements">
-          <div class="word" *ngFor="let word of section.elements; let lastWord = last; index as wordIdx">
-            <div class="syllable" *ngFor="let syllable of word.elements; let lastSyllable = last; index as sylIdx">
-              <div class="volpiano">
-                <ng-container *ngIf="!syllable.elements">-</ng-container>
-                <ng-container *ngFor="let element of syllable.elements; let lastElem = last">
-                  <ng-container *ngIf="element.type === 'neume'; else notNeume">
-                    <ng-container *ngFor="let note of element.elements; let lastNote = last">
-                      <span class="neume" *ngIf="note.editorial">{{ note.editorial.volpianoPosition }}</span>
-                      <span *ngIf="syllable.elements.length > 1 && !lastNote" class="neumeBoundary boundary">-</span>
+<div class="chant-details">
+  <div class="chant-card">
+    <mat-card *ngIf="chant">
+      <mat-card-title>{{ chant.db_source.siglum }}, {{ chant.db_source.position }}, {{ chant.db_source.folio }}</mat-card-title>
+      <mat-card-content>
+        <div *ngIf="chant.json_volpiano; else elseVolpiano" class="chant">
+          <div class="section" *ngFor="let section of chant.json_volpiano.elements">
+            <div class="word" *ngFor="let word of section.elements; let lastWord = last; index as wordIdx">
+              <div class="syllable" *ngFor="let syllable of word.elements; let lastSyllable = last; index as sylIdx">
+                <div class="volpiano">
+                  <ng-container *ngIf="!syllable.elements">-</ng-container>
+                  <ng-container *ngFor="let element of syllable.elements; let lastElem = last">
+                    <ng-container *ngIf="element.type === 'neume'; else notNeume">
+                      <ng-container *ngFor="let note of element.elements; let lastNote = last">
+                        <span class="neume" *ngIf="note.editorial">{{ note.editorial.volpianoPosition }}</span>
+                        <span *ngIf="syllable.elements.length > 1 && !lastNote" class="neumeBoundary boundary">-</span>
+                      </ng-container>
                     </ng-container>
+                    <ng-template #notNeume>
+                      <span class="{{ element.type }}">
+                        <ng-container *ngIf="element.editorial">{{ element.editorial.volpiano }}</ng-container>
+                        <ng-container *ngIf="!element.editorial">--</ng-container>
+                      </span>
+                    </ng-template>
                   </ng-container>
-                  <ng-template #notNeume>
-                    <span class="{{ element.type }}">
-                      <ng-container *ngIf="element.editorial">{{ element.editorial.volpiano }}</ng-container>
-                      <ng-container *ngIf="!element.editorial">--</ng-container>
-                    </span>
+                  <span *ngIf="word.elements.length > 1 && !lastSyllable; else elseSyllable" class="syllableBoundary boundary">--</span>
+                  <ng-template #elseSyllable>
+                    <span *ngIf="lastSyllable && !lastWord" class="wordBoundary boundary">---</span>
                   </ng-template>
-                </ng-container>
-                <span *ngIf="word.elements.length > 1 && !lastSyllable; else elseSyllable" class="syllableBoundary boundary">--</span>
-                <ng-template #elseSyllable>
-                  <span *ngIf="lastSyllable && !lastWord" class="wordBoundary boundary">---</span>
-                </ng-template>
-              </div>
-              <div class="text">
-                <span *ngIf="syllable.annotation" class="annotation">{{ syllable.annotation }}</span>
-                <ng-container *ngIf="syllable.lyric; else noLyric">
-                  <span>
-                    <span class="lyric" [ngClass]="{'stressed': chant.stresses[wordIdx - 1][sylIdx]}">{{ syllable.lyric }}</span>
-                    <span *ngIf="word.elements.length > 1 && !lastSyllable" class="hyphen">-</span>
-                  </span>
-                </ng-container>
-                <ng-template #noLyric>&nbsp;</ng-template>
+                </div>
+                <div class="text">
+                  <span *ngIf="syllable.annotation" class="annotation">{{ syllable.annotation }}</span>
+                  <ng-container *ngIf="syllable.lyric; else noLyric">
+                    <span>
+                      <span class="lyric" [ngClass]="{'stressed': chant.stresses[wordIdx - 1][sylIdx]}">{{ syllable.lyric }}</span>
+                      <span *ngIf="word.elements.length > 1 && !lastSyllable" class="hyphen">-</span>
+                    </span>
+                  </ng-container>
+                  <ng-template #noLyric>&nbsp;</ng-template>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <ng-template #elseVolpiano>
-        <div class="volpiano">{{ chant.db_source.volpiano }}</div>
-      </ng-template>
-    </mat-card-content>
-    <mat-card-subtitle>Genre</mat-card-subtitle>
-    <mat-card-content>{{ chant.db_source.genre_id }}</mat-card-content>
-    <mat-card-subtitle>Mode</mat-card-subtitle>
-    <mat-card-content>{{ chant.db_source.mode }}</mat-card-content>
-    <mat-card-subtitle>Cantus ID</mat-card-subtitle>
-    <mat-card-content>{{ chant.db_source.cantus_id }}</mat-card-content>
-    <mat-card-subtitle>Details</mat-card-subtitle>
-    <mat-card-content>
-      <a href="{{ chant.db_source.drupal_path }}">{{ chant.db_source.drupal_path }}</a>
-    </mat-card-content>
-  </mat-card>
+        <ng-template #elseVolpiano>
+          <div class="volpiano">{{ chant.db_source.volpiano }}</div>
+        </ng-template>
+      </mat-card-content>
+      <mat-card-subtitle>Genre</mat-card-subtitle>
+      <mat-card-content>{{ chant.db_source.genre_id }}</mat-card-content>
+      <mat-card-subtitle>Mode</mat-card-subtitle>
+      <mat-card-content>{{ chant.db_source.mode }}</mat-card-content>
+      <mat-card-subtitle>Cantus ID</mat-card-subtitle>
+      <mat-card-content>{{ chant.db_source.cantus_id }}</mat-card-content>
+      <mat-card-subtitle>Details</mat-card-subtitle>
+      <mat-card-content>
+        <a href="{{ chant.db_source.drupal_path }}">{{ chant.db_source.drupal_path }}</a>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

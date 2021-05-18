@@ -1,3 +1,13 @@
+mat-card {
+  width: fit-content;
+}
+
+.chant-details {
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+}
+
 .chant-card {
   margin: 20px;
 }
