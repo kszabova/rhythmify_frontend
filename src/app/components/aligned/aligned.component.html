@@ -1,10 +1,11 @@
-<div class="card">
-                <div class="scrollable">
-    <mat-card>
-        <div *ngIf="obj; else progressSpinner">
-            <div *ngFor="let chant of obj.chants; let i = index" class="chant">
-                <button mat-button [routerLink]="['/chants/', obj.success.ids[i]]">{{ obj.success.sources[i] }}</button>
-                <br>
+<div class="alignment">
+   <div class="scrollable" *ngIf="obj; else progressSpinner">
+        <div *ngFor="let chant of obj.chants; let i = index" class="card">
+            <mat-card>
+                <div class="chant">
+                    <button mat-button [routerLink]="['/chants/', obj.success.ids[i]]">{{ obj.success.sources[i] }}</button>
+                    <!-- <button mat-button (click)="showDetail(obj.success.ids[i])">{{ obj.success.sources[i] }}</button> -->
+                    <br>
                     <div *ngFor="let word of chant" class="word">
                         <div *ngFor="let syllable of word" class="syllable">
                             <div class="volpiano">
@@ -15,12 +16,13 @@
                             </div>
                         </div>
                     </div>
-                <mat-divider></mat-divider>
-            </div>
+                </div>
+            </mat-card>
         </div>
-        <ng-template #progressSpinner>
-            <mat-spinner></mat-spinner>
-        </ng-template>
-    </mat-card>
     </div>
+    <ng-template #progressSpinner>
+        <div class="spinner">
+            <mat-spinner></mat-spinner>
+        </div>
+    </ng-template>
 </div>

@@ -3,5 +3,19 @@
 }
 
 .scrollable {
-    overflow: scroll;
+    overflow-x: scroll;
+}
+
+.alignment {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.spinner {
+    margin: auto;
+}
+
+mat-card {
+    width: fit-content;
 }

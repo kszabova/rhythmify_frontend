@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlignmentService } from 'src/app/services/alignment.service';
 import { ChantService } from 'src/app/services/chant.service';
 import { AlignmentErrorDialogComponent } from '../dialogs/alignment-error-dialog/alignment-error-dialog.component';
+import { ChantDetailDialogComponent } from '../dialogs/chant-detail-dialog/chant-detail-dialog.component';
 
 @Component({
   selector: 'app-aligned',
@@ -32,11 +33,15 @@ export class AlignedComponent implements OnInit {
         if (this.obj.errors.length > 0) {
           let dialogRef = this.dialog.open(AlignmentErrorDialogComponent);
           let instance = dialogRef.componentInstance;
-          console.log(this.obj.errors);
           instance.sources = this.obj.errors;
         }
       }
     );
+  }
+
+  showDetail(id): void {
+    this.chantService.setChant(id);
+    let dialogRef = this.dialog.open(ChantDetailDialogComponent);
   }
 
 }

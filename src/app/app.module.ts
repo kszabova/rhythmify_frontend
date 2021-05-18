@@ -36,6 +36,7 @@ import { NoChantTextDialogComponent } from './components/dialogs/no-chant-text-d
 import { NotEnoughToAlingDialogComponent } from './components/dialogs/not-enough-to-aling-dialog/not-enough-to-aling-dialog.component';
 import { AlignmentErrorDialogComponent } from './components/dialogs/alignment-error-dialog/alignment-error-dialog.component';
 import { ZoomableScatterPlotComponent } from './components/visualization/zoomable-scatter-plot/zoomable-scatter-plot.component';
+import { ChantDetailDialogComponent } from './components/dialogs/chant-detail-dialog/chant-detail-dialog.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { ZoomableScatterPlotComponent } from './components/visualization/zoomabl
     NoChantTextDialogComponent,
     NotEnoughToAlingDialogComponent,
     AlignmentErrorDialogComponent,
-    ZoomableScatterPlotComponent
+    ZoomableScatterPlotComponent,
+    ChantDetailDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +78,9 @@ import { ZoomableScatterPlotComponent } from './components/visualization/zoomabl
     MatDialogModule,
     MatDividerModule,
     MatProgressSpinnerModule
+  ],
+  entryComponents: [
+    ChantDetailDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
