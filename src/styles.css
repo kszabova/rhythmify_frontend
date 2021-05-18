@@ -17,6 +17,7 @@
     line-height: 1; 
     position: relative; 
     font-family: serif; 
+    white-space: nowrap;
   } 
   
   .section, .word { 
@@ -97,6 +98,7 @@
     padding-right: .5em; 
     padding-left: .5em; 
     border: 1px solid #ccc; 
+    white-space: nowrap;
   } 
   
   .showNeumes .neume { 
