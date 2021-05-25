@@ -14,6 +14,7 @@ export class AlignedComponent implements OnInit {
 
   obj: any;
   data: number[];
+  blob: Blob;
 
   constructor(
     private chantService: ChantService,
@@ -35,6 +36,14 @@ export class AlignedComponent implements OnInit {
           let instance = dialogRef.componentInstance;
           instance.sources = this.obj.errors;
         }
+
+        let blobText: string = "";
+        for (let i = 0; i < this.obj.success.ids.length; i++) {
+          blobText += "> " + this.obj.success.ids[i] + "\n";
+          blobText += this.obj.success.volpianos[i] + "\n";
+        }
+
+        this.blob = new Blob([blobText], {type: "text/plain"});
       }
     );
   }
@@ -42,6 +51,14 @@ export class AlignedComponent implements OnInit {
   showDetail(id): void {
     this.chantService.setChant(id);
     let dialogRef = this.dialog.open(ChantDetailDialogComponent);
+  }
+
+  downloadAligned(): void {
+    const anchor = document.createElement('a');
+    anchor.href = window.URL.createObjectURL(this.blob);
+    anchor.setAttribute('download', "aligned.txt");
+    document.body.appendChild(anchor);
+    anchor.click();
   }
 
 }

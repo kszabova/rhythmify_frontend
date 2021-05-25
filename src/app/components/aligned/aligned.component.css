@@ -2,6 +2,10 @@
     margin: 20px;
 }
 
+.download-button {
+    margin: 20px;
+}
+
 .scrollable {
     overflow-x: scroll;
 }
