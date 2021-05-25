@@ -1,0 +1,58 @@
+id,name,description,mass_or_office
+genre_?,[?],"Unknown, ambiguous, unidentifiable, illegible","['Mass', 'Office']"
+genre_a,A,Antiphon,['Office']
+genre_ag,Ag,Agnus dei,['Mass']
+genre_al,Al,Alleluia,['Mass']
+genre_alv,AlV,Alleluia verse,['Mass']
+genre_av,AV,Antiphon verse,['Office']
+genre_bd,BD,Benedicamus domino,"['Mass', 'Office']"
+genre_ca,Ca,Canticle,"['Mass', 'Office']"
+genre_cap,Cap,Capitulum,['Office']
+genre_cav,CaV,Canticle verse,"['Mass', 'Office']"
+genre_cm,Cm,Communion,['Mass']
+genre_cmr,CmR,Versus ad repetendum for the communion,['Mass']
+genre_cmv,CmV,Communion verse,['Mass']
+genre_cr,Cr,Credo,['Mass']
+genre_d,D,Dramatic element (used for items of liturgical drama that are not otherwise rubricked),"['Mass', 'Office']"
+genre_g,[G],Mass chant (a generic code used in the earliest Cantus indices),['Mass']
+genre_gl,Gl,Gloria,['Mass']
+genre_gpep,Gp/Ep,Gospel/Epistle,['Mass']
+genre_gr,Gr,Gradual,['Mass']
+genre_grv,GrV,Gradual verse,['Mass']
+genre_gv,[GV],Verse for a Mass chant (a generic code used in the earliest Cantus indices),['Mass']
+genre_h,H,Hymn,['Office']
+genre_hv,HV,Hymn verse,['Office']
+genre_i,I,Invitatory antiphon,['Office']
+genre_ig,Ig,Ingressa (for the Beneventan liturgy),['Office']
+genre_im,Im,Improperia,['Mass']
+genre_in,In,Introit,['Mass']
+genre_inr,InR,Versus ad repetendum for the introit,['Mass']
+genre_inv,InV,Introit verse,['Mass']
+genre_ip,IP,Invitatory psalm (when fully written out and notated),['Office']
+genre_ite,Ite,Ite missa est,['Mass']
+genre_ky,Ky,Kyrie,['Mass']
+genre_l,L,Lesson (when fully written out and notated),['Mass']
+genre_li,Li,Litany,['Office']
+genre_liv,LiV,Litany verse,"['Mass', 'Office']"
+genre_m,[M],"""Miscellaneous"" (a descriptor used in the earliest versions of Cantus for the Te Deum, Versus in Triduo, prosulae - to be replaced by Va=Varia)","['Mass', 'Office']"
+genre_mo,[MO],Mass Ordinary  (a generic code used in the earliest Cantus indices),['Mass']
+genre_of,Of,Offertory,['Mass']
+genre_ofv,OfV,Offertory verse,['Mass']
+genre_pn,Pn,Pater noster,"['Mass', 'Office']"
+genre_pr,Pr,Prefatio (when written out and notated),['Mass']
+genre_prcs,PRCS,Preces (Old Hispanic),"['Mass', 'Office']"
+genre_prcs_1,PRCS,,
+genre_prcsv,PRCSV,Verse for the Preces (Old Hispanic),"['Mass', 'Office']"
+genre_prcsv_1,PRCSV,,
+genre_ps,PS,Psalm,['Office']
+genre_r,R,Responsory,['Office']
+genre_sa,Sa,Sanctus,['Mass']
+genre_sq,Sq,Sequence,['Mass']
+genre_sqv,SqV,Sequence verse,['Mass']
+genre_tc,Tc,Tract,['Mass']
+genre_tcv,TcV,Tract verse,['Mass']
+genre_tp,Tp,Tropus,['Mass']
+genre_v,V,Responsory verse,['Office']
+genre_va,Va,Varia,"['Mass', 'Office']"
+genre_vahw,VaHW,Varia within Holy Week,"['Mass', 'Office']"
+genre_w,W,Versicle,['Office']

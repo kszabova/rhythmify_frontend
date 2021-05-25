@@ -1,0 +1,70 @@
+{
+    "office_?": {
+       "name": "?",
+       "description": "uncertain"
+    },
+    "office_c": {
+       "name": "C",
+       "description": "Compline"
+    },
+    "office_ca": {
+       "name": "CA",
+       "description": "Chapter"
+    },
+    "office_d": {
+       "name": "D",
+       "description": "Day Hours"
+    },
+    "office_e": {
+       "name": "E",
+       "description": "Antiphons for the Magnificat or Benedictus (\"in evangelio\")"
+    },
+    "office_h": {
+       "name": "H",
+       "description": "Antiphons based on texts from the Historia"
+    },
+    "office_l": {
+       "name": "L",
+       "description": "Lauds"
+    },
+    "office_m": {
+       "name": "M",
+       "description": "Matins"
+    },
+    "office_mi": {
+       "name": "MI",
+       "description": "Mass"
+    },
+    "office_n": {
+       "name": "N",
+       "description": "None"
+    },
+    "office_p": {
+       "name": "P",
+       "description": "Prime"
+    },
+    "office_r": {
+       "name": "R",
+       "description": "Memorial"
+    },
+    "office_s": {
+       "name": "S",
+       "description": "Sext"
+    },
+    "office_t": {
+       "name": "T",
+       "description": "Terce"
+    },
+    "office_v": {
+       "name": "V",
+       "description": "First Vespers"
+    },
+    "office_v2": {
+       "name": "V2",
+       "description": "Second Vespers"
+    },
+    "office_x": {
+       "name": "X",
+       "description": "Supplemental, paraliturgical, rarely-used, or chants that do not fit into the usual categories or that are unclear in their usage"
+    }
+ }
