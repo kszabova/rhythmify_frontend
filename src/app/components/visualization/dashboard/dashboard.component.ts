@@ -29,6 +29,11 @@ export class DashboardComponent implements OnInit {
   scatterPlotXName = "Melody Length";
   scatterPlotYName = "Text Length";
 
+  multiScatterData: IScatterData[];
+  multiScatterTitle = "Antiphone vs. Sequence comparison";
+  multiScatterXName = "Melody Length";
+  multiScatterYName = "Text Length";
+
   constructor(
     private chantService: ChantService
   ) { }
@@ -57,6 +62,15 @@ export class DashboardComponent implements OnInit {
             "x": chant.volpiano.split('-').join('').length,
             "y": chant.full_text.split(" ").length
           })
+        );
+        this.multiScatterData = data
+            .filter(chant => chant.genre_id == "genre_a" || chant.genre_id == "genre_sq")
+            .map(
+              chant => ({
+                "x": chant.volpiano.split('-').join('').length,
+                "y": chant.full_text.split(" ").length,
+                "genre": chant.genre_id == "genre_a" ? 0 : 1
+              })
         );
       }
     )

@@ -37,6 +37,7 @@ import { NotEnoughToAlingDialogComponent } from './components/dialogs/not-enough
 import { AlignmentErrorDialogComponent } from './components/dialogs/alignment-error-dialog/alignment-error-dialog.component';
 import { ZoomableScatterPlotComponent } from './components/visualization/zoomable-scatter-plot/zoomable-scatter-plot.component';
 import { ChantDetailDialogComponent } from './components/dialogs/chant-detail-dialog/chant-detail-dialog.component';
+import { MultipleSeriesScatterplotComponent } from './components/visualization/multiple-series-scatterplot/multiple-series-scatterplot.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { ChantDetailDialogComponent } from './components/dialogs/chant-detail-di
     NotEnoughToAlingDialogComponent,
     AlignmentErrorDialogComponent,
     ZoomableScatterPlotComponent,
-    ChantDetailDialogComponent
+    ChantDetailDialogComponent,
+    MultipleSeriesScatterplotComponent
   ],
   imports: [
     BrowserModule,

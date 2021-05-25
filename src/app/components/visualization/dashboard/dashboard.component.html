@@ -1,3 +1,12 @@
+<app-multiple-series-scatterplot
+    *ngIf="multiScatterData"
+    [chartTitle]="multiScatterTitle"
+    [data]="multiScatterData"
+    [valueXName]="multiScatterXName"
+    [valueYName]="multiScatterYName"
+    id="multiScatterPlot">
+</app-multiple-series-scatterplot>
+
 <app-zoomable-scatter-plot
     *ngIf="scatterPlotData"
     [chartTitle]="scatterPlotTitle"
