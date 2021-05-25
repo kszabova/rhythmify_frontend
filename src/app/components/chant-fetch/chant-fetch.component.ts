@@ -9,13 +9,15 @@ import { ChantService } from 'src/app/services/chant.service';
 })
 export class ChantFetchComponent implements OnInit {
 
+  id: number;
+
   constructor(
     private chantService: ChantService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.chantService.setChantPrecomputed(this.route.snapshot.params.id);
+    this.id = this.route.snapshot.params.id;
   }
 
 }

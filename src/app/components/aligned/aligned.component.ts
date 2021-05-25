@@ -15,6 +15,7 @@ export class AlignedComponent implements OnInit {
   obj: any;
   data: number[];
   blob: Blob;
+  visibleDetails: {[id: number]: boolean} = {};
 
   constructor(
     private chantService: ChantService,
@@ -49,8 +50,7 @@ export class AlignedComponent implements OnInit {
   }
 
   showDetail(id): void {
-    this.chantService.setChant(id);
-    let dialogRef = this.dialog.open(ChantDetailDialogComponent);
+    this.visibleDetails[id] = !this.visibleDetails[id];
   }
 
   downloadAligned(): void {

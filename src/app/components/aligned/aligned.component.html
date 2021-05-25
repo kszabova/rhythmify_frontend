@@ -3,8 +3,8 @@
         <div *ngFor="let chant of obj.chants; let i = index" class="card">
             <mat-card>
                 <div class="chant">
-                    <button mat-button [routerLink]="['/chants/', obj.success.ids[i]]">{{ obj.success.sources[i] }}</button>
-                    <!-- <button mat-button (click)="showDetail(obj.success.ids[i])">{{ obj.success.sources[i] }}</button> -->
+                    <!-- <button mat-button [routerLink]="['/chants/', obj.success.ids[i]]">{{ obj.success.sources[i] }}</button> -->
+                    <button mat-button (click)="showDetail(obj.success.ids[i])">{{ obj.success.sources[i] }}</button>
                     <br>
                     <div *ngFor="let word of chant" class="word">
                         <div *ngFor="let syllable of word; let lastSyllable = last" class="syllable">
@@ -19,6 +19,9 @@
                     </div>
                 </div>
             </mat-card>
+            <div class="detail" *ngIf="visibleDetails[obj.success.ids[i]]">
+                <app-chant-details [id]="obj.success.ids[i]"></app-chant-details>
+            </div> 
         </div>
         <button mat-raised-button (click)="downloadAligned()" color="primary" class="download-button">Download</button>
     </div>
