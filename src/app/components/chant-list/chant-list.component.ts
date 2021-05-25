@@ -72,7 +72,7 @@ export class ChantListComponent implements OnInit {
       error => {
         console.log(error);
       }
-    )
+    );
     // var start = this.pageIndex * this.pageSize;
     // var end = (this.pageIndex + 1) * this.pageSize;
     // this.pageChants = this.allChants.slice(start, end);

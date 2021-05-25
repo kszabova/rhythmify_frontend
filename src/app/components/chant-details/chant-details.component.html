@@ -14,6 +14,7 @@
                       <ng-container *ngFor="let note of element.elements; let lastNote = last">
                         <span class="neume" *ngIf="note.editorial">{{ note.editorial.volpianoPosition }}</span>
                         <span *ngIf="syllable.elements.length > 1 && !lastNote" class="neumeBoundary boundary">-</span>
+                        <span *ngIf="lastSyllable" class="bar">3</span>
                       </ng-container>
                     </ng-container>
                     <ng-template #notNeume>

@@ -36,7 +36,7 @@
               class="margin-right"
               [(ngModel)]="selected[pageIndex * pageSize + i]">
               <a [routerLink]="['/chants', chant.id]">
-                {{ chant.incipit }} ({{ chant.siglum }}, {{ chant.position }}, {{ chant.folio }})
+                {{ chant.incipit }} ({{ chant.siglum }}, {{ chant.folio }}, {{ chant.position }})
               </a>
             </mat-checkbox>
             <!-- <mat-icon [routerLink]="['/chants', chant.id]">open_in_new</mat-icon> -->
