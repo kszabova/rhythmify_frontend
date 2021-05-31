@@ -57,13 +57,13 @@ export class MultipleSeriesScatterplotComponent implements OnInit {
     // draw the data
     let color = d3.schemeCategory10;
     this.svg.append("g")
-            .attr("stroke-width", 1.5)
-            .attr("fill", "none")
+            .attr("stroke-width", 0)
             .selectAll("circle")
             .data(data)
             .join("circle")
             .attr("cx", d => x(d.x))
             .attr("cy", d => y(d.y))
+            .attr("fill", d=>color[d.genre])
             .style("stroke", d => color[d.genre])
             .attr("r", 3);
 
@@ -117,10 +117,10 @@ export class MultipleSeriesScatterplotComponent implements OnInit {
             .text(this.valueYName);   
 
     // legend
-    this.svg.append("circle").attr("cx",200).attr("cy",130).attr("r", 6).style("fill", color[0]);
-    this.svg.append("circle").attr("cx",200).attr("cy",160).attr("r", 6).style("fill", color[1]);
-    this.svg.append("text").attr("x", 220).attr("y", 130).text("antiphon").style("font-size", "15px").attr("alignment-baseline","middle");
-    this.svg.append("text").attr("x", 220).attr("y", 160).text("sequence").style("font-size", "15px").attr("alignment-baseline","middle");
+    this.svg.append("circle").attr("cx",100).attr("cy",130).attr("r", 6).style("fill", color[0]);
+    this.svg.append("circle").attr("cx",100).attr("cy",160).attr("r", 6).style("fill", color[1]);
+    this.svg.append("text").attr("x", 120).attr("y", 130).text("antiphon").style("font-size", "15px").attr("alignment-baseline","middle");
+    this.svg.append("text").attr("x", 120).attr("y", 160).text("responsory").style("font-size", "15px").attr("alignment-baseline","middle");
 
   }
 

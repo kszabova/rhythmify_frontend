@@ -6,11 +6,11 @@
                     <!-- <button mat-button [routerLink]="['/chants/', obj.success.ids[i]]">{{ obj.success.sources[i] }}</button> -->
                     <button mat-button (click)="showDetail(obj.success.ids[i])">{{ obj.success.sources[i] }}</button>
                     <br>
-                    <div *ngFor="let word of chant" class="word">
+                    <div *ngFor="let word of chant; let lastWord = last" class="word">
                         <div *ngFor="let syllable of word; let lastSyllable = last" class="syllable">
                             <div class="volpiano">
                                 <span class="neumes">{{ syllable.volpiano }}</span>
-                                <span *ngIf="lastSyllable" class="bar">3</span>
+                                <span *ngIf="lastSyllable && !lastWord" class="bar">7</span>
                             </div>
                             <div class="text">
                                 <span class="lyric">{{ syllable.text }}</span>

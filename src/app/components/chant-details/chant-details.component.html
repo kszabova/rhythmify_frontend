@@ -14,7 +14,7 @@
                       <ng-container *ngFor="let note of element.elements; let lastNote = last">
                         <span class="neume" *ngIf="note.editorial">{{ note.editorial.volpianoPosition }}</span>
                         <span *ngIf="syllable.elements.length > 1 && !lastNote" class="neumeBoundary boundary">-</span>
-                        <span *ngIf="lastSyllable" class="bar">3</span>
+                        <span *ngIf="lastSyllable && lastElem && lastNote" class="bar">7</span>
                       </ng-container>
                     </ng-container>
                     <ng-template #notNeume>
@@ -47,6 +47,8 @@
           <div class="volpiano">{{ chant.db_source.volpiano }}</div>
         </ng-template>
       </mat-card-content>
+      <mat-card-subtitle>Raw volpiano</mat-card-subtitle>
+      <mat-card-content>{{ chant.db_source.volpiano }}</mat-card-content>
       <mat-card-subtitle>Genre</mat-card-subtitle>
       <mat-card-content>{{ genre }}</mat-card-content>
       <mat-card-subtitle>Office</mat-card-subtitle>

@@ -38,6 +38,7 @@ import { AlignmentErrorDialogComponent } from './components/dialogs/alignment-er
 import { ZoomableScatterPlotComponent } from './components/visualization/zoomable-scatter-plot/zoomable-scatter-plot.component';
 import { ChantDetailDialogComponent } from './components/dialogs/chant-detail-dialog/chant-detail-dialog.component';
 import { MultipleSeriesScatterplotComponent } from './components/visualization/multiple-series-scatterplot/multiple-series-scatterplot.component';
+import { DataUploadComponent } from './components/data-upload/data-upload.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { MultipleSeriesScatterplotComponent } from './components/visualization/m
     AlignmentErrorDialogComponent,
     ZoomableScatterPlotComponent,
     ChantDetailDialogComponent,
-    MultipleSeriesScatterplotComponent
+    MultipleSeriesScatterplotComponent,
+    DataUploadComponent
   ],
   imports: [
     BrowserModule,

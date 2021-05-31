@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   scatterPlotYName = "Text Length";
 
   multiScatterData: IScatterData[];
-  multiScatterTitle = "Antiphone vs. Sequence comparison";
+  multiScatterTitle = "Antiphone vs. Responsory comparison";
   multiScatterXName = "Melody Length";
   multiScatterYName = "Text Length";
 
@@ -40,7 +40,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.chantService.getAll().subscribe(
-      (data: any) => {
+      (all_data: any) => {
+        let data = all_data.slice(0, 10000);
+        console.log(data);
         this.melodyLengthHistData = data.map(
           chant => chant.volpiano.split("---").length
         );
@@ -64,7 +66,7 @@ export class DashboardComponent implements OnInit {
           })
         );
         this.multiScatterData = data
-            .filter(chant => chant.genre_id == "genre_a" || chant.genre_id == "genre_sq")
+            .filter(chant => chant.genre_id == "genre_a" || chant.genre_id == "genre_r")
             .map(
               chant => ({
                 "x": chant.volpiano.split('-').join('').length,

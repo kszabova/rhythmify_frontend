@@ -39,8 +39,8 @@ export class AlignedComponent implements OnInit {
         }
 
         let blobText: string = "";
-        for (let i = 0; i < this.obj.success.ids.length; i++) {
-          blobText += "> " + this.obj.success.ids[i] + "\n";
+        for (let i = 0; i < this.obj.success.urls.length; i++) {
+          blobText += "> " + this.obj.success.urls[i] + "\n";
           blobText += this.obj.success.volpianos[i] + "\n";
         }
 
