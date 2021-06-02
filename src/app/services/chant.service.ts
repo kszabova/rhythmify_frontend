@@ -70,4 +70,8 @@ export class ChantService {
   getAligned(data: number[]): Observable<any> {
     return this.http.post(`${baseUrl}/align/`, data);
   }
+
+  updateSelection(data: number[]): Observable<any> {
+    return this.http.post(`${baseUrl}/selectDatasets/`, data);
+  }
 }

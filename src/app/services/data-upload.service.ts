@@ -12,10 +12,11 @@ export class DataUploadService {
     private httpClient: HttpClient
   ) { }
 
-  postFile(fileToUpload: File): Observable<boolean> {
+  uploadDataset(fileToUpload: File, datasetName: string): Observable<boolean> {
     const endpoint = 'http://localhost:8000/api/melodies/upload/';
     const formData: FormData = new FormData();
-    formData.append('fileKey', fileToUpload, fileToUpload.name);
+    formData.append('file', fileToUpload, fileToUpload.name);
+    formData.append('name', datasetName);
     return this.httpClient
       .post(endpoint, formData)
       .pipe(map(() => { return true; }));

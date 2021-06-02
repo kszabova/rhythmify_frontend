@@ -1,7 +1,18 @@
 <div class="form-group">
+    <mat-checkbox [(ngModel)]="selectedDatasets[0]">0</mat-checkbox><br>
+    <mat-checkbox [(ngModel)]="selectedDatasets[1]">1</mat-checkbox><br>
+    <mat-checkbox [(ngModel)]="selectedDatasets[2]">2</mat-checkbox><br>
+    <button (click)="changeSelection()">Save</button>
+</div>
+
+<div class="form-group">
+    <label for="name">Enter name of dataset</label><br>
+    <input type="text" id="name" [(ngModel)]="datasetName"><br>
     <label for="file">Choose File</label>
+    <br>
     <input type="file"
            id="file"
            (change)="handleFileInput($event.target.files)">
+    <br>
     <button (click)="upload()">Upload</button>
 </div>
