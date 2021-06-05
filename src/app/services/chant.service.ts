@@ -4,8 +4,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { IChant } from '../interfaces/chant.interface';
 import { ChantFacadeService } from './chant-facade.service';
 import { IChantPrecomputed } from '../interfaces/chant-precomputed.interface';
+import { DataSourceService } from './data-source.service';
 
-const baseUrl = 'http://localhost:8000/api/melodies';
+const baseUrl = 'http://localhost:8000/api/chants';
 
 @Injectable({
   providedIn: 'root'
@@ -13,19 +14,22 @@ const baseUrl = 'http://localhost:8000/api/melodies';
 export class ChantService {
 
   constructor(private http: HttpClient,
-              private chantFacadeService: ChantFacadeService
+              private chantFacadeService: ChantFacadeService,
+              private dataSourceService: DataSourceService
   ) { }
 
   private readonly _chant = new BehaviorSubject<IChant>(null);
 
-  getAll(): Observable<IChant[]> {
-    return this.http.get<IChant[]>(baseUrl);
+  getAll(): Observable<any> {
+    let dataSources = this.dataSourceService.sourceList;
+    return this.http.post(`${baseUrl}/`, dataSources);
   }
 
   get(id: any): Observable<IChant> {
-    return this.http.get(`${baseUrl}/${id}/detail`);
+    return this.http.get(`${baseUrl}/${id}`);
   }
 
+  // TODO remove
   create(data: any): Observable<any> {
     return this.http.post(baseUrl, data);
   }
@@ -42,27 +46,29 @@ export class ChantService {
   //   return this.http.delete(baseUrl);
   // }
 
-  findByIncipit(incipit: string): Observable<IChant[]> {
-    return this.http.get<IChant[]>(`${baseUrl}?incipit=${incipit}`);
+  findByIncipit(incipit: string): Observable<any> {
+    let dataSources = this.dataSourceService.sourceList;
+    return this.http.post(`${baseUrl}?incipit=${incipit}/`, dataSources);
   }
 
   setChant(id: number): void {
-    this.http.get<IChant>(`${baseUrl}/${id}/detail`).subscribe(
+    this.http.get<IChant>(`${baseUrl}/${id}`).subscribe(
       (data: IChant) => this.chantFacadeService.setChant(data)
     );
   }
 
   setChantPrecomputed(id: number): void {
-    this.http.get<IChantPrecomputed>(`${baseUrl}/${id}/detail`).subscribe(
+    this.http.get<IChantPrecomputed>(`${baseUrl}/${id}`).subscribe(
       (data: IChantPrecomputed) => this.chantFacadeService.setChantPrecomputed(data)
     );
   }
 
   setList(incipit: string = null): void {
-    var url: string = incipit ? 
-                        `${baseUrl}?incipit=${incipit}` :
-                        baseUrl;
-    this.http.get<IChant[]>(url).subscribe(
+    let dataSources = this.dataSourceService.sourceList;
+    let url: string = incipit ? 
+                        `${baseUrl}?incipit=${incipit}/` :
+                        `${baseUrl}/`;
+    this.http.post(url, dataSources).subscribe(
       (data: IChant[]) => this.chantFacadeService.setList(data)
     );
   }

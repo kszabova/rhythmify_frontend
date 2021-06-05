@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChantService } from 'src/app/services/chant.service';
+import { DataSourceService } from 'src/app/services/data-source.service';
 import { DataUploadService } from 'src/app/services/data-upload.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class DataUploadComponent implements OnInit {
 
   constructor(
     private dataUploadService: DataUploadService,
-    private chantService: ChantService
+    private chantService: ChantService,
+    private dataSourceService: DataSourceService
   ) { }
 
   ngOnInit(): void {
@@ -42,11 +44,8 @@ export class DataUploadComponent implements OnInit {
     for (let i = 0; i < this.selectedDatasets.length; i++) {
       if (this.selectedDatasets[i]) selected.push(i);
     }
-    this.chantService
-      .updateSelection(selected)
-      .subscribe(
-        response => console.log(response)
-      );
+    this.dataSourceService.sourceList = selected;
+    console.log(this.dataSourceService.sourceList);
   }
 
 }
