@@ -1,0 +1,18 @@
+<div class="floating-panel">
+    <div class="source-selection" *ngIf="dataSources && displaySelection">
+        <mat-card>
+            <div *ngFor="let source of dataSources; let i = index">
+                <mat-checkbox [(ngModel)]="selectedDatasets[i]">{{ source[1] }}</mat-checkbox>
+            </div>
+            <br>
+            <button mat-stroked-button id="select-button" (click)="changeSelection()">Save</button>
+        </mat-card>
+    </div>
+    <div class="toggle-panel">
+        <button mat-raised-button
+            color="primary"
+            (click)="displaySelection = !displaySelection">
+            Data sources
+        </button>
+    </div>
+</div>

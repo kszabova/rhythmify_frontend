@@ -39,6 +39,7 @@ import { ZoomableScatterPlotComponent } from './components/visualization/zoomabl
 import { ChantDetailDialogComponent } from './components/dialogs/chant-detail-dialog/chant-detail-dialog.component';
 import { MultipleSeriesScatterplotComponent } from './components/visualization/multiple-series-scatterplot/multiple-series-scatterplot.component';
 import { DataUploadComponent } from './components/data-upload/data-upload.component';
+import { SelectDataSourceComponent } from './components/select-data-source/select-data-source.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { DataUploadComponent } from './components/data-upload/data-upload.compon
     ZoomableScatterPlotComponent,
     ChantDetailDialogComponent,
     MultipleSeriesScatterplotComponent,
-    DataUploadComponent
+    DataUploadComponent,
+    SelectDataSourceComponent
   ],
   imports: [
     BrowserModule,

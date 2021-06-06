@@ -1,0 +1,16 @@
+.floating-panel {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    z-index: 1;
+    margin: 10px;
+}
+
+.source-selection {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.toggle-panel {
+    float: right;
+}

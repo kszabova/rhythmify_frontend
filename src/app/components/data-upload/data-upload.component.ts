@@ -12,12 +12,10 @@ export class DataUploadComponent implements OnInit {
 
   fileToUpload: File = null;
   datasetName: string = null;
-  selectedDatasets = [false, false, false];
 
   constructor(
     private dataUploadService: DataUploadService,
-    private chantService: ChantService,
-    private dataSourceService: DataSourceService
+    private chantService: ChantService
   ) { }
 
   ngOnInit(): void {
@@ -39,13 +37,6 @@ export class DataUploadComponent implements OnInit {
       );
   }
 
-  changeSelection(): void {
-    let selected: number[] = [];
-    for (let i = 0; i < this.selectedDatasets.length; i++) {
-      if (this.selectedDatasets[i]) selected.push(i);
-    }
-    this.dataSourceService.sourceList = selected;
-    console.log(this.dataSourceService.sourceList);
-  }
+  
 
 }

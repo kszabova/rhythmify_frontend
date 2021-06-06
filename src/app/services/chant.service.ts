@@ -80,4 +80,8 @@ export class ChantService {
   updateSelection(data: number[]): Observable<any> {
     return this.http.post(`${baseUrl}/selectDatasets/`, data);
   }
+
+  getDataSources(): Observable<any> {
+    return this.http.get(`${baseUrl}/sources`);
+  }
 }
