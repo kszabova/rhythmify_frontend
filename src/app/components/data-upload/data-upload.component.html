@@ -1,11 +1,16 @@
-<div class="form-group">
-    <label for="name">Enter name of dataset</label><br>
-    <input type="text" id="name" [(ngModel)]="datasetName"><br>
-    <label for="file">Choose File</label>
-    <br>
-    <input type="file"
-           id="file"
-           (change)="handleFileInput($event.target.files)">
-    <br>
-    <button (click)="upload()">Upload</button>
+<div class="upload-container">
+    <div class="upload-content">
+        <mat-card>
+            <h3>Upload data</h3>
+            <mat-form-field class="dataset-name">
+                <mat-label>Data source name</mat-label>
+                <input matInput type="text" [(ngModel)]="datasetName">
+            </mat-form-field>
+            <br>
+            <input type="file"
+                (change)="handleFileInput($event.target.files)">
+            <br><br>
+            <button mat-raised-button color="primary" (click)="upload()">Upload</button>
+        </mat-card>
+    </div>
 </div>
