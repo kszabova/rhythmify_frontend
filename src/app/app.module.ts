@@ -40,6 +40,7 @@ import { ChantDetailDialogComponent } from './components/dialogs/chant-detail-di
 import { MultipleSeriesScatterplotComponent } from './components/visualization/multiple-series-scatterplot/multiple-series-scatterplot.component';
 import { DataUploadComponent } from './components/data-upload/data-upload.component';
 import { SelectDataSourceComponent } from './components/select-data-source/select-data-source.component';
+import { SourceSelectionSavedDialogComponent } from './components/dialogs/source-selection-saved-dialog/source-selection-saved-dialog.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { SelectDataSourceComponent } from './components/select-data-source/selec
     ChantDetailDialogComponent,
     MultipleSeriesScatterplotComponent,
     DataUploadComponent,
-    SelectDataSourceComponent
+    SelectDataSourceComponent,
+    SourceSelectionSavedDialogComponent
   ],
   imports: [
     BrowserModule,
