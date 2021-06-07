@@ -139,7 +139,8 @@ export class ChantListComponent implements OnInit {
       return;
     }
 
-    this.alignmentService.setIds(toAlign);
+    console.log(toAlign);
+    this.alignmentService.idsToAlign = toAlign;
     this.router.navigate(['/align']);
   }
 

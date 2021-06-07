@@ -12,7 +12,7 @@ import { AlignmentErrorDialogComponent } from '../dialogs/alignment-error-dialog
 export class AlignedComponent implements OnInit {
 
   aligned: any;
-  data: number[];
+  idsToAlign: number[];
   blob: Blob;
   visibleDetails: {[id: number]: boolean} = {};
   visibleAlignment: boolean[] = [];
@@ -24,10 +24,10 @@ export class AlignedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.alignmentService.getIds().subscribe(
-      (data:any) => this.data = data
-    );
-    this.chantService.getAligned(this.data).subscribe(
+    this.idsToAlign = this.alignmentService.idsToAlign;
+    console.log(this.idsToAlign);
+
+    this.chantService.getAligned(this.idsToAlign).subscribe(
       response => {
         this.aligned = response;
         this.aligned.chants.forEach(_=> {

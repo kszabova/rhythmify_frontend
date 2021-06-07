@@ -9,12 +9,20 @@ export class AlignmentService {
   constructor() { }
 
   private readonly _ids = new BehaviorSubject<number[]>(null);
+  private storage = window.sessionStorage;
 
-  getIds(): BehaviorSubject<number[]> {
-    return this._ids;
+  get idsToAlign(): number[] {
+    const storedIds = this.storage.getItem('idsToAlign');
+    if (null === storedIds) {
+      return [];
+    }
+    else {
+      return JSON.parse(storedIds);
+    }
   }
 
-  setIds(ids: number[]): void {
-    this._ids.next(ids);
+  set idsToAlign(ids: number[]) {
+    console.log(ids);
+    this.storage.setItem('idsToAlign', JSON.stringify(ids));
   }
 }
