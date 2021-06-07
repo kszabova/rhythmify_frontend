@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ChantService } from 'src/app/services/chant.service';
+import { DataSourceListService } from 'src/app/services/data-source-list.service';
 import { DataSourceService } from 'src/app/services/data-source.service';
 import { SourceSelectionSavedDialogComponent } from '../dialogs/source-selection-saved-dialog/source-selection-saved-dialog.component';
 
@@ -16,12 +16,13 @@ export class SelectDataSourceComponent implements OnInit {
   displaySelection = false;
 
   constructor(
-    private chantService: ChantService,
+    private dataSourceListService: DataSourceListService,
     private dataSourceService: DataSourceService,
     public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
+    this.dataSourceListService.refreshSources();
     this.getDataSources();
   }
 
@@ -32,18 +33,19 @@ export class SelectDataSourceComponent implements OnInit {
     }
     this.dataSourceService.sourceList = selected;
 
-    let dialogRef = this.dialog.open(SourceSelectionSavedDialogComponent);
+    this.dialog.open(SourceSelectionSavedDialogComponent);
   }
 
   getDataSources(): void {
-    this.chantService.getDataSources().subscribe(
+    this.dataSourceListService.getAllSources().subscribe(
       data => {
-        this.dataSources = data.sources;
+        this.selectedDatasets = [];
+        this.dataSources = data;
         this.dataSources.forEach(_ => {
           this.selectedDatasets.push(false);
         });
-        console.log(this.dataSources);
-      });
+      }
+    )
   }
 
 }

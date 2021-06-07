@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { ChantService } from './chant.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataSourceService {
 
-  constructor() { }
+  constructor(  ) { }
 
   private _sourceList: number[] = [];
 

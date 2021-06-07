@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { DataSourceListService } from './data-source-list.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import { map } from 'rxjs/operators';
 export class DataUploadService {
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private dataSourceListService: DataSourceListService
   ) { }
 
   uploadDataset(fileToUpload: File, datasetName: string): Observable<boolean> {
@@ -19,6 +21,9 @@ export class DataUploadService {
     formData.append('name', datasetName);
     return this.httpClient
       .post(endpoint, formData)
-      .pipe(map(() => { return true; }));
+      .pipe(map(() => { 
+        this.dataSourceListService.refreshSources();
+        return true;
+      }));
   }
 }
