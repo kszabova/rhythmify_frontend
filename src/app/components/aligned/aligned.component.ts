@@ -39,14 +39,6 @@ export class AlignedComponent implements OnInit {
           let instance = dialogRef.componentInstance;
           instance.sources = this.aligned.errors;
         }
-
-        let blobText: string = "";
-        for (let i = 0; i < this.aligned.success.urls.length; i++) {
-          blobText += "> " + this.aligned.success.urls[i] + "\n";
-          blobText += this.aligned.success.volpianos[i] + "\n";
-        }
-
-        this.blob = new Blob([blobText], {type: "text/plain"});
       }
     );
   }
@@ -55,17 +47,31 @@ export class AlignedComponent implements OnInit {
     this.visibleDetails[id] = !this.visibleDetails[id];
   }
 
-  downloadAligned(): void {
-    const anchor = document.createElement('a');
-    anchor.href = window.URL.createObjectURL(this.blob);
-    anchor.setAttribute('download', "aligned.txt");
-    document.body.appendChild(anchor);
-    anchor.click();
-  }
-
   hideAlignment(i: number): void {
     this.visibleAlignment[i] = false;
     this.visibleDetails[this.aligned.success.ids[i]] = false;
+  }
+
+  createBlob(): Blob {
+    let blobText: string = "";
+    for (let i = 0; i < this.aligned.success.urls.length; i++) {
+      if (this.visibleAlignment[i]) {
+        blobText += "> " + this.aligned.success.urls[i] + "\n";
+        blobText += this.aligned.success.volpianos[i] + "\n";
+      }
+    }
+
+    let blob = new Blob([blobText], {type: "text/plain"});
+    return blob;
+  }
+
+  downloadAligned(): void {
+    const anchor = document.createElement('a');
+    const blob = this.createBlob();
+    anchor.href = window.URL.createObjectURL(blob);
+    anchor.setAttribute('download', "aligned.txt");
+    document.body.appendChild(anchor);
+    anchor.click();
   }
 
 }
