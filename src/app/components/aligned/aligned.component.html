@@ -1,26 +1,34 @@
 <div class="alignment">
-   <div class="scrollable" *ngIf="obj; else progressSpinner">
-        <div *ngFor="let chant of obj.chants; let i = index" class="card">
-            <mat-card>
-                <div class="chant">
-                    <!-- <button mat-button [routerLink]="['/chants/', obj.success.ids[i]]">{{ obj.success.sources[i] }}</button> -->
-                    <button mat-button (click)="showDetail(obj.success.ids[i])">{{ obj.success.sources[i] }}</button>
-                    <br>
-                    <div *ngFor="let word of chant; let lastWord = last" class="word">
-                        <div *ngFor="let syllable of word; let lastSyllable = last" class="syllable">
-                            <div class="volpiano">
-                                <span class="neumes">{{ syllable.volpiano }}</span>
-                                <span *ngIf="lastSyllable && !lastWord" class="bar">7</span>
+   <div class="scrollable" *ngIf="aligned; else progressSpinner">
+        <div *ngFor="let chant of aligned.chants; let i = index" class="card">
+            <div *ngIf="visibleAlignment[i]">
+                <mat-card>
+                    <div class="chant">
+                        <mat-card-title-group>
+                            <div class="title-group">
+                                <button mat-button class="title-button" (click)="showDetail(aligned.success.ids[i])">{{ aligned.success.sources[i] }}</button>
+                                <button mat-button class="close-button" (click)="hideAlignment(i)">
+                                    <mat-icon>close</mat-icon>
+                                </button>
                             </div>
-                            <div class="text">
-                                <span class="lyric">{{ syllable.text }}</span>
+                        </mat-card-title-group>
+                        <br>
+                        <div *ngFor="let word of chant; let lastWord = last" class="word">
+                            <div *ngFor="let syllable of word; let lastSyllable = last" class="syllable">
+                                <div class="volpiano">
+                                    <span class="neumes">{{ syllable.volpiano }}</span>
+                                    <span *ngIf="lastSyllable && !lastWord" class="bar">7</span>
+                                </div>
+                                <div class="text">
+                                    <span class="lyric">{{ syllable.text }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </mat-card>
-            <div class="detail" *ngIf="visibleDetails[obj.success.ids[i]]">
-                <app-chant-details [id]="obj.success.ids[i]"></app-chant-details>
+                </mat-card>
+            </div>
+            <div class="detail" *ngIf="visibleDetails[aligned.success.ids[i]]">
+                <app-chant-details [id]="aligned.success.ids[i]"></app-chant-details>
             </div> 
         </div>
         <button mat-raised-button (click)="downloadAligned()" color="primary" class="download-button">Download</button>

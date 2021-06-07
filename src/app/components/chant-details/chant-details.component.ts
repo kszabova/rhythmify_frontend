@@ -44,8 +44,8 @@ export class ChantDetailsComponent implements OnInit {
     //       data => this.office = data
     //     );
     //   });
-    const baseUrl = 'http://localhost:8000/api/melodies';
-    this.http.get<IChantPrecomputed>(`${baseUrl}/${this.id}/detail`).subscribe(
+    const baseUrl = 'http://localhost:8000/api/chants';
+    this.http.get<IChantPrecomputed>(`${baseUrl}/${this.id}`).subscribe(
       (data: IChantPrecomputed) => {
         this.chant = data;
         if (this.chant && !this.chant.json_volpiano) {

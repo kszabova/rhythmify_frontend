@@ -2,6 +2,12 @@
     margin: 20px;
 }
 
+.title-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 .download-button {
     margin: 20px;
 }

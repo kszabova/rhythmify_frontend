@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { AlignmentService } from 'src/app/services/alignment.service';
 import { ChantService } from 'src/app/services/chant.service';
 import { AlignmentErrorDialogComponent } from '../dialogs/alignment-error-dialog/alignment-error-dialog.component';
-import { ChantDetailDialogComponent } from '../dialogs/chant-detail-dialog/chant-detail-dialog.component';
 
 @Component({
   selector: 'app-aligned',
@@ -12,10 +11,11 @@ import { ChantDetailDialogComponent } from '../dialogs/chant-detail-dialog/chant
 })
 export class AlignedComponent implements OnInit {
 
-  obj: any;
+  aligned: any;
   data: number[];
   blob: Blob;
   visibleDetails: {[id: number]: boolean} = {};
+  visibleAlignment: boolean[] = [];
 
   constructor(
     private chantService: ChantService,
@@ -29,19 +29,21 @@ export class AlignedComponent implements OnInit {
     );
     this.chantService.getAligned(this.data).subscribe(
       response => {
-        this.obj = response;
-        console.log(response);
+        this.aligned = response;
+        this.aligned.chants.forEach(_=> {
+          this.visibleAlignment.push(true);
+        });
 
-        if (this.obj.errors.length > 0) {
+        if (this.aligned.errors.length > 0) {
           let dialogRef = this.dialog.open(AlignmentErrorDialogComponent);
           let instance = dialogRef.componentInstance;
-          instance.sources = this.obj.errors;
+          instance.sources = this.aligned.errors;
         }
 
         let blobText: string = "";
-        for (let i = 0; i < this.obj.success.urls.length; i++) {
-          blobText += "> " + this.obj.success.urls[i] + "\n";
-          blobText += this.obj.success.volpianos[i] + "\n";
+        for (let i = 0; i < this.aligned.success.urls.length; i++) {
+          blobText += "> " + this.aligned.success.urls[i] + "\n";
+          blobText += this.aligned.success.volpianos[i] + "\n";
         }
 
         this.blob = new Blob([blobText], {type: "text/plain"});
@@ -59,6 +61,11 @@ export class AlignedComponent implements OnInit {
     anchor.setAttribute('download', "aligned.txt");
     document.body.appendChild(anchor);
     anchor.click();
+  }
+
+  hideAlignment(i: number): void {
+    this.visibleAlignment[i] = false;
+    this.visibleDetails[this.aligned.success.ids[i]] = false;
   }
 
 }
