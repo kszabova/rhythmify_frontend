@@ -41,8 +41,16 @@ export class SelectDataSourceComponent implements OnInit {
       data => {
         this.selectedDatasets = [];
         this.dataSources = data;
-        this.dataSources.forEach(_ => {
-          this.selectedDatasets.push(false);
+
+        const storedSelection = this.dataSourceService.sourceList;
+
+        this.dataSources.forEach(element => {
+          if (storedSelection.includes(element[0])) {
+            this.selectedDatasets.push(true);
+          }
+          else {
+            this.selectedDatasets.push(false);
+          }
         });
       }
     )

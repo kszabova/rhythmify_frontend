@@ -9,13 +9,18 @@ export class DataSourceService {
 
   constructor(  ) { }
 
-  private _sourceList: number[] = [];
+  private storage = window.sessionStorage;
 
   get sourceList(): number[] {
-    return this._sourceList;
+    let sourcesString = this.storage.getItem('sourceList');
+    if (null === sourcesString) {
+      return [];
+    }
+
+    return JSON.parse(sourcesString);
   }
 
   set sourceList(list: number[]) {
-    this._sourceList = list;
+    this.storage.setItem('sourceList', JSON.stringify(list));
   }
 }
