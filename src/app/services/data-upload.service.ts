@@ -13,7 +13,7 @@ export class DataUploadService {
   ) { }
 
   uploadDataset(fileToUpload: File, datasetName: string): Observable<boolean> {
-    const endpoint = 'http://localhost:8000/api/melodies/upload/';
+    const endpoint = 'http://localhost:8000/api/chants/upload/';
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('name', datasetName);

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ChantService } from 'src/app/services/chant.service';
 import { DataSourceService } from 'src/app/services/data-source.service';
 import { DataUploadService } from 'src/app/services/data-upload.service';
+import { UploadSuccessfulDialogComponent } from '../dialogs/upload-successful-dialog/upload-successful-dialog.component';
 
 @Component({
   selector: 'app-data-upload',
@@ -15,7 +17,7 @@ export class DataUploadComponent implements OnInit {
 
   constructor(
     private dataUploadService: DataUploadService,
-    private chantService: ChantService
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +35,9 @@ export class DataUploadComponent implements OnInit {
     this.dataUploadService
       .uploadDataset(this.fileToUpload, this.datasetName)
       .subscribe(
-        response => console.log(response)
+        _ => {
+          this.dialog.open(UploadSuccessfulDialogComponent);
+        }
       );
   }
 
