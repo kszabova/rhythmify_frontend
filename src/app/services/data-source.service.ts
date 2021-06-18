@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { ChantService } from './chant.service';
 
 @Injectable({
@@ -10,7 +10,7 @@ export class DataSourceService {
   constructor(  ) { }
 
   private storage = window.sessionStorage;
-  private _sourceList = new Subject<number[]>();
+  private _sourceList = new BehaviorSubject<number[]>([]);
 
   getStoredSourceList(): number[] {
     let sourcesString = this.storage.getItem('sourceList');
@@ -21,7 +21,7 @@ export class DataSourceService {
     return JSON.parse(sourcesString);
   }
 
-  getSourceList(): Subject<number[]> {
+  getSourceList(): BehaviorSubject<number[]> {
     return this._sourceList;
   }
 
