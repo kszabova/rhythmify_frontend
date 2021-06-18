@@ -13,7 +13,7 @@ export class SelectDataSourceComponent implements OnInit {
   
   dataSources: [number, string][];
   selectedDatasets = new Array<boolean>();
-  displaySelection = false;
+  displaySelection = true;
 
   constructor(
     private dataSourceListService: DataSourceListService,
@@ -43,15 +43,23 @@ export class SelectDataSourceComponent implements OnInit {
         this.dataSources = data;
 
         const storedSelection = this.dataSourceService.sourceList;
+        let allUnselected = true;
 
         this.dataSources.forEach(element => {
           if (storedSelection.includes(element[0])) {
             this.selectedDatasets.push(true);
+            allUnselected = false;
           }
           else {
             this.selectedDatasets.push(false);
           }
         });
+
+        // always include at least the default data source
+        if (allUnselected)
+        {
+          this.selectedDatasets[0] = true;
+        }
       }
     )
   }

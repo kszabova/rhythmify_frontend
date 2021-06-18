@@ -1,4 +1,9 @@
 <div class="floating-panel">
+    <div class="toggle-panel" (click)="displaySelection = !displaySelection">
+        <div class="toggle-text">
+            <h3>Data sources</h3>
+        </div>
+    </div>
     <div class="source-selection" *ngIf="dataSources && displaySelection">
         <mat-card>
             <div *ngFor="let source of dataSources; let i = index">
@@ -7,10 +12,5 @@
             <br>
             <button mat-stroked-button id="select-button" (click)="changeSelection()">Save</button>
         </mat-card>
-    </div>
-    <div class="toggle-panel">
-        <button mat-mini-fab color="primary" (click)="displaySelection = !displaySelection">
-            <mat-icon>filter_list</mat-icon>
-        </button>
     </div>
 </div>
