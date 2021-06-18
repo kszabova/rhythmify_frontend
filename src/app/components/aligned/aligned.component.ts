@@ -15,7 +15,8 @@ export class AlignedComponent implements OnInit {
   idsToAlign: number[];
   blob: Blob;
   visibleDetails: {[id: number]: boolean} = {};
-  visibleAlignment: boolean[] = [];
+  alignmentPresent: boolean[] = [];
+  alignmentUncollapsed: boolean[] = [];
 
   constructor(
     private chantService: ChantService,
@@ -31,7 +32,8 @@ export class AlignedComponent implements OnInit {
       response => {
         this.aligned = response;
         this.aligned.chants.forEach(_=> {
-          this.visibleAlignment.push(true);
+          this.alignmentPresent.push(true);
+          this.alignmentUncollapsed.push(true);
         });
 
         if (this.aligned.errors.length > 0) {
@@ -47,15 +49,25 @@ export class AlignedComponent implements OnInit {
     this.visibleDetails[id] = !this.visibleDetails[id];
   }
 
-  hideAlignment(i: number): void {
-    this.visibleAlignment[i] = false;
+  deleteAlignment(i: number): void {
+    this.alignmentPresent[i] = false;
+    this.alignmentUncollapsed[i] = false;
     this.visibleDetails[this.aligned.success.ids[i]] = false;
+  }
+
+  collapseAlignment(i: number): void {
+    this.alignmentUncollapsed[i] = false;
+    this.visibleDetails[this.aligned.success.ids[i]] = false;
+  }
+
+  uncollapseAlignment(i: number): void {
+    this.alignmentUncollapsed[i] = true;
   }
 
   createBlob(): Blob {
     let blobText: string = "";
     for (let i = 0; i < this.aligned.success.urls.length; i++) {
-      if (this.visibleAlignment[i]) {
+      if (this.alignmentPresent[i]) {
         blobText += "> " + this.aligned.success.urls[i] + "\n";
         blobText += this.aligned.success.volpianos[i] + "\n";
       }

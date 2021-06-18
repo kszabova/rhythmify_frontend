@@ -1,15 +1,21 @@
 <div class="alignment">
    <div class="scrollable" *ngIf="aligned; else progressSpinner">
         <div *ngFor="let chant of aligned.chants; let i = index" class="card">
-            <div *ngIf="visibleAlignment[i]">
+            <div *ngIf="alignmentPresent[i]">
+                <div *ngIf="alignmentUncollapsed[i]; else collapsed">
                 <mat-card>
                     <div class="chant">
                         <mat-card-title-group>
                             <div class="title-group">
                                 <button mat-button class="title-button" (click)="showDetail(aligned.success.ids[i])">{{ aligned.success.sources[i] }}</button>
-                                <button mat-button class="close-button" (click)="hideAlignment(i)">
-                                    <mat-icon>close</mat-icon>
-                                </button>
+                                <div class="alignment-options">
+                                    <button mat-button class="collapse-button" (click)="collapseAlignment(i)">
+                                        <mat-icon>keyboard_arrow_up</mat-icon>
+                                    </button>
+                                    <button mat-button class="delete-button" (click)="deleteAlignment(i)">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                </div>
                             </div>
                         </mat-card-title-group>
                         <br>
@@ -26,6 +32,26 @@
                         </div>
                     </div>
                 </mat-card>
+                </div>
+                <ng-template #collapsed>
+                    <mat-card>
+                        <div class="collapsed-chant">
+                            <mat-card-title-group>
+                                <div class="title-group">
+                                    <button mat-button class="title-button" (click)="showDetail(aligned.success.ids[i])">{{ aligned.success.sources[i] }}</button>
+                                    <div class="alignment-options">
+                                        <button mat-button class="collapse-button" (click)="uncollapseAlignment(i)">
+                                            <mat-icon>keyboard_arrow_down</mat-icon>
+                                        </button>
+                                        <button mat-button class="delete-button" (click)="deleteAlignment(i)">
+                                            <mat-icon>close</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </mat-card-title-group>
+                        </div>
+                    </mat-card>
+                </ng-template>
             </div>
             <div class="detail" *ngIf="visibleDetails[aligned.success.ids[i]]">
                 <app-chant-details [id]="aligned.success.ids[i]"></app-chant-details>
