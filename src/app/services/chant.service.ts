@@ -5,6 +5,7 @@ import { IChant } from '../interfaces/chant.interface';
 import { ChantFacadeService } from './chant-facade.service';
 import { IChantPrecomputed } from '../interfaces/chant-precomputed.interface';
 import { DataSourceService } from './data-source.service';
+import { switchMap } from 'rxjs/operators';
 
 const baseUrl = 'http://localhost:8000/api/chants';
 
@@ -21,8 +22,10 @@ export class ChantService {
   private readonly _chant = new BehaviorSubject<IChant>(null);
 
   getAll(): Observable<any> {
-    let dataSources = this.dataSourceService.sourceList;
-    return this.http.post(`${baseUrl}/`, dataSources);
+    return this.dataSourceService.getSourceList()
+      .pipe(
+        switchMap(dataSources => this.http.post(`${baseUrl}/`, dataSources))
+      );
   }
 
   get(id: any): Observable<IChant> {
@@ -47,8 +50,10 @@ export class ChantService {
   // }
 
   findByIncipit(incipit: string): Observable<any> {
-    let dataSources = this.dataSourceService.sourceList;
-    return this.http.post(`${baseUrl}?incipit=${incipit}/`, dataSources);
+    return this.dataSourceService.getSourceList()
+      .pipe(
+        switchMap(dataSources => this.http.post(`${baseUrl}?incipit=${incipit}/`, dataSources))
+      );
   }
 
   setChant(id: number): void {
@@ -64,13 +69,16 @@ export class ChantService {
   }
 
   setList(incipit: string = null): void {
-    let dataSources = this.dataSourceService.sourceList;
-    let url: string = incipit ? 
+    this.dataSourceService.getSourceList().subscribe(
+      dataSources => {
+        let url: string = incipit ? 
                         `${baseUrl}?incipit=${incipit}/` :
                         `${baseUrl}/`;
-    this.http.post(url, dataSources).subscribe(
-      (data: IChant[]) => this.chantFacadeService.setList(data)
-    );
+        this.http.post(url, dataSources).subscribe(
+          (data: IChant[]) => this.chantFacadeService.setList(data)
+        );
+      }
+    )
   }
 
   getAligned(data: number[]): Observable<any> {

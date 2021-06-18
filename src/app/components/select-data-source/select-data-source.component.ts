@@ -26,14 +26,16 @@ export class SelectDataSourceComponent implements OnInit {
     this.getDataSources();
   }
 
-  changeSelection(): void {
+  changeSelection(showDialog: boolean = true): void {
     let selected: number[] = [];
     for (let i = 0; i < this.selectedDatasets.length; i++) {
       if (this.selectedDatasets[i]) selected.push(this.dataSources[i][0]);
     }
-    this.dataSourceService.sourceList = selected;
+    this.dataSourceService.setSourceList(selected);
 
-    this.dialog.open(SourceSelectionSavedDialogComponent);
+    if (showDialog) {
+      this.dialog.open(SourceSelectionSavedDialogComponent);
+    }
   }
 
   getDataSources(): void {
@@ -42,7 +44,7 @@ export class SelectDataSourceComponent implements OnInit {
         this.selectedDatasets = [];
         this.dataSources = data;
 
-        const storedSelection = this.dataSourceService.sourceList;
+        const storedSelection = this.dataSourceService.getStoredSourceList();
         let allUnselected = true;
 
         this.dataSources.forEach(element => {
@@ -60,6 +62,8 @@ export class SelectDataSourceComponent implements OnInit {
         {
           this.selectedDatasets[0] = true;
         }
+
+        this.changeSelection(false);
       }
     )
   }
