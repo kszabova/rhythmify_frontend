@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IScatterData } from 'src/app/interfaces/scatter-data.interface';
+import { Router } from '@angular/router';
 
 import * as d3 from 'd3';
 
@@ -26,7 +27,9 @@ export class MultipleSeriesScatterplotComponent implements OnInit {
 
   private svg;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.createSvg();
@@ -61,11 +64,15 @@ export class MultipleSeriesScatterplotComponent implements OnInit {
             .selectAll("circle")
             .data(data)
             .join("circle")
+            .attr("class", "datapoint")
             .attr("cx", d => x(d.x))
             .attr("cy", d => y(d.y))
             .attr("fill", d=>color[d.genre])
             .style("stroke", d => color[d.genre])
-            .attr("r", 3);
+            .attr("r", 3)
+            .on('click', (_, d) =>
+              this.router.navigate(['/chants', d.id])
+            );
 
     // draw axes
     var xAxis = g => g

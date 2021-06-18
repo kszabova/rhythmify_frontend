@@ -71,7 +71,8 @@ export class DashboardComponent implements OnInit {
               chant => ({
                 "x": chant.volpiano.split('-').join('').length,
                 "y": chant.full_text.split(" ").length,
-                "genre": chant.genre_id == "genre_a" ? 0 : 1
+                "genre": chant.genre_id == "genre_a" ? 0 : 1,
+                "id": chant.id
               })
         );
       }
