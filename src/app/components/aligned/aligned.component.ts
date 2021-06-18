@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { AlignmentService } from 'src/app/services/alignment.service';
 import { ChantService } from 'src/app/services/chant.service';
 import { AlignmentErrorDialogComponent } from '../dialogs/alignment-error-dialog/alignment-error-dialog.component';
@@ -62,6 +63,16 @@ export class AlignedComponent implements OnInit {
 
   uncollapseAlignment(i: number): void {
     this.alignmentUncollapsed[i] = true;
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.aligned.chants, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.aligned.success.ids, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.aligned.success.sources, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.aligned.success.volpianos, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.aligned.success.urls, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.alignmentPresent, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.alignmentUncollapsed, event.previousIndex, event.currentIndex);
   }
 
   createBlob(): Blob {

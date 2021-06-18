@@ -17,6 +17,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddChantComponent } from './components/legacy/add-chant/add-chant.component';
@@ -87,7 +89,8 @@ import { UploadSuccessfulDialogComponent } from './components/dialogs/upload-suc
     MatCardModule,
     MatDialogModule,
     MatDividerModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    DragDropModule
   ],
   entryComponents: [
     ChantDetailDialogComponent
