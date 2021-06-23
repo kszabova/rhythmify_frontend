@@ -6,6 +6,7 @@ import { AlignedComponent } from './components/aligned/aligned.component';
 import { DashboardComponent } from './components/visualization/dashboard/dashboard.component';
 import { ChantListWrapperComponent } from './components/chant-list-wrapper/chant-list-wrapper.component';
 import { DataUploadComponent } from './components/data-upload/data-upload.component';
+import { AlignTextComponent } from './components/align-text/align-text.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'chants/:id', component: ChantFetchComponent },
   { path: 'add', component: AddChantComponent },
   { path: 'align', component: AlignedComponent },
+  { path: 'align-text', component: AlignTextComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'upload', component: DataUploadComponent }
 ];

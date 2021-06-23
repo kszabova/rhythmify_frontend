@@ -1,0 +1,32 @@
+.full-text {
+    font-size: large;
+}
+
+.card {
+    margin: 20px;
+}
+
+.title-group {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}
+
+
+.scrollable {
+    overflow-x: scroll;
+}
+
+.alignment {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.color-checkbox, .header-checkbox {
+    margin-left: 20px;
+}
+
+.spinner {
+    margin: auto;
+}

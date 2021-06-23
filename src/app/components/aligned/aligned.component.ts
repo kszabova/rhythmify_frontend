@@ -29,9 +29,8 @@ export class AlignedComponent implements OnInit {
 
   ngOnInit(): void {
     this.idsToAlign = this.alignmentService.idsToAlign;
-    console.log(this.idsToAlign);
 
-    this.chantService.getAligned(this.idsToAlign).subscribe(
+    this.chantService.getAlignedMelodies(this.idsToAlign).subscribe(
       response => {
         this.aligned = response;
         this.aligned.chants.forEach(_=> {

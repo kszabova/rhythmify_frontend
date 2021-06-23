@@ -12,3 +12,7 @@ a {
   color: unset;
   text-decoration: unset;
 }
+
+button {
+  margin: 10px;
+}

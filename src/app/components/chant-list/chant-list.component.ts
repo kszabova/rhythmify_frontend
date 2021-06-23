@@ -126,7 +126,7 @@ export class ChantListComponent implements OnInit {
     }
   }
 
-  getSelected(): void {
+  getSelected(): boolean {
     var toAlign: number[] = [];
     for (var i = 0; i < this.selected.length; i++) {
       if (this.selected[i]) {
@@ -136,12 +136,22 @@ export class ChantListComponent implements OnInit {
 
     if (toAlign.length < 2) {
       const dialogRef = this.dialog.open(NotEnoughToAlingDialogComponent);
-      return;
+      return false;
     }
 
-    console.log(toAlign);
     this.alignmentService.idsToAlign = toAlign;
-    this.router.navigate(['/align']);
+    return true;
   }
 
+  alignMelody(): void {
+    if (this.getSelected()) {
+      this.router.navigate(['/align']);
+    }
+  }
+
+  alignText(): void {
+    if (this.getSelected()) {
+      this.router.navigate(['/align-text']);
+    }
+  }
 }

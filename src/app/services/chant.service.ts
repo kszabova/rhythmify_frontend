@@ -81,8 +81,12 @@ export class ChantService {
     )
   }
 
-  getAligned(data: number[]): Observable<any> {
+  getAlignedMelodies(data: number[]): Observable<any> {
     return this.http.post(`${baseUrl}/align/`, data);
+  }
+
+  getAlignedTexts(data: number[]): Observable<any> {
+    return this.http.post(`${baseUrl}/align-text/`, data);
   }
 
   updateSelection(data: number[]): Observable<any> {

@@ -44,6 +44,7 @@ import { DataUploadComponent } from './components/data-upload/data-upload.compon
 import { SelectDataSourceComponent } from './components/select-data-source/select-data-source.component';
 import { SourceSelectionSavedDialogComponent } from './components/dialogs/source-selection-saved-dialog/source-selection-saved-dialog.component';
 import { UploadSuccessfulDialogComponent } from './components/dialogs/upload-successful-dialog/upload-successful-dialog.component';
+import { AlignTextComponent } from './components/align-text/align-text.component';
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { UploadSuccessfulDialogComponent } from './components/dialogs/upload-suc
     DataUploadComponent,
     SelectDataSourceComponent,
     SourceSelectionSavedDialogComponent,
-    UploadSuccessfulDialogComponent
+    UploadSuccessfulDialogComponent,
+    AlignTextComponent
   ],
   imports: [
     BrowserModule,
