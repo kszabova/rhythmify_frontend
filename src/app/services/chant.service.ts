@@ -71,10 +71,10 @@ export class ChantService {
   setList(incipit: string = null): void {
     this.dataSourceService.getSourceList().subscribe(
       dataSources => {
-        let url: string = incipit ? 
-                        `${baseUrl}?incipit=${incipit}/` :
-                        `${baseUrl}/`;
-        this.http.post(url, dataSources).subscribe(
+        const formData: FormData = new FormData();
+        formData.append('dataSources', JSON.stringify(dataSources));
+        formData.append('incipit', incipit ? incipit : '');
+        this.http.post(baseUrl + '/', formData).subscribe(
           (data: IChant[]) => this.chantFacadeService.setList(data)
         );
       }
