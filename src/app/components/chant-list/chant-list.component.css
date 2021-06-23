@@ -16,3 +16,7 @@ a {
 button {
   margin: 10px;
 }
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

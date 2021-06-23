@@ -1,21 +1,6 @@
 <div class="list row">
     <div class="col-md-8">
       <div class="input-group mb-3">
-        <!-- <input
-          type="text"
-          class="form-control"
-          placeholder="Search by incipit"
-          [(ngModel)]="incipit"
-        />
-        <div class="input-group-append">
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            (click)="searchIncipit()"
-          >
-            Search
-          </button>
-        </div> -->
       </div>
     </div>
     <div class="col-md-6">
@@ -29,20 +14,36 @@
           [(ngModel)]="selectedAll">
           Select all
         </mat-checkbox>
-        <ul>
-          <li mat-cell
+        <table>
+          <tr>
+            <th></th>
+            <th>Incipit</th>
+            <th>Source</th>
+            <th>Genre</th>
+            <th>Dataset name</th>
+          </tr>
+          <tr mat-cell
             class="list-group-item"
             *ngFor="let chant of chants; let i = index">
-            <mat-checkbox
-              class="margin-right"
-              [(ngModel)]="selected[pageIndex * pageSize + i]">
+            <td>
+              <mat-checkbox
+                class="margin-right"
+                [(ngModel)]="selected[pageIndex * pageSize + i]">
+                <!-- <a [routerLink]="['/chants', chant.id]">
+                  {{ chant.incipit }} ({{ chant.siglum }}, {{ chant.folio }}, {{ chant.position }})
+                </a> -->
+              </mat-checkbox>
+            </td>
+            <td>
               <a [routerLink]="['/chants', chant.id]">
-                {{ chant.incipit }} ({{ chant.siglum }}, {{ chant.folio }}, {{ chant.position }})
+                {{ chant.incipit }}
               </a>
-            </mat-checkbox>
-            <!-- <mat-icon [routerLink]="['/chants', chant.id]">open_in_new</mat-icon> -->
-          </li>
-        </ul>
+            </td>
+            <td>{{ chant.siglum }}, {{ chant.folio }}, {{ chant.position }}</td>
+            <td>{{ chant.genre_id }}</td>
+            <td>{{ chant.dataset_name }}</td>
+          </tr>
+        </table>
         <mat-paginator #paginator
           [length]="dataLength"
           [pageSize]="pageSize"
@@ -51,44 +52,4 @@
           (page)="changePage($event)">
         </mat-paginator>
       </ng-container>
-      <!-- <mat-checkbox (change)="selectAll();">Select all</mat-checkbox>
-      <ul class="list-group">
-        <li
-          class="list-group-item"
-          *ngFor="let chant of chants; let i = index"
-          [class.active]="i == currentIndex"
-          (click)="setActiveChant(chant, i)"
-        >
-          <mat-checkbox (change)="checkboxChanged($event.checked, chant.id);" class="chant-checkbox">
-            {{ chant.incipit }}
-          </mat-checkbox>
-        </li>
-      </ul> -->
-  
-    <!-- </div>
-    <div class="col-md-6">
-      <div *ngIf="currentChant">
-        <h4>Chant</h4>
-        <div>
-          <label><strong>incipit:</strong></label> {{ currentChant.incipit }}
-        </div>
-        <div>
-          <label><strong>Volpiano:</strong></label>
-          {{ currentChant.volpiano }}
-        </div>
-        <div>
-            <label><strong>Full Text:</strong></label>
-            {{ currentChant.full_text }}
-          </div>
-  
-        <a class="badge badge-warning" routerLink="/chants/{{ currentChant.id }}">
-          Edit
-        </a>
-      </div>
-  
-      <div *ngIf="!currentChant">
-        <br />
-        <p>Please click on a Chant...</p>
-      </div>
-    </div> -->
   </div>
