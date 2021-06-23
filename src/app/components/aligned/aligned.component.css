@@ -5,7 +5,7 @@
 .title-group {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
 }
 
 .download-button {
@@ -22,14 +22,10 @@
     display: flex;
 }
 
-.color-checkbox {
+.color-checkbox, .header-checkbox {
     margin-left: 20px;
 }
 
 .spinner {
     margin: auto;
-}
-
-mat-card {
-    width: fit-content;
 }

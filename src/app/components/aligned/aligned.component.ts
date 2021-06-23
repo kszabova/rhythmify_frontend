@@ -19,6 +19,7 @@ export class AlignedComponent implements OnInit {
   alignmentPresent: boolean[] = [];
   alignmentUncollapsed: boolean[] = [];
   showColors: boolean = false;
+  showHeaders: boolean = true;
 
   constructor(
     private chantService: ChantService,
