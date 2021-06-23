@@ -22,6 +22,10 @@
     display: flex;
 }
 
+.color-checkbox {
+    margin-left: 20px;
+}
+
 .spinner {
     margin: auto;
 }

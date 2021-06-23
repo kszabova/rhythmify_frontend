@@ -1,5 +1,5 @@
 <div class="alignment">
-   <div cdkDropList class="scrollable" *ngIf="aligned; else progressSpinner" (cdkDropListDropped)="drop($event)">
+    <div cdkDropList class="scrollable" *ngIf="aligned; else progressSpinner" (cdkDropListDropped)="drop($event)">
         <div *ngFor="let chant of aligned.chants; let i = index" class="card" cdkDrag>
             <div *ngIf="alignmentPresent[i]">
                 <div *ngIf="alignmentUncollapsed[i]; else collapsed">
@@ -22,7 +22,10 @@
                             <div *ngFor="let word of chant; let lastWord = last" class="word">
                                 <div *ngFor="let syllable of word; let lastSyllable = last" class="syllable">
                                     <div class="volpiano">
-                                        <span class="neumes">{{ syllable.volpiano }}</span>
+                                        <span class="neumes" *ngFor="let neume of syllable.volpiano">
+                                            <span *ngIf="showColors" [ngStyle]="getColor(neume)">{{ neume }}</span>
+                                            <span *ngIf="!showColors">{{ neume }}</span>
+                                        </span>
                                         <span *ngIf="lastSyllable && !lastWord" class="bar">7</span>
                                     </div>
                                     <div class="text">
@@ -57,6 +60,7 @@
                 <app-chant-details [id]="aligned.success.ids[i]"></app-chant-details>
             </div> 
         </div>
+        <mat-checkbox [(ngModel)]="showColors" class="color-checkbox">Show colors</mat-checkbox><br>
         <button mat-raised-button (click)="downloadAligned()" color="primary" class="download-button">Download</button>
     </div>
     <ng-template #progressSpinner>

@@ -18,6 +18,7 @@ export class AlignedComponent implements OnInit {
   visibleDetails: {[id: number]: boolean} = {};
   alignmentPresent: boolean[] = [];
   alignmentUncollapsed: boolean[] = [];
+  showColors: boolean = false;
 
   constructor(
     private chantService: ChantService,
@@ -95,6 +96,23 @@ export class AlignedComponent implements OnInit {
     anchor.setAttribute('download', "aligned.txt");
     document.body.appendChild(anchor);
     anchor.click();
+  }
+
+  getColor(neume: string): object {
+    let color: string = null;
+    switch (neume) {
+      case '9': case 'j': case 's': case 'H': case 'R': color = '#D3FF5C'; break;
+      case 'a': case 'k': case ')': case 'J': case 'S': color = '#06D6A0'; break;
+      case 'b': case 'l': case 'A': case 'K': color = '#1B9AAA'; break;
+      case 'c': case 'm': case 'B': case 'L': color = '#EF476F'; break;
+      case 'd': case 'n': case 'C': case 'M': color = '#FFC43D'; break;
+      case 'e': case 'o': case 'D': case 'N': color = '#FF6700'; break;
+      case 'f': case 'p': case 'E': case 'O': color = '#004E98'; break;
+      case 'g': case 'q': case 'F': case 'P': color = '#FFE5D9'; break;
+      case 'h': case 'r': case 'G': case 'Q': color = '#A23F8F'; break;
+      default: color = '#FFFFFF';
+    }
+    return {'background-color': color};
   }
 
 }
