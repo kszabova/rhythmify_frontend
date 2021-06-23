@@ -31,6 +31,10 @@ export class CsvTranslateService {
   }
 
   getOffice(office_id: string): Observable<string> {
+    if (null === office_id) {
+      return of("Unknown");
+    }
+
     if (!this.offices) {
       return this.loadCSV("offices").pipe(map(
         data => {

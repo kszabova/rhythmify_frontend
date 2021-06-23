@@ -33,7 +33,9 @@
                   <span *ngIf="syllable.annotation" class="annotation">{{ syllable.annotation }}</span>
                   <ng-container *ngIf="syllable.lyric; else noLyric">
                     <span>
-                      <span class="lyric" [ngClass]="{'stressed': chant.stresses[wordIdx - 1][sylIdx]}">{{ syllable.lyric }}</span>
+                      <span class="lyric" [ngClass]="{'stressed': chant.stresses.length > 0 && chant.stresses[wordIdx - 1][sylIdx]}">
+                        {{ syllable.lyric }}
+                      </span>
                       <span *ngIf="word.elements.length > 1 && !lastSyllable" class="hyphen">-</span>
                     </span>
                   </ng-container>
