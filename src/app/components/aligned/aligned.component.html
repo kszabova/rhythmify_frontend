@@ -16,14 +16,14 @@
                                 <button mat-button class="title-button" (click)="showDetail(aligned.success.ids[i])">{{ aligned.success.sources[i] }}</button>
                             </div>
                             <br>
-                            <div *ngFor="let word of chant; let lastWord = last" class="word">
+                            <div *ngFor="let word of chant; let idx = index" class="word">
                                 <div *ngFor="let syllable of word; let lastSyllable = last" class="syllable">
                                     <div class="volpiano">
                                         <span class="neumes" *ngFor="let neume of syllable.volpiano">
                                             <span *ngIf="showColors" [ngStyle]="getColor(neume)">{{ neume }}</span>
                                             <span *ngIf="!showColors">{{ neume }}</span>
                                         </span>
-                                        <span *ngIf="lastSyllable && !lastWord" class="bar">7</span>
+                                        <span *ngIf="lastSyllable && !(idx == chant.length - 1) && !(idx == chant.length - 2)" class="bar">-3-</span>
                                     </div>
                                     <div class="text">
                                         <span class="lyric">{{ syllable.text }}</span>
