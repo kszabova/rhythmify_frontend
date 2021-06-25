@@ -126,21 +126,33 @@ export class ChantListComponent implements OnInit {
     }
   }
 
-  getSelected(): boolean {
-    var toAlign: number[] = [];
+  getSelected(): number[] {
+    var checkboxChecked: number[] = [];
     for (var i = 0; i < this.selected.length; i++) {
       if (this.selected[i]) {
-        toAlign.push(this.allChants[i].id);
+        checkboxChecked.push(this.allChants[i].id);
       }
     }
 
-    if (toAlign.length < 2) {
+    return checkboxChecked;
+  }
+
+  align(mode: string): void {
+    // get list of selected chants
+    let selected = this.getSelected();
+    if (selected.length < 2) {
       const dialogRef = this.dialog.open(NotEnoughToAlingDialogComponent);
-      return false;
+      return;
     }
 
-    this.alignmentService.idsToAlign = toAlign;
-    return true;
+    let result = this.alignmentService.setMode(mode);
+    if (result === 1) {
+      // show error
+      return;
+    }
+
+    this.alignmentService.idsToAlign = selected;
+    this.router.navigate(['/align']);
   }
 
   alignMelody(): void {

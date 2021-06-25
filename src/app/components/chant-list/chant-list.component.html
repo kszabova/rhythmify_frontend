@@ -4,8 +4,8 @@
       </div>
     </div>
     <div class="col-md-6">
-      <button mat-raised-button color="accent" (click)="alignMelody()">Align melody</button>
-      <button mat-raised-button color="accent" (click)="alignText()">Align text</button>
+      <button mat-raised-button color="accent" (click)="align('full')">Align melody</button>
+      <button mat-raised-button color="accent" (click)="align('syllables')">Align text</button>
       <br>
       <ng-container>
         <mat-checkbox
@@ -29,9 +29,6 @@
               <mat-checkbox
                 class="margin-right"
                 [(ngModel)]="selected[pageIndex * pageSize + i]">
-                <!-- <a [routerLink]="['/chants', chant.id]">
-                  {{ chant.incipit }} ({{ chant.siglum }}, {{ chant.folio }}, {{ chant.position }})
-                </a> -->
               </mat-checkbox>
             </td>
             <td>

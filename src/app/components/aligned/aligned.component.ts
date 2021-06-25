@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AlignmentService } from 'src/app/services/alignment.service';
 import { ChantService } from 'src/app/services/chant.service';
 import { AlignmentErrorDialogComponent } from '../dialogs/alignment-error-dialog/alignment-error-dialog.component';
@@ -20,6 +20,7 @@ export class AlignedComponent implements OnInit {
   alignmentUncollapsed: boolean[] = [];
   showColors: boolean = false;
   showHeaders: boolean = true;
+  mode: string;
 
   constructor(
     private chantService: ChantService,
@@ -29,8 +30,13 @@ export class AlignedComponent implements OnInit {
 
   ngOnInit(): void {
     this.idsToAlign = this.alignmentService.idsToAlign;
+    this.mode = this.alignmentService.getMode();
 
-    this.chantService.getAlignedMelodies(this.idsToAlign).subscribe(
+    const formData: FormData = new FormData();
+    formData.append('idsToAlign', JSON.stringify(this.idsToAlign));
+    formData.append('mode', this.mode);
+
+    this.chantService.getAlignment(formData).subscribe(
       response => {
         this.aligned = response;
         this.aligned.chants.forEach(_=> {
