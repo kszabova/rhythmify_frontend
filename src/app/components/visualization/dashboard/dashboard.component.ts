@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IScatterData } from 'src/app/interfaces/scatter-data.interface';
 import { IStackedHistogram } from 'src/app/interfaces/stacked-histogram.interface';
+import { ChantFacadeService } from 'src/app/services/chant-facade.service';
 import { ChantService } from 'src/app/services/chant.service';
 
 @Component({
@@ -35,11 +36,12 @@ export class DashboardComponent implements OnInit {
   multiScatterYName = "Text Length";
 
   constructor(
-    private chantService: ChantService
+    private chantService: ChantService,
+    private chantFacadeService: ChantFacadeService
   ) { }
 
   ngOnInit(): void {
-    this.chantService.getAll().subscribe(
+    this.chantFacadeService.getList().subscribe(
       (all_data: any) => {
         let data = all_data.slice(0, 10000);
         console.log(data);
