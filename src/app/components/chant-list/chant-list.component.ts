@@ -2,9 +2,11 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import { IChant } from 'src/app/interfaces/chant.interface';
 import { AlignmentService } from 'src/app/services/alignment.service';
 import { ChantFacadeService } from 'src/app/services/chant-facade.service';
+import { CsvTranslateService } from 'src/app/services/csv-translate.service';
 import { NotEnoughToAlingDialogComponent } from '../dialogs/not-enough-to-aling-dialog/not-enough-to-aling-dialog.component';
 
 @Component({
@@ -31,6 +33,7 @@ export class ChantListComponent implements OnInit {
     private router: Router,
     private chantFacadeService: ChantFacadeService,
     private alignmentService: AlignmentService,
+    private csvTranslateService: CsvTranslateService,
     public dialog: MatDialog
   ) { }
 
@@ -165,5 +168,13 @@ export class ChantListComponent implements OnInit {
     if (this.getSelected()) {
       this.router.navigate(['/align-text']);
     }
+  }
+
+  getGenreName(genreId: string): string {
+    let genreName;
+    this.csvTranslateService.getGenre(genreId).subscribe(
+      data => genreName = data
+    );
+    return genreName;
   }
 }
