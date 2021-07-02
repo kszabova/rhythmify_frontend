@@ -22,7 +22,9 @@
     display: flex;
 }
 
-.color-checkbox, .header-checkbox {
+.color-checkbox,
+.conservation-checkbox,
+.header-checkbox {
     margin-left: 20px;
 }
 

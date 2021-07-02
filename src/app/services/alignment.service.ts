@@ -27,7 +27,13 @@ export class AlignmentService {
   }
 
   getMode(): string {
-    return this._mode;
+    const storedMode = this.storage.getItem('alignmentMode');
+    if (null === storedMode) {
+      return 'full';
+    }
+    else {
+      return storedMode;
+    }
   }
 
   setMode(mode: string): number {
@@ -35,6 +41,7 @@ export class AlignmentService {
       return 1;
     }
 
+    this.storage.setItem('alignmentMode', mode);
     this._mode = mode;
     return 0;
   }
