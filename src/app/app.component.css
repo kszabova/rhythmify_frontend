@@ -1,9 +1,20 @@
-div {
+.navigation {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
-div * {
+.navigation * {
     flex: 1;
+}
+
+.navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+.body {
+    margin-top: 70px;
 }

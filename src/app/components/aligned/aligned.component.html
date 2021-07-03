@@ -1,7 +1,7 @@
 <div class="alignment">
     <div cdkDropList class="scrollable" *ngIf="aligned; else progressSpinner" (cdkDropListDropped)="drop($event)">
         <div class="mode-selector">
-            <h4>Select display mode</h4>
+            <h3>Select display mode</h3>
             <mat-button-toggle-group [(ngModel)]="displayMode" aria-label="Display Mode">
                 <mat-button-toggle value="volpiano">Volpiano</mat-button-toggle>
                 <mat-button-toggle value="raw">Raw</mat-button-toggle>
@@ -27,7 +27,7 @@
                             </div>
                             <br>
                             <div *ngFor="let word of chant; let wordIdx = index" class="word">
-                                <div *ngFor="let syllable of word; let lastSyllable = last; let sylIdx = index" class="syllable">
+                                <div *ngFor="let syllable of word; let lastSyllable = last; let sylIdx = index" [attr.class]="showHeaders ? 'syllable' : 'syllable-nomargin'">
                                     <div [attr.class]="displayMode">
                                         <span class="neumes" *ngFor="let neume of syllable.volpiano; let neumeIdx = index">
                                             <span *ngIf="showColors" [ngStyle]="getColor(neume)">{{ neume }}</span>
@@ -37,9 +37,8 @@
                                         </span>
                                         <span *ngIf="lastSyllable && !(wordIdx == chant.length - 1) && !(wordIdx == chant.length - 2)" class="bar">-3-</span>
                                     </div>
-                                    <div class="text">
+                                    <div *ngIf="showHeaders" class="text">
                                         <span class="lyric">{{ syllable.text }}</span>
-                                        <!-- <span class="lyric">{{ sylIdx }}</span> -->
                                     </div>
                                 </div>
                             </div>
@@ -68,6 +67,7 @@
                 <app-chant-details [id]="aligned.success.ids[volpianoIdx]"></app-chant-details>
             </div> 
         </div>
+        <br>
         <mat-checkbox [(ngModel)]="showHeaders" class="header-checkbox">Show headers</mat-checkbox><br>
         <mat-checkbox [(ngModel)]="showColors" class="color-checkbox">Show colors</mat-checkbox><br>
         <mat-checkbox [(ngModel)]="showConservation" class="conservation-checkbox">Show conservation</mat-checkbox><br>
