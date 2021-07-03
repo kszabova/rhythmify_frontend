@@ -1,5 +1,12 @@
 <div class="alignment">
     <div cdkDropList class="scrollable" *ngIf="aligned; else progressSpinner" (cdkDropListDropped)="drop($event)">
+        <div class="mode-selector">
+            <h4>Select display mode</h4>
+            <mat-button-toggle-group [(ngModel)]="displayMode" aria-label="Display Mode">
+                <mat-button-toggle value="volpiano">Volpiano</mat-button-toggle>
+                <mat-button-toggle value="raw">Raw</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
         <div *ngFor="let chant of aligned.chants; let volpianoIdx = index" class="card" cdkDrag>
             <div *ngIf="alignmentPresent[volpianoIdx]">
                 <div *ngIf="alignmentUncollapsed[volpianoIdx]; else collapsed">
@@ -21,7 +28,7 @@
                             <br>
                             <div *ngFor="let word of chant; let wordIdx = index" class="word">
                                 <div *ngFor="let syllable of word; let lastSyllable = last; let sylIdx = index" class="syllable">
-                                    <div class="volpiano">
+                                    <div [attr.class]="displayMode">
                                         <span class="neumes" *ngFor="let neume of syllable.volpiano; let neumeIdx = index">
                                             <span *ngIf="showColors" [ngStyle]="getColor(neume)">{{ neume }}</span>
                                             <span *ngIf="showConservation"
@@ -32,6 +39,7 @@
                                     </div>
                                     <div class="text">
                                         <span class="lyric">{{ syllable.text }}</span>
+                                        <!-- <span class="lyric">{{ sylIdx }}</span> -->
                                     </div>
                                 </div>
                             </div>

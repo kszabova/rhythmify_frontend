@@ -18,8 +18,8 @@
 
 .alignment {
     width: 100%;
-    height: 100%;
     display: flex;
+    flex-direction: column;
 }
 
 .color-checkbox,
@@ -30,4 +30,12 @@
 
 .spinner {
     margin: auto;
+}
+
+.raw {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.mode-selector {
+    margin: 20px;
 }

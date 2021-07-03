@@ -16,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -92,7 +93,8 @@ import { AlignTextComponent } from './components/align-text/align-text.component
     MatDialogModule,
     MatDividerModule,
     MatProgressSpinnerModule,
-    DragDropModule
+    DragDropModule,
+    MatButtonToggleModule
   ],
   entryComponents: [
     ChantDetailDialogComponent

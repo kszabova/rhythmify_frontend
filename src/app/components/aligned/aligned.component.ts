@@ -25,6 +25,7 @@ export class AlignedComponent implements OnInit {
   mode: string;
   conservationProfile: number[][][][];
   conservationChanged = true;
+  displayMode: string = "volpiano";
 
   constructor(
     private chantService: ChantService,
@@ -120,7 +121,6 @@ export class AlignedComponent implements OnInit {
                        sylIdx: number, 
                        neumeIdx: number): number {
     if (this.conservationChanged) {
-      console.log("here");
       this.conservationProfile = 
         this.conservationProfileService.calculateConservationProfile(
           this.aligned.success.volpianos);
