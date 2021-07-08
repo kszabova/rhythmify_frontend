@@ -35,7 +35,6 @@
                                                   [ngStyle]="getConservationColor(volpianoIdx, wordIdx, sylIdx, neumeIdx)">{{ neume }}</span>
                                             <span *ngIf="!showColors && !showConservation">{{ neume }}</span>
                                         </span>
-                                        <span *ngIf="lastSyllable && !(wordIdx == chant.length - 1) && !(wordIdx == chant.length - 2)" class="bar">-3-</span>
                                     </div>
                                     <div *ngIf="showHeaders" class="text">
                                         <span class="lyric">{{ syllable.text }}</span>
