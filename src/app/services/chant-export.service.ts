@@ -13,7 +13,6 @@ export class ChantExportService {
 
   exportChants(ids: number[]): Observable<any> {
     let formData = new FormData();
-    console.log(ids);
     formData.append('idsToExport', JSON.stringify(ids));
     return this.chantService.exportChants(formData);
   }
