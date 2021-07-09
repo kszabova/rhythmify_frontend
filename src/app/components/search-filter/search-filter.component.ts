@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CsvTranslateService } from 'src/app/services/csv-translate.service';
+import { SearchFilterService } from 'src/app/services/search-filter.service';
 import { SavedFilterDialogComponent } from '../dialogs/saved-filter-dialog/saved-filter-dialog.component';
 
 @Component({
@@ -25,11 +26,13 @@ export class SearchFilterComponent implements OnInit {
 
   constructor(
     private csvTranslateService: CsvTranslateService,
+    private searchFilterService: SearchFilterService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.initGenresAndOffices();
+
   }
 
   initGenresAndOffices(): void {
@@ -49,12 +52,38 @@ export class SearchFilterComponent implements OnInit {
           this.officeIds.push(key);
           this.checkedOffices.push(true);
         });
+        this.saveFilter(false);
       }
     );
   }
 
-  saveFilter(): void {
-    this.dialog.open(SavedFilterDialogComponent);
+  getFilterSettings(): object {
+    let genres = [];
+    for (let g = 0; g < this.checkedGenres.length; g++) {
+      if (this.checkedGenres[g]) {
+        genres.push(this.genreIds[g]);
+      }
+    }
+
+    let offices = [];
+    for (let o = 0; o < this.checkedOffices.length; o++) {
+      if (this.checkedOffices[o]) {
+        offices.push(this.officeIds[o]);
+      }
+    }
+
+    return {
+      "genres": genres,
+      "offices": offices
+    };
+  }
+
+  saveFilter(showDialog: boolean = true): void {
+    let filterSettings = this.getFilterSettings();
+    this.searchFilterService.setFilterSettings(filterSettings);
+    if (showDialog) {
+      this.dialog.open(SavedFilterDialogComponent);
+    }
   }
 
   checkAllGenres(): void {

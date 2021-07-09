@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { IChant } from '../interfaces/chant.interface';
 import { ChantFacadeService } from './chant-facade.service';
 import { IChantPrecomputed } from '../interfaces/chant-precomputed.interface';
 import { DataSourceService } from './data-source.service';
 import { switchMap } from 'rxjs/operators';
+import { SearchFilterService } from './search-filter.service';
 
 const baseUrl = 'http://localhost:8000/api/chants';
 
@@ -16,7 +17,8 @@ export class ChantService {
 
   constructor(private http: HttpClient,
               private chantFacadeService: ChantFacadeService,
-              private dataSourceService: DataSourceService
+              private dataSourceService: DataSourceService,
+              private searchFilterService: SearchFilterService
   ) { }
 
   private readonly _chant = new BehaviorSubject<IChant>(null);
@@ -36,18 +38,6 @@ export class ChantService {
   create(data: any): Observable<any> {
     return this.http.post(baseUrl, data);
   }
-
-  // update(id: any, data: any): Observable<any> {
-  //   return this.http.put(`${baseUrl}/${id}`, data);
-  // }
-
-  // delete(id: any): Observable<any> {
-  //   return this.http.delete(`${baseUrl}/${id}`);
-  // }
-
-  // deleteAll(): Observable<any> {
-  //   return this.http.delete(baseUrl);
-  // }
 
   findByIncipit(incipit: string): Observable<any> {
     return this.dataSourceService.getSourceList()
@@ -69,11 +59,14 @@ export class ChantService {
   }
 
   setList(incipit: string = null): void {
-    this.dataSourceService.getSourceList().subscribe(
-      dataSources => {
+    combineLatest([this.dataSourceService.getSourceList(),
+                   this.searchFilterService.getFilterSettings()]).subscribe(
+      ([dataSources, filterSettings]) => {
         const formData: FormData = new FormData();
-        formData.append('dataSources', JSON.stringify(dataSources));
+        formData.append('dataSources', dataSources ? JSON.stringify(dataSources) : "[]");
         formData.append('incipit', incipit ? incipit : '');
+        formData.append('genres', filterSettings ? JSON.stringify(filterSettings['genres']) : "[]");
+        formData.append('offices', filterSettings ? JSON.stringify(filterSettings['offices']) : "[]");
         this.http.post(baseUrl + '/', formData).subscribe(
           (data: IChant[]) => this.chantFacadeService.setList(data)
         );
