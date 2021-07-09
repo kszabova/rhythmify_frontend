@@ -16,8 +16,9 @@
             </mat-checkbox>
             <div *ngIf="allGenres" class="genre-selector">
                 <div *ngFor="let item of allGenres | keyvalue; let i = index">
-                    <mat-checkbox class="genre-checkbox"
-                                [checked]="checkedGenres[i]">
+                    <mat-checkbox 
+                        class="genre-checkbox"
+                        [(ngModel)]="checkedGenres[i]">
                         {{ item.value.name }}
                     </mat-checkbox>
                 </div>
@@ -32,8 +33,9 @@
             </mat-checkbox>
             <div *ngIf="allOffices" class="office-selector">
                 <div *ngFor="let item of allOffices | keyvalue; let i = index">
-                    <mat-checkbox class="office-checkbox"
-                                [checked]="checkedOffices[i]">
+                    <mat-checkbox 
+                        class="office-checkbox"
+                        [(ngModel)]="checkedOffices[i]">
                         {{ item.value.name }}
                     </mat-checkbox>
                 </div>
