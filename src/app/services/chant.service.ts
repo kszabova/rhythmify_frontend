@@ -96,4 +96,9 @@ export class ChantService {
   getDataSources(): Observable<any> {
     return this.http.get(`${baseUrl}/sources`);
   }
+
+  exportChants(data: FormData): Observable<any> {
+    console.log('here');
+    return this.http.post(`${baseUrl}/export/`, data, {responseType: 'arraybuffer'});
+  }
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { IChant } from 'src/app/interfaces/chant.interface';
 import { AlignmentService } from 'src/app/services/alignment.service';
+import { ChantExportService } from 'src/app/services/chant-export.service';
 import { ChantFacadeService } from 'src/app/services/chant-facade.service';
 import { CsvTranslateService } from 'src/app/services/csv-translate.service';
 import { NotEnoughToAlingDialogComponent } from '../dialogs/not-enough-to-aling-dialog/not-enough-to-aling-dialog.component';
@@ -32,6 +33,7 @@ export class ChantListComponent implements OnInit {
   constructor(
     private router: Router,
     private chantFacadeService: ChantFacadeService,
+    private chantExportService: ChantExportService,
     private alignmentService: AlignmentService,
     private csvTranslateService: CsvTranslateService,
     public dialog: MatDialog
@@ -76,52 +78,7 @@ export class ChantListComponent implements OnInit {
         console.log(error);
       }
     );
-    // var start = this.pageIndex * this.pageSize;
-    // var end = (this.pageIndex + 1) * this.pageSize;
-    // this.pageChants = this.allChants.slice(start, end);
-    // console.log(this.pageChants);
   }
-
-  // refreshList(): void {
-  //   this.retrieveChants();
-  //   this.currentChant = undefined;
-  //   this.currentIndex = -1;
-  // }
-
-  // setActiveChant(chant: Chant, index: number): void {
-  //   this.currentChant = chant;
-  //   this.currentIndex = index;
-  // }
-
-  // removeAllChants(): void {
-  //   this.chantService.deleteAll()
-  //     .subscribe(
-  //       response => {
-  //         console.log(response);
-  //         this.refreshList();
-  //       },
-  //       error => {
-  //         console.log(error);
-  //       });
-  // }
-
-  // searchIncipit(): void {
-  //   this.chantService.findByIncipit(this.incipit)
-  //     .subscribe(
-  //       data => {
-  //         this.chants = data;
-  //         console.log(data);
-  //       },
-  //       error => {
-  //         console.log(error);
-  //       });
-  // }
-
-  // checkboxChanged(idx: number): void {
-  //   // console.log(this.chants[idx].id);
-  //   // console.log(checked);
-  //   // this.selected[idx] = checked;
-  // }
 
   selectAll(): void {
     for (var i=0; i<this.selected.length; i++) {
@@ -176,5 +133,20 @@ export class ChantListComponent implements OnInit {
       data => genreName = data
     );
     return genreName;
+  }
+
+  export(): void {
+    let selected = this.getSelected();
+    console.log(selected);
+    this.chantExportService.exportChants(selected).subscribe(
+      response => {
+        let blob = new Blob([response], { type: 'text/csv' });
+        const anchor = document.createElement('a');
+        anchor.href = window.URL.createObjectURL(blob);
+        anchor.setAttribute('download', "dataset.csv");
+        document.body.appendChild(anchor);
+        anchor.click();
+      }
+    );
   }
 }
