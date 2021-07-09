@@ -8,6 +8,7 @@ import { AlignmentService } from 'src/app/services/alignment.service';
 import { ChantExportService } from 'src/app/services/chant-export.service';
 import { ChantFacadeService } from 'src/app/services/chant-facade.service';
 import { CsvTranslateService } from 'src/app/services/csv-translate.service';
+import { DownloadService } from 'src/app/services/download.service';
 import { NotEnoughToAlingDialogComponent } from '../dialogs/not-enough-to-aling-dialog/not-enough-to-aling-dialog.component';
 
 @Component({
@@ -36,6 +37,7 @@ export class ChantListComponent implements OnInit {
     private chantExportService: ChantExportService,
     private alignmentService: AlignmentService,
     private csvTranslateService: CsvTranslateService,
+    private downloadService: DownloadService,
     public dialog: MatDialog
   ) { }
 
@@ -141,11 +143,7 @@ export class ChantListComponent implements OnInit {
     this.chantExportService.exportChants(selected).subscribe(
       response => {
         let blob = new Blob([response], { type: 'text/csv' });
-        const anchor = document.createElement('a');
-        anchor.href = window.URL.createObjectURL(blob);
-        anchor.setAttribute('download', "dataset.csv");
-        document.body.appendChild(anchor);
-        anchor.click();
+        this.downloadService.download(blob, "dataset.csv");
       }
     );
   }

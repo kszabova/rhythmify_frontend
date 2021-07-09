@@ -5,6 +5,7 @@ import { AlignmentService } from 'src/app/services/alignment.service';
 import { ChantService } from 'src/app/services/chant.service';
 import { AlignmentErrorDialogComponent } from '../dialogs/alignment-error-dialog/alignment-error-dialog.component';
 import { ConservationProfileService } from 'src/app/services/conservation-profile.service';
+import { DownloadService } from 'src/app/services/download.service';
 
 @Component({
   selector: 'app-aligned',
@@ -29,6 +30,7 @@ export class AlignedComponent implements OnInit {
 
   constructor(
     private chantService: ChantService,
+    private downloadService: DownloadService,
     private alignmentService: AlignmentService,
     private conservationProfileService: ConservationProfileService,
     public dialog: MatDialog
@@ -49,8 +51,6 @@ export class AlignedComponent implements OnInit {
           this.alignmentPresent.push(true);
           this.alignmentUncollapsed.push(true);
         });
-
-        console.log(this.aligned.chants);
 
         if (this.aligned.errors.length > 0) {
           let dialogRef = this.dialog.open(AlignmentErrorDialogComponent);
@@ -108,12 +108,8 @@ export class AlignedComponent implements OnInit {
   }
 
   downloadAligned(): void {
-    const anchor = document.createElement('a');
     const blob = this.createBlob();
-    anchor.href = window.URL.createObjectURL(blob);
-    anchor.setAttribute('download', "aligned.txt");
-    document.body.appendChild(anchor);
-    anchor.click();
+    this.downloadService.download(blob, "aligned.txt");
   }
 
   getConservationValue(volpianoIdx: number,
