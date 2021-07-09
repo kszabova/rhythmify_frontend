@@ -2,13 +2,14 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
 import { IChant } from 'src/app/interfaces/chant.interface';
 import { AlignmentService } from 'src/app/services/alignment.service';
 import { ChantExportService } from 'src/app/services/chant-export.service';
 import { ChantFacadeService } from 'src/app/services/chant-facade.service';
+import { CreateDatasetService } from 'src/app/services/create-dataset.service';
 import { CsvTranslateService } from 'src/app/services/csv-translate.service';
 import { DownloadService } from 'src/app/services/download.service';
+import { NameOnCreateDatasetComponent } from '../dialogs/name-on-create-dataset/name-on-create-dataset.component';
 import { NotEnoughToAlingDialogComponent } from '../dialogs/not-enough-to-aling-dialog/not-enough-to-aling-dialog.component';
 
 @Component({
@@ -38,6 +39,7 @@ export class ChantListComponent implements OnInit {
     private router: Router,
     private chantFacadeService: ChantFacadeService,
     private chantExportService: ChantExportService,
+    private createDatasetService: CreateDatasetService,
     private alignmentService: AlignmentService,
     private csvTranslateService: CsvTranslateService,
     private downloadService: DownloadService,
@@ -106,7 +108,9 @@ export class ChantListComponent implements OnInit {
     // get list of selected chants
     let selected = this.getSelected();
     if (selected.length < 2) {
-      const dialogRef = this.dialog.open(NotEnoughToAlingDialogComponent);
+      const dialogRef = this.dialog.open(
+        NotEnoughToAlingDialogComponent
+      );
       return;
     }
 
@@ -155,12 +159,28 @@ export class ChantListComponent implements OnInit {
 
   export(): void {
     let selected = this.getSelected();
-    console.log(selected);
     this.chantExportService.exportChants(selected).subscribe(
       response => {
         let blob = new Blob([response], { type: 'text/csv' });
         this.downloadService.download(blob, "dataset.csv");
       }
     );
+  }
+
+  createDataset(): void {
+    let selected = this.getSelected();
+    let datasetName: string;
+
+    const dialogRef = this.dialog.open(
+      NameOnCreateDatasetComponent,
+      { data: { name: datasetName }}
+    );
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        datasetName = result;
+        this.createDatasetService.createDataset(selected, datasetName);
+      }
+    )
   }
 }

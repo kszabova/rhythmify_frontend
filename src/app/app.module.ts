@@ -48,6 +48,7 @@ import { UploadSuccessfulDialogComponent } from './components/dialogs/upload-suc
 import { AlignTextComponent } from './components/align-text/align-text.component';
 import { SearchFilterComponent } from './components/search-filter/search-filter.component';
 import { SavedFilterDialogComponent } from './components/dialogs/saved-filter-dialog/saved-filter-dialog.component';
+import { NameOnCreateDatasetComponent } from './components/dialogs/name-on-create-dataset/name-on-create-dataset.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { SavedFilterDialogComponent } from './components/dialogs/saved-filter-di
     UploadSuccessfulDialogComponent,
     AlignTextComponent,
     SearchFilterComponent,
-    SavedFilterDialogComponent
+    SavedFilterDialogComponent,
+    NameOnCreateDatasetComponent
   ],
   imports: [
     BrowserModule,
