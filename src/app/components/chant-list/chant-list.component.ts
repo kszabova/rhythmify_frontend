@@ -31,6 +31,9 @@ export class ChantListComponent implements OnInit {
   pageSize: number;
   dataLength: number;
 
+  allGenres: object;
+  allOffices: object;
+
   constructor(
     private router: Router,
     private chantFacadeService: ChantFacadeService,
@@ -135,6 +138,19 @@ export class ChantListComponent implements OnInit {
       data => genreName = data
     );
     return genreName;
+  }
+
+  getOfficeName(officeId: string): string {
+    // replace a long category with simpler description
+    if (officeId === "office_x") {
+      return "Others";
+    }
+
+    let officeName;
+    this.csvTranslateService.getOffice(officeId).subscribe(
+      data => officeName = data
+    );
+    return officeName;
   }
 
   export(): void {

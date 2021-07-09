@@ -1,0 +1,53 @@
+<div class="filter">
+    <div *ngIf="visible">
+        <div class="filter-header">
+            <button mat-button class="collapse-button" (click)="visible = !visible">
+                <mat-icon>keyboard_arrow_up</mat-icon>
+            </button>
+            <h2>Filter search</h2>
+        </div>
+        <div class="filter-content">
+            <h3>Genres</h3>
+            <mat-checkbox 
+                class="all-genres-checkbox"         
+                (change)="checkAllGenres()"
+                [(ngModel)]="checkedAllGenres">
+                All
+            </mat-checkbox>
+            <div *ngIf="allGenres" class="genre-selector">
+                <div *ngFor="let item of allGenres | keyvalue; let i = index">
+                    <mat-checkbox class="genre-checkbox"
+                                [checked]="checkedGenres[i]">
+                        {{ item.value.name }}
+                    </mat-checkbox>
+                </div>
+            </div>
+            <br>
+            <h3>Offices</h3>
+            <mat-checkbox 
+                class="all-offices-checkbox"         
+                (change)="checkAllOffices()"
+                [(ngModel)]="checkedAllOffices">
+                All
+            </mat-checkbox>
+            <div *ngIf="allOffices" class="office-selector">
+                <div *ngFor="let item of allOffices | keyvalue; let i = index">
+                    <mat-checkbox class="office-checkbox"
+                                [checked]="checkedOffices[i]">
+                        {{ item.value.name }}
+                    </mat-checkbox>
+                </div>
+            </div>
+            <br>
+            <button mat-stroked-button (click)="saveFilter()">Save</button>
+        </div>
+    </div>
+    <div *ngIf="!visible">
+        <div class="filter-header">
+            <button mat-button class="collapse-button" (click)="visible = !visible">
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <h2>Filter search</h2>
+        </div>
+    </div>
+</div>

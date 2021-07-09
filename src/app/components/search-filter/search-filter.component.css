@@ -1,0 +1,23 @@
+.filter {
+    width: 70%;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.genre-selector, .office-selector {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.genre-checkbox, .office-checkbox {
+    margin-left: 10px;
+}
+
+.filter-header {
+    display: flex;
+    justify-content: left;
+}
+
+h2 {
+    margin: 0;
+}

@@ -49,6 +49,19 @@ export class CsvTranslateService {
     }
   }
 
+  getAllGenres(): Observable<object> {
+    return this.loadCSV("genres");
+  }
+
+  getAllOffices(): object {
+    return this.loadCSV("offices");
+  }
+
+  getAllValues(type: string) {
+    return this.loadCSV(type);
+  }
+
+
   loadCSV(json: string): Observable<object> {
     let path: string;
     switch (json) {

@@ -46,6 +46,8 @@ import { SelectDataSourceComponent } from './components/select-data-source/selec
 import { SourceSelectionSavedDialogComponent } from './components/dialogs/source-selection-saved-dialog/source-selection-saved-dialog.component';
 import { UploadSuccessfulDialogComponent } from './components/dialogs/upload-successful-dialog/upload-successful-dialog.component';
 import { AlignTextComponent } from './components/align-text/align-text.component';
+import { SearchFilterComponent } from './components/search-filter/search-filter.component';
+import { SavedFilterDialogComponent } from './components/dialogs/saved-filter-dialog/saved-filter-dialog.component';
 
 
 @NgModule({
@@ -74,7 +76,9 @@ import { AlignTextComponent } from './components/align-text/align-text.component
     SelectDataSourceComponent,
     SourceSelectionSavedDialogComponent,
     UploadSuccessfulDialogComponent,
-    AlignTextComponent
+    AlignTextComponent,
+    SearchFilterComponent,
+    SavedFilterDialogComponent
   ],
   imports: [
     BrowserModule,
