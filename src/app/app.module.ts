@@ -50,6 +50,7 @@ import { SearchFilterComponent } from './components/search-filter/search-filter.
 import { SavedFilterDialogComponent } from './components/dialogs/saved-filter-dialog/saved-filter-dialog.component';
 import { NameOnCreateDatasetComponent } from './components/dialogs/name-on-create-dataset/name-on-create-dataset.component';
 import { MissingDatasetNameDialogComponent } from './components/dialogs/missing-dataset-name-dialog/missing-dataset-name-dialog.component';
+import { DatasetCreatedDialogComponent } from './components/dialogs/dataset-created-dialog/dataset-created-dialog.component';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { MissingDatasetNameDialogComponent } from './components/dialogs/missing-
     SearchFilterComponent,
     SavedFilterDialogComponent,
     NameOnCreateDatasetComponent,
-    MissingDatasetNameDialogComponent
+    MissingDatasetNameDialogComponent,
+    DatasetCreatedDialogComponent
   ],
   imports: [
     BrowserModule,

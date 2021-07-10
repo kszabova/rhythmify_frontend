@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DatasetCreatedDialogComponent } from '../components/dialogs/dataset-created-dialog/dataset-created-dialog.component';
 import { ChantService } from './chant.service';
 import { DataSourceListService } from './data-source-list.service';
 
@@ -9,7 +11,8 @@ export class CreateDatasetService {
 
   constructor(
     private chantService: ChantService,
-    private dataSourceListService: DataSourceListService
+    private dataSourceListService: DataSourceListService,
+    private dialog: MatDialog
   ) { }
 
   createDataset(ids: number[], dataset_name: string): void {
@@ -21,6 +24,10 @@ export class CreateDatasetService {
         let name = response['name'];
         let index = response['index'];
         this.dataSourceListService.refreshSources();
+
+        const dialogRef = this.dialog.open(DatasetCreatedDialogComponent);
+        let instance = dialogRef.componentInstance;
+        instance.name = name;
       }
     )
   }
