@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChantService } from 'src/app/services/chant.service';
 import { DataSourceService } from 'src/app/services/data-source.service';
 import { DataUploadService } from 'src/app/services/data-upload.service';
+import { MissingDatasetNameDialogComponent } from '../dialogs/missing-dataset-name-dialog/missing-dataset-name-dialog.component';
 import { UploadSuccessfulDialogComponent } from '../dialogs/upload-successful-dialog/upload-successful-dialog.component';
 
 @Component({
@@ -29,7 +30,8 @@ export class DataUploadComponent implements OnInit {
 
   upload(): void {
     if (!this.datasetName) {
-      this.datasetName = "Unnamed dataset";
+      const dialogRef = this.dialog.open(MissingDatasetNameDialogComponent);
+      return;
     }
 
     this.dataUploadService

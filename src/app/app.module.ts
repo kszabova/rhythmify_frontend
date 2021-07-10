@@ -49,6 +49,7 @@ import { AlignTextComponent } from './components/align-text/align-text.component
 import { SearchFilterComponent } from './components/search-filter/search-filter.component';
 import { SavedFilterDialogComponent } from './components/dialogs/saved-filter-dialog/saved-filter-dialog.component';
 import { NameOnCreateDatasetComponent } from './components/dialogs/name-on-create-dataset/name-on-create-dataset.component';
+import { MissingDatasetNameDialogComponent } from './components/dialogs/missing-dataset-name-dialog/missing-dataset-name-dialog.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { NameOnCreateDatasetComponent } from './components/dialogs/name-on-creat
     AlignTextComponent,
     SearchFilterComponent,
     SavedFilterDialogComponent,
-    NameOnCreateDatasetComponent
+    NameOnCreateDatasetComponent,
+    MissingDatasetNameDialogComponent
   ],
   imports: [
     BrowserModule,
