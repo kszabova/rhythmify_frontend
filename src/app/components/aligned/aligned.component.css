@@ -1,6 +1,7 @@
 .card {
     margin-left: 20px;
     margin-right: 20px;
+    margin-bottom: 10px;
 }
 
 .syllable-nomargin {
@@ -32,7 +33,8 @@
 
 .color-checkbox,
 .conservation-checkbox,
-.header-checkbox {
+.header-checkbox,
+.text-checkbox {
     margin-left: 20px;
 }
 

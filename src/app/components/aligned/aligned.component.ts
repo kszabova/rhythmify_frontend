@@ -23,6 +23,7 @@ export class AlignedComponent implements OnInit {
   showColors: boolean = false;
   showHeaders: boolean = true;
   showConservation: boolean = false;
+  showText: boolean = true;
   mode: string;
   conservationProfile: number[][][][];
   conservationChanged = true;
