@@ -125,18 +125,6 @@ export class ChantListComponent implements OnInit {
     this.router.navigate(['/align']);
   }
 
-  alignMelody(): void {
-    if (this.getSelected()) {
-      this.router.navigate(['/align']);
-    }
-  }
-
-  alignText(): void {
-    if (this.getSelected()) {
-      this.router.navigate(['/align-text']);
-    }
-  }
-
   getGenreName(genreId: string): string {
     let genreName;
     this.csvTranslateService.getGenre(genreId).subscribe(

@@ -37,7 +37,7 @@ export class AlignmentService {
   }
 
   setMode(mode: string): number {
-    if (mode != "full" && mode != "syllables") {
+    if (mode != "full" && mode != "syllables" && mode != "intervals") {
       return 1;
     }
 
