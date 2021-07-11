@@ -1,15 +1,16 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { IChant } from 'src/app/interfaces/chant.interface';
 import { AlignmentService } from 'src/app/services/alignment.service';
 import { ChantExportService } from 'src/app/services/chant-export.service';
-import { ChantFacadeService } from 'src/app/services/chant-facade.service';
+import { ChantService } from 'src/app/services/chant.service';
 import { CreateDatasetService } from 'src/app/services/create-dataset.service';
 import { CsvTranslateService } from 'src/app/services/csv-translate.service';
 import { DownloadService } from 'src/app/services/download.service';
-import { DatasetCreatedDialogComponent } from '../dialogs/dataset-created-dialog/dataset-created-dialog.component';
 import { NameOnCreateDatasetComponent } from '../dialogs/name-on-create-dataset/name-on-create-dataset.component';
 import { NotEnoughToAlingDialogComponent } from '../dialogs/not-enough-to-aling-dialog/not-enough-to-aling-dialog.component';
 
@@ -18,7 +19,7 @@ import { NotEnoughToAlingDialogComponent } from '../dialogs/not-enough-to-aling-
   templateUrl: './chant-list.component.html',
   styleUrls: ['./chant-list.component.css']
 })
-export class ChantListComponent implements OnInit {
+export class ChantListComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -29,6 +30,7 @@ export class ChantListComponent implements OnInit {
   selected: boolean[];
   selectedAll: boolean;
 
+  pageEvent = new BehaviorSubject<PageEvent>(null);
   pageIndex: number;
   pageSize: number;
   dataLength: number;
@@ -36,9 +38,11 @@ export class ChantListComponent implements OnInit {
   allGenres: object;
   allOffices: object;
 
+  private readonly componentDestroyed$ = new Subject();
+
   constructor(
     private router: Router,
-    private chantFacadeService: ChantFacadeService,
+    private chantService: ChantService,
     private chantExportService: ChantExportService,
     private createDatasetService: CreateDatasetService,
     private alignmentService: AlignmentService,
@@ -49,12 +53,18 @@ export class ChantListComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrieveChants();
-    this.changePage(null);
+  }
+
+  ngOnDestroy(): void {
+    this.componentDestroyed$.next();
+    this.componentDestroyed$.complete();
   }
 
   retrieveChants(): void {
-    this.chantFacadeService.getList().subscribe(
-      (data: IChant[]) => {
+    combineLatest([this.chantService.getList(), this.pageEvent])
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe(
+      ([data, event]) => {
         this.paginator.firstPage();
         this.allChants = data;
         this.selected = [];
@@ -64,28 +74,20 @@ export class ChantListComponent implements OnInit {
             this.selected.push(false);
           }
         }
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
 
-  changePage(event: PageEvent): void {
-    this.pageIndex = event ? event.pageIndex : 0;
-    this.pageSize = event ? event.pageSize : 50;
-    this.chantFacadeService.getList().subscribe(
-      (data: IChant[]) => {
+        this.pageIndex = event ? event.pageIndex : 0;
+        this.pageSize = event ? event.pageSize : 50;
         var start = this.pageIndex * this.pageSize;
         var end = (this.pageIndex + 1) * this.pageSize;
         if (data) {
           this.chants = data.slice(start, end);
         }
-      },
-      error => {
-        console.log(error);
       }
     );
+  }
+
+  changePage(event: PageEvent): void {
+    this.pageEvent.next(event);
   }
 
   selectAll(): void {
@@ -127,9 +129,11 @@ export class ChantListComponent implements OnInit {
 
   getGenreName(genreId: string): string {
     let genreName;
-    this.csvTranslateService.getGenre(genreId).subscribe(
-      data => genreName = data
-    );
+    this.csvTranslateService.getGenre(genreId)
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe(
+        data => genreName = data
+      );
     return genreName;
   }
 
@@ -140,20 +144,24 @@ export class ChantListComponent implements OnInit {
     }
 
     let officeName;
-    this.csvTranslateService.getOffice(officeId).subscribe(
-      data => officeName = data
-    );
+    this.csvTranslateService.getOffice(officeId)
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe(
+        data => officeName = data
+      );
     return officeName;
   }
 
   export(): void {
     let selected = this.getSelected();
-    this.chantExportService.exportChants(selected).subscribe(
-      response => {
-        let blob = new Blob([response], { type: 'text/csv' });
-        this.downloadService.download(blob, "dataset.csv");
-      }
-    );
+    this.chantExportService.exportChants(selected)
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe(
+        response => {
+          let blob = new Blob([response], { type: 'text/csv' });
+          this.downloadService.download(blob, "dataset.csv");
+        }
+      );
   }
 
   createDataset(): void {
@@ -165,11 +173,13 @@ export class ChantListComponent implements OnInit {
       { data: { name: datasetName }}
     );
 
-    dialogRef.afterClosed().subscribe(
-      result => {
-        datasetName = result;
-        this.createDatasetService.createDataset(selected, datasetName);
-      }
-    )
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe(
+        result => {
+          datasetName = result;
+          this.createDatasetService.createDataset(selected, datasetName);
+        }
+      )
   }
 }

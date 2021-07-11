@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ChantService } from './chant.service';
 
 @Injectable({
   providedIn: 'root'

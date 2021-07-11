@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { IScatterData } from 'src/app/interfaces/scatter-data.interface';
 import { IStackedHistogram } from 'src/app/interfaces/stacked-histogram.interface';
-import { ChantFacadeService } from 'src/app/services/chant-facade.service';
 import { ChantService } from 'src/app/services/chant.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { ChantService } from 'src/app/services/chant.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   melodyLengthHistTitle = "Melody Length";
   melodyLengthHistData: number[];
@@ -35,50 +36,60 @@ export class DashboardComponent implements OnInit {
   multiScatterXName = "Melody Length";
   multiScatterYName = "Text Length";
 
+  private readonly componentDestroyed$ = new Subject();
+
   constructor(
-    private chantService: ChantService,
-    private chantFacadeService: ChantFacadeService
+    private chantService: ChantService
   ) { }
 
   ngOnInit(): void {
-    this.chantFacadeService.getList().subscribe(
-      (all_data: any) => {
-        let data = all_data.slice(0, 10000);
-        console.log(data);
-        this.melodyLengthHistData = data.map(
-          chant => chant.volpiano.split("---").length
-        );
-        this.textLengthHistData = data.map(
-          chant => chant.full_text.split(" ").length
-        );
-        this.melodyStackedHistData = data.map(
-          chant => ({
-            "value": chant.volpiano.split("---").length,
-            "group": chant.genre_id
-        }));
-        this.textStackedHistData = data.map(
-          chant => ({
-            "value": chant.full_text.split(" ").length,
-            "group": chant.genre_id
-        }));
-        this.scatterPlotData = data.map(
-          chant => ({
-            "x": chant.volpiano.split('-').join('').length,
-            "y": chant.full_text.split(" ").length
-          })
-        );
-        this.multiScatterData = data
-            .filter(chant => chant.genre_id == "genre_a" || chant.genre_id == "genre_r")
-            .map(
-              chant => ({
-                "x": chant.volpiano.split('-').join('').length,
-                "y": chant.full_text.split(" ").length,
-                "genre": chant.genre_id == "genre_a" ? 0 : 1,
-                "id": chant.id
-              })
-        );
-      }
-    )
+    this.chantService.getList()
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe(
+        (all_data: any) => {
+          if (all_data === null || all_data.length === 0) {
+            return;
+          }
+          let data = all_data.slice(0, 10000);
+          this.melodyLengthHistData = data.map(
+            chant => chant.volpiano.split("---").length
+          );
+          this.textLengthHistData = data.map(
+            chant => chant.full_text.split(" ").length
+          );
+          this.melodyStackedHistData = data.map(
+            chant => ({
+              "value": chant.volpiano.split("---").length,
+              "group": chant.genre_id
+          }));
+          this.textStackedHistData = data.map(
+            chant => ({
+              "value": chant.full_text.split(" ").length,
+              "group": chant.genre_id
+          }));
+          this.scatterPlotData = data.map(
+            chant => ({
+              "x": chant.volpiano.split('-').join('').length,
+              "y": chant.full_text.split(" ").length
+            })
+          );
+          this.multiScatterData = data
+              .filter(chant => chant.genre_id == "genre_a" || chant.genre_id == "genre_r")
+              .map(
+                chant => ({
+                  "x": chant.volpiano.split('-').join('').length,
+                  "y": chant.full_text.split(" ").length,
+                  "genre": chant.genre_id == "genre_a" ? 0 : 1,
+                  "id": chant.id
+                })
+          );
+        }
+      );
+  }
+
+  ngOnDestroy(): void {
+    this.componentDestroyed$.next();
+    this.componentDestroyed$.complete();
   }
 
 }

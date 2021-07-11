@@ -26,7 +26,7 @@ export class NavigationComponent implements OnInit {
   }
 
   resetChantList(): void {
-    this.chantService.setList();
+    //this.chantService.setList();
   }
 
 }

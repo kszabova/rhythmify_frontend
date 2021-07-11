@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { IChant } from '../interfaces/chant.interface';
-import { ChantFacadeService } from './chant-facade.service';
+import { switchMap, tap } from 'rxjs/operators';
 import { IChantPrecomputed } from '../interfaces/chant-precomputed.interface';
+import { IChant } from '../interfaces/chant.interface';
 import { DataSourceService } from './data-source.service';
-import { switchMap } from 'rxjs/operators';
+import { IncipitService } from './incipit.service';
 import { SearchFilterService } from './search-filter.service';
 
 const baseUrl = 'http://localhost:8000/api/chants';
@@ -16,13 +16,14 @@ const baseUrl = 'http://localhost:8000/api/chants';
 export class ChantService {
 
   constructor(private http: HttpClient,
-              private chantFacadeService: ChantFacadeService,
               private dataSourceService: DataSourceService,
-              private searchFilterService: SearchFilterService
+              private searchFilterService: SearchFilterService,
+              private incipitService: IncipitService
   ) { }
 
-  private readonly _chant = new BehaviorSubject<IChant>(null);
+  private readonly _chantList = new BehaviorSubject<IChant[]>(null);
 
+  // TODO remove
   getAll(): Observable<any> {
     return this.dataSourceService.getSourceList()
       .pipe(
@@ -30,48 +31,37 @@ export class ChantService {
       );
   }
 
-  get(id: any): Observable<IChant> {
-    return this.http.get(`${baseUrl}/${id}`);
-  }
-
   // TODO remove
   create(data: any): Observable<any> {
     return this.http.post(baseUrl, data);
   }
 
-  findByIncipit(incipit: string): Observable<any> {
-    return this.dataSourceService.getSourceList()
-      .pipe(
-        switchMap(dataSources => this.http.post(`${baseUrl}?incipit=${incipit}/`, dataSources))
-      );
+  getChant(id: number): Observable<IChantPrecomputed> {
+    return this.http.get<IChantPrecomputed>(`${baseUrl}/${id}`);
   }
 
-  setChant(id: number): void {
-    this.http.get<IChant>(`${baseUrl}/${id}`).subscribe(
-      (data: IChant) => this.chantFacadeService.setChant(data)
+  loadData(): Observable<IChant[]> {
+    return combineLatest([
+      this.dataSourceService.getSourceList(),
+      this.searchFilterService.getFilterSettings(),
+      this.incipitService.getIncipit()
+    ]).pipe(
+      switchMap(
+        ([dataSources, filterSettings, incipit]) => {
+          const formData: FormData = new FormData();
+          formData.append('dataSources', dataSources ? JSON.stringify(dataSources) : "[]");
+          formData.append('incipit', incipit ? incipit : '');
+          formData.append('genres', filterSettings ? JSON.stringify(filterSettings['genres']) : "[]");
+          formData.append('offices', filterSettings ? JSON.stringify(filterSettings['offices']) : "[]");
+          return this.http.post(baseUrl + '/', formData);
+        }
+      ),
+      tap((data: IChant[]) => this._chantList.next(data))
     );
   }
 
-  setChantPrecomputed(id: number): void {
-    this.http.get<IChantPrecomputed>(`${baseUrl}/${id}`).subscribe(
-      (data: IChantPrecomputed) => this.chantFacadeService.setChantPrecomputed(data)
-    );
-  }
-
-  setList(incipit: string = null): void {
-    combineLatest([this.dataSourceService.getSourceList(),
-                   this.searchFilterService.getFilterSettings()]).subscribe(
-      ([dataSources, filterSettings]) => {
-        const formData: FormData = new FormData();
-        formData.append('dataSources', dataSources ? JSON.stringify(dataSources) : "[]");
-        formData.append('incipit', incipit ? incipit : '');
-        formData.append('genres', filterSettings ? JSON.stringify(filterSettings['genres']) : "[]");
-        formData.append('offices', filterSettings ? JSON.stringify(filterSettings['offices']) : "[]");
-        this.http.post(baseUrl + '/', formData).subscribe(
-          (data: IChant[]) => this.chantFacadeService.setList(data)
-        );
-      }
-    )
+  getList(): BehaviorSubject<IChant[]> {
+    return this._chantList;
   }
 
   getAlignment(formData: FormData): Observable<any> {
