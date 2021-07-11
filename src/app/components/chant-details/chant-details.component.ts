@@ -38,13 +38,9 @@ export class ChantDetailsComponent implements OnInit, OnDestroy {
             const dialogRef = this.dialog.open(NoChantTextDialogComponent);
           }
 
-          this.csvTranslateService.getGenre(this.chant.db_source.genre_id).subscribe(
-            data => this.genre = data
-          );
+          this.genre = this.csvTranslateService.getGenre(this.chant.db_source.genre_id);
 
-          this.csvTranslateService.getOffice(this.chant.db_source.office_id).subscribe(
-            data => this.office = data
-          );
+          this.office = this.csvTranslateService.getOffice(this.chant.db_source.office_id);
         }
       )
   }

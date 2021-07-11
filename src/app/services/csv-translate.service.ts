@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,37 +15,41 @@ export class CsvTranslateService {
     private http: HttpClient
   ) { }
 
-  getGenre(genre_id: string): Observable<string> {
+  getGenre(genre_id: string): string {
     if (!this.genres) {
-      return this.loadCSV("genres").pipe(map(
-        data => {
-          this.genres = data;
-          return this.genres[genre_id].description;
-        }
-      ));
+      this.loadCSV("genres")
+        .pipe(take(1))
+        .subscribe(
+          data => {
+            this.genres = data;
+            return this.genres[genre_id].description;
+          }
+        );
     }
     
     else {
-      return of(this.genres[genre_id].description);
+      return this.genres[genre_id].description;
     }
   }
 
-  getOffice(office_id: string): Observable<string> {
+  getOffice(office_id: string): string {
     if (null === office_id) {
-      return of("Unknown");
+      return "Unknown";
     }
 
     if (!this.offices) {
-      return this.loadCSV("offices").pipe(map(
-        data => {
-          this.offices = data;
-          return this.offices[office_id].description;
-        }
-      ));
+      this.loadCSV("offices")
+        .pipe(take(1))
+        .subscribe(
+          data => {
+            this.offices = data;
+            return this.offices[office_id].description;
+          }
+        );
     }
     
     else {
-      return of(this.offices[office_id].description);
+      return this.offices[office_id].description;
     }
   }
 

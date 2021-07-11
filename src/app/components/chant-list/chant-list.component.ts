@@ -128,12 +128,7 @@ export class ChantListComponent implements OnInit, OnDestroy {
   }
 
   getGenreName(genreId: string): string {
-    let genreName;
-    this.csvTranslateService.getGenre(genreId)
-      .pipe(takeUntil(this.componentDestroyed$))
-      .subscribe(
-        data => genreName = data
-      );
+    let genreName = this.csvTranslateService.getGenre(genreId);
     return genreName;
   }
 
@@ -143,12 +138,7 @@ export class ChantListComponent implements OnInit, OnDestroy {
       return "Others";
     }
 
-    let officeName;
-    this.csvTranslateService.getOffice(officeId)
-      .pipe(takeUntil(this.componentDestroyed$))
-      .subscribe(
-        data => officeName = data
-      );
+    let officeName = this.csvTranslateService.getOffice(officeId);
     return officeName;
   }
 
