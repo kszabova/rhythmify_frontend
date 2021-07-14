@@ -52,15 +52,7 @@ export class CsvTranslateService {
       return this.offices[office_id].description;
     }
   }
-
-  getAllGenres(): Observable<object> {
-    return this.loadCSV("genres");
-  }
-
-  getAllOffices(): object {
-    return this.loadCSV("offices");
-  }
-
+  
   getAllValues(type: string) {
     return this.loadCSV(type);
   }

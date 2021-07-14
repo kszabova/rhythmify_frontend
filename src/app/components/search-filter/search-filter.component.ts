@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { take } from 'rxjs/operators';
 import { CsvTranslateService } from 'src/app/services/csv-translate.service';
 import { SearchFilterService } from 'src/app/services/search-filter.service';
 import { SavedFilterDialogComponent } from '../dialogs/saved-filter-dialog/saved-filter-dialog.component';
@@ -36,25 +37,29 @@ export class SearchFilterComponent implements OnInit {
   }
 
   initGenresAndOffices(): void {
-    this.csvTranslateService.getAllValues("genres").subscribe(
-      data => {
-        this.allGenres = data;
-        Object.keys(this.allGenres).forEach(key => {
-          this.genreIds.push(key);
-          this.checkedGenres.push(true);
-        });
-      }
-    );
-    this.csvTranslateService.getAllValues("offices").subscribe(
-      data => {
-        this.allOffices = data;
-        Object.keys(this.allOffices).forEach(key => {
-          this.officeIds.push(key);
-          this.checkedOffices.push(true);
-        });
-        this.saveFilter(false);
-      }
-    );
+    this.csvTranslateService.getAllValues("genres")
+      .pipe(take(1))
+      .subscribe(
+        data => {
+          this.allGenres = data;
+          Object.keys(this.allGenres).forEach(key => {
+            this.genreIds.push(key);
+            this.checkedGenres.push(true);
+          });
+        }
+      );
+    this.csvTranslateService.getAllValues("offices")
+      .pipe(take(1))
+      .subscribe(
+        data => {
+          this.allOffices = data;
+          Object.keys(this.allOffices).forEach(key => {
+            this.officeIds.push(key);
+            this.checkedOffices.push(true);
+          });
+          this.saveFilter(false);
+        }
+      );
   }
 
   getFilterSettings(): object {
