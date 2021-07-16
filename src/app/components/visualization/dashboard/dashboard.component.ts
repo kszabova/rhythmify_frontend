@@ -32,9 +32,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   scatterPlotYName = "Text Length";
 
   multiScatterData: IScatterData[];
-  multiScatterTitle = "Antiphone vs. Responsory comparison";
-  multiScatterXName = "Melody Length";
-  multiScatterYName = "Text Length";
+  multiScatterTitle = "Comparison of melody length and text length";
+  multiScatterXName = "Melody length (number of neumes)";
+  multiScatterYName = "Text length (number of words)";
 
   private readonly componentDestroyed$ = new Subject();
 
@@ -47,6 +47,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe(
         (all_data: any) => {
+          console.log("new data");
+          console.log(all_data.length);
           if (all_data === null || all_data.length === 0) {
             return;
           }
@@ -74,12 +76,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
             })
           );
           this.multiScatterData = data
-              .filter(chant => chant.genre_id == "genre_a" || chant.genre_id == "genre_r")
               .map(
                 chant => ({
                   "x": chant.volpiano.split('-').join('').length,
                   "y": chant.full_text.split(" ").length,
-                  "genre": chant.genre_id == "genre_a" ? 0 : 1,
+                  "group": chant.dataset_name,
                   "id": chant.id
                 })
           );

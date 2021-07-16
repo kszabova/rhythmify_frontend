@@ -11,7 +11,11 @@ import * as d3 from 'd3';
 })
 export class MultipleSeriesScatterplotComponent implements OnInit {
 
-  @Input() data: IScatterData[];
+  @Input() set data(data: IScatterData[]) { 
+    d3.select("figure#multi-scatter").select("svg").remove();
+    this.createSvg(); 
+    this.drawPlot(data)
+  };
   @Input() chartTitle: string;
   @Input() valueXName: string;
   @Input() valueYName: string;
@@ -32,14 +36,12 @@ export class MultipleSeriesScatterplotComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.createSvg();
-    this.drawPlot(this.data);
   }
 
   createSvg(): void {
     this.svg = d3.select("figure#multi-scatter")
                  .append("svg")
-                 .attr("width", this.width)
+                 .attr("width", this.width + 200)
                  .attr("height", this.height);
   }
 
@@ -59,6 +61,7 @@ export class MultipleSeriesScatterplotComponent implements OnInit {
 
     // draw the data
     let color = d3.schemeCategory10;
+    let groupNames = [];
     this.svg.append("g")
             .attr("stroke-width", 0)
             .selectAll("circle")
@@ -67,8 +70,24 @@ export class MultipleSeriesScatterplotComponent implements OnInit {
             .attr("class", "datapoint")
             .attr("cx", d => x(d.x))
             .attr("cy", d => y(d.y))
-            .attr("fill", d=>color[d.genre])
-            .style("stroke", d => color[d.genre])
+            .attr("fill", d => {
+              if (groupNames.includes(d.group)) {
+                return color[groupNames.indexOf(d.group) % 10];
+              }
+              else {
+                groupNames.push(d.group);
+                return color[groupNames.indexOf(d.group) % 10];
+              }
+            })
+            .style("stroke", d => {
+              if (groupNames.includes(d.group)) {
+                return color[groupNames.indexOf(d.group) % 10];
+              }
+              else {
+                groupNames.push(d.group);
+                return color[groupNames.indexOf(d.group) % 10];
+              }
+            })
             .attr("r", 3)
             .on('click', (_, d) =>
               this.router.navigate(['/chants', d.id])
@@ -124,11 +143,21 @@ export class MultipleSeriesScatterplotComponent implements OnInit {
             .text(this.valueYName);   
 
     // legend
-    this.svg.append("circle").attr("cx",100).attr("cy",130).attr("r", 6).style("fill", color[0]);
-    this.svg.append("circle").attr("cx",100).attr("cy",160).attr("r", 6).style("fill", color[1]);
-    this.svg.append("text").attr("x", 120).attr("y", 130).text("antiphon").style("font-size", "15px").attr("alignment-baseline","middle");
-    this.svg.append("text").attr("x", 120).attr("y", 160).text("responsory").style("font-size", "15px").attr("alignment-baseline","middle");
-
+    const legendX = this.width;
+    const legendY = 100;
+    groupNames.forEach((value, idx) => {
+      // color marker
+      this.svg.append("circle")
+        .attr("cx", legendX)
+        .attr("cy", legendY + 30 * idx)
+        .attr("r", 6).style("fill", color[idx % 10]);
+      // group name
+      this.svg.append("text")
+        .attr("x", legendX + 20)
+        .attr("y", legendY + 30 * idx)
+        .text(value).style("font-size", "15px")
+        .attr("alignment-baseline","middle");
+    });
   }
 
 }
