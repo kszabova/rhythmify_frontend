@@ -7,12 +7,14 @@ export class ConservationProfileService {
 
   constructor() { }
 
-  calculateConservationProfile(volpianos: string[]): number[][][][] {
+  calculateConservationProfile(volpianos: string[]): object {
     if (volpianos.length == 0) {
       return [];
     }
 
     let conservationProfile = [];
+    let totalConservation = 0;
+    let nonZeroConservations = 0;
 
     // create empty array for each chant
     for (let i = 0; i < volpianos.length; i++) {
@@ -42,12 +44,22 @@ export class ConservationProfileService {
           conservationProfile[volpianoIdx][lastWordIdx][lastSyllableIdx].push(
             conservationInPosition[volpianos[volpianoIdx][pos]]
           );
+
+          // if current symbol is a note, add it to total conservation
+          const insignificantChars = ['-', '~', '|', '1', '3', '4', '7'];
+          if (!insignificantChars.includes(volpianos[volpianoIdx][pos])) {
+            totalConservation += conservationInPosition[volpianos[volpianoIdx][pos]];
+            nonZeroConservations++;
+          }
         }
       }
     }
 
-    console.log(conservationProfile);
-    return conservationProfile;
+    const conservationOfSet = totalConservation / nonZeroConservations * volpianos.length;
+    return {
+      "conservationProfile": conservationProfile,
+      "conservationOfSet": conservationOfSet
+    };
   }
 
   private calculateConservationInPosition(chars: string[]): object {

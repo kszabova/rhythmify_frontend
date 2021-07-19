@@ -67,6 +67,10 @@
             </div> 
         </div>
         <br>
+        <div *ngIf="showConservation" class="conservation-indicator">
+            Conservation of chant set: {{ conservationOfSet }}    
+        </div>
+        <br>
         <mat-checkbox [(ngModel)]="showHeaders" class="header-checkbox">Show headers</mat-checkbox><br>
         <mat-checkbox [(ngModel)]="showText" class="text-checkbox">Show text</mat-checkbox><br>
         <mat-checkbox [(ngModel)]="showColors" class="color-checkbox">Show colors</mat-checkbox><br>

@@ -26,6 +26,7 @@ export class AlignedComponent implements OnInit {
   showText: boolean = true;
   mode: string;
   conservationProfile: number[][][][];
+  conservationOfSet: number;
   conservationChanged = true;
   displayMode: string = "volpiano";
 
@@ -118,9 +119,12 @@ export class AlignedComponent implements OnInit {
                        sylIdx: number, 
                        neumeIdx: number): number {
     if (this.conservationChanged) {
-      this.conservationProfile = 
+      const conservation = 
         this.conservationProfileService.calculateConservationProfile(
           this.aligned.success.volpianos);
+      this.conservationProfile = conservation["conservationProfile"];
+      this.conservationOfSet = conservation["conservationOfSet"];
+      console.log(this.conservationOfSet);
       this.conservationChanged = false;
     }
 

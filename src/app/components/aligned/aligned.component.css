@@ -34,7 +34,8 @@
 .color-checkbox,
 .conservation-checkbox,
 .header-checkbox,
-.text-checkbox {
+.text-checkbox,
+.conservation-indicator {
     margin-left: 20px;
 }
 
