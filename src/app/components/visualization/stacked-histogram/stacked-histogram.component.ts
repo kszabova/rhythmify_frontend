@@ -1,26 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { IStackedHistogram } from 'src/app/interfaces/stacked-histogram.interface';
 
 import * as d3 from 'd3';
+import { delay } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-stacked-histogram',
   templateUrl: './stacked-histogram.component.html',
   styleUrls: ['./stacked-histogram.component.css']
 })
-export class StackedHistogramComponent implements OnInit {
+export class StackedHistogramComponent implements OnInit, AfterViewInit {
 
-  @Input() set data(data: IStackedHistogram[]) { 
-    d3.select("figure#" + this.figureID).select("svg").remove();    
-    this.maxValue = d3.max(data, (d: any) => d.value as number);
-    this.createSvg(); 
-    this.drawHist(data)
+  @Input() set data(data: IStackedHistogram[]) {
+    this.dataReceived.next(data);
   };
   @Input() chartTitle: string;
   @Input() groupName: string;
   @Input() valueXName: string;
   @Input() valueYName: string;
-  @Input() figureID: string;
 
   private svg;
   private margin = {
@@ -33,13 +31,30 @@ export class StackedHistogramComponent implements OnInit {
   private height = 500;
   private maxValue: number;
 
+  figureID = "f" + Math.floor(Math.random() * 10000).toString();
+
+  private DOMRendered = new Subject();
+  private dataReceived = new BehaviorSubject<IStackedHistogram[]>([]);
+
   constructor() { }
 
   ngOnInit(): void {
+    combineLatest([this.DOMRendered, this.dataReceived]).subscribe(
+    ([_, data]) => {
+      d3.select("figure." + this.figureID).select("svg").remove();    
+      this.maxValue = d3.max(data, (d: any) => d.value as number);
+      this.createSvg(); 
+      this.drawHist(data)
+      }
+    )
+  }
+
+  ngAfterViewInit(): void {
+    this.DOMRendered.next();
   }
 
   createSvg(): void {
-    this.svg = d3.select("figure#" + this.figureID)
+    this.svg = d3.select("figure." + this.figureID)
                  .append("svg")
                  .attr("width", this.width)
                  .attr("height", this.height + 50)

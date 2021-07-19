@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { delay, takeUntil } from 'rxjs/operators';
 import { IScatterData } from 'src/app/interfaces/scatter-data.interface';
 import { IStackedHistogram } from 'src/app/interfaces/stacked-histogram.interface';
 import { ChantService } from 'src/app/services/chant.service';
