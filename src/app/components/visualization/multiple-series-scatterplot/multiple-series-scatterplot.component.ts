@@ -124,23 +124,7 @@ export class MultipleSeriesScatterplotComponent implements OnInit {
             .attr("text-anchor", "middle")  
             .style("font-size", "16px") 
             .style("text-decoration", "underline")  
-            .text(this.chartTitle);
-
-    // axis labels
-    this.svg.append("text")             
-            .attr("transform",
-                  "translate(" + (this.width/2) + " ," + 
-                                (this.height - this.margin.bottom + 30) + ")")
-            .style("text-anchor", "middle")
-            .text(this.valueXName);
-
-    this.svg.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", this.margin.left - 45)
-            .attr("x", 0 - (this.height / 2))
-            .attr("dy", "1em")
-            .style("text-anchor", "middle")
-            .text(this.valueYName);   
+            .text(this.chartTitle); 
 
     // legend
     const legendX = this.width;
@@ -158,6 +142,22 @@ export class MultipleSeriesScatterplotComponent implements OnInit {
         .text(value).style("font-size", "15px")
         .attr("alignment-baseline","middle");
     });
+
+    // axis labels
+    this.svg.append("text")             
+            .attr("transform",
+                  "translate(" + (this.width/2) + " ," + 
+                                (this.height - this.margin.bottom + 30) + ")")
+            .style("text-anchor", "middle")
+            .text(this.valueXName);
+
+    this.svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", this.margin.left - 45)
+            .attr("x", 0 - (this.height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text(this.valueYName);  
   }
 
 }

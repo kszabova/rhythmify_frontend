@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ChantService } from 'src/app/services/chant.service';
 
 @Component({
   selector: 'app-navigation',
@@ -12,7 +11,6 @@ export class NavigationComponent implements OnInit {
   searchValue: string = "";
 
   constructor(
-    private chantService: ChantService,
     private router: Router
   ) { }
 

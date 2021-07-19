@@ -1,31 +1,31 @@
 <app-multiple-series-scatterplot
     *ngIf="multiScatterData"
     [chartTitle]="multiScatterTitle"
-    [data]="multiScatterData"
     [valueXName]="multiScatterXName"
     [valueYName]="multiScatterYName"
+    [data]="multiScatterData"
     id="multiScatterPlot">
 </app-multiple-series-scatterplot>
 
-<app-zoomable-scatter-plot
+<!-- <app-zoomable-scatter-plot
     *ngIf="scatterPlotData"
     [chartTitle]="scatterPlotTitle"
     [data]="scatterPlotData"
     [valueXName]="scatterPlotXName"
     [valueYName]="scatterPlotYName"
     id="scatterPlot">
-</app-zoomable-scatter-plot>
+</app-zoomable-scatter-plot> -->
 
-<app-scatter-plot
+<!-- <app-scatter-plot
     *ngIf="scatterPlotData"
     [chartTitle]="scatterPlotTitle"
     [data]="scatterPlotData"
     [valueXName]="scatterPlotXName"
     [valueYName]="scatterPlotYName"
     id="scatterPlot">
-</app-scatter-plot>
+</app-scatter-plot> -->
 
-<app-histogram 
+<!-- <app-histogram 
     *ngIf="melodyLengthHistData" 
     [chartTitle]="melodyLengthHistTitle" 
     [data]="melodyLengthHistData"
@@ -37,20 +37,24 @@
     [chartTitle]="textLengthHistTitle"
     [data]="textLengthHistData"
     id="textLengthHist">
-</app-histogram>
+</app-histogram> -->
 
 <app-stacked-histogram
     *ngIf="melodyStackedHistData"
     [chartTitle]="melodyStackedHistTitle"
-    [data]="melodyStackedHistData"
     [groupName]="melodyStackedHistGroupName"
-    id="melodyStackedHist">
+    [valueXName]="melodyStackedHistXName"
+    [valueYName]="melodyStackedHistYName"
+    [figureID]="melodyStackedHistFigureID"
+    [data]="melodyStackedHistData">
 </app-stacked-histogram>
 
 <app-stacked-histogram
     *ngIf="textStackedHistData"
     [chartTitle]="textStackedHistTitle"
-    [data]="textStackedHistData"
     [groupName]="textStackedHistGroupName"
-    id="textStackedHist">
+    [valueXName]="textStackedHistXName"
+    [valueYName]="textStackedHistYName"
+    [figureID]]="textStackedHistFigureID"
+    [data]="textStackedHistData">
 </app-stacked-histogram>

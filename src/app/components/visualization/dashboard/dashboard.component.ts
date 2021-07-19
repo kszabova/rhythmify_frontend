@@ -20,16 +20,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   melodyStackedHistData: IStackedHistogram[];
   melodyStackedHistTitle = "Melody Length by Genre";
-  melodyStackedHistGroupName = "genre";
+  melodyStackedHistGroupName = "dataset";
+  melodyStackedHistXName = "Number of neumes";
+  melodyStackedHistYName = "Number of data";
+  melodyStackedHistFigureID = "melody-stacked-hist";
 
   textStackedHistData: IStackedHistogram[];
   textStackedHistTitle = "Text Length by Genre";
-  textStackedHistGroupName = "genre";
-
-  scatterPlotData: IScatterData[];
-  scatterPlotTitle = "Melody Length vs. Text Length";
-  scatterPlotXName = "Melody Length";
-  scatterPlotYName = "Text Length";
+  textStackedHistGroupName = "dataset";
+  textStackedHistXName = "Number of words";
+  textStackedHistYName = "Number of data";
+  textStackedHistFigureID = "text-stacked-hist";
 
   multiScatterData: IScatterData[];
   multiScatterTitle = "Comparison of melody length and text length";
@@ -62,19 +63,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.melodyStackedHistData = data.map(
             chant => ({
               "value": chant.volpiano.split("---").length,
-              "group": chant.genre_id
+              "group": chant.dataset_name
           }));
           this.textStackedHistData = data.map(
             chant => ({
               "value": chant.full_text.split(" ").length,
-              "group": chant.genre_id
+              "group": chant.dataset_name
           }));
-          this.scatterPlotData = data.map(
-            chant => ({
-              "x": chant.volpiano.split('-').join('').length,
-              "y": chant.full_text.split(" ").length
-            })
-          );
+          // this.scatterPlotData = data.map(
+          //   chant => ({
+          //     "x": chant.volpiano.split('-').join('').length,
+          //     "y": chant.full_text.split(" ").length
+          //   })
+          // );
           this.multiScatterData = data
               .map(
                 chant => ({

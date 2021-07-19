@@ -10,9 +10,17 @@ import * as d3 from 'd3';
 })
 export class StackedHistogramComponent implements OnInit {
 
-  @Input() data: IStackedHistogram[];
+  @Input() set data(data: IStackedHistogram[]) { 
+    d3.select("figure#" + this.figureID).select("svg").remove();    
+    this.maxValue = d3.max(data, (d: any) => d.value as number);
+    this.createSvg(); 
+    this.drawHist(data)
+  };
   @Input() chartTitle: string;
   @Input() groupName: string;
+  @Input() valueXName: string;
+  @Input() valueYName: string;
+  @Input() figureID: string;
 
   private svg;
   private margin = {
@@ -28,16 +36,13 @@ export class StackedHistogramComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.maxValue = d3.max(this.data, (d: any) => d.value as number);
-    this.createSvg();
-    this.drawHist(this.data);
   }
 
   createSvg(): void {
-    this.svg = d3.select("figure#stacked-hist")
+    this.svg = d3.select("figure#" + this.figureID)
                  .append("svg")
                  .attr("width", this.width)
-                 .attr("height", this.height)
+                 .attr("height", this.height + 50)
                  .append("g")
                  .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
   }
@@ -83,7 +88,7 @@ export class StackedHistogramComponent implements OnInit {
                      .range([this.height - this.margin.bottom, this.margin.top]);
 
     var color = d3.schemeCategory10;
-    // create groups for each genre and populate them with their data
+    // create groups for each group and populate them with their data
     var sel = this.svg.selectAll("." + this.groupName)
             .data(stackedHistData)
             .enter()
@@ -122,6 +127,23 @@ export class StackedHistogramComponent implements OnInit {
 
     this.svg.append("g").call(xAxis);
 
+    // legend
+    const legendX = this.width - 200;
+    const legendY = 100;
+    groups.forEach((value, idx) => {
+      // color marker
+      this.svg.append("circle")
+        .attr("cx", legendX)
+        .attr("cy", legendY + 30 * idx)
+        .attr("r", 6).style("fill", color[idx % 10]);
+      // group name
+      this.svg.append("text")
+        .attr("x", legendX + 20)
+        .attr("y", legendY + 30 * idx)
+        .text(value).style("font-size", "15px")
+        .attr("alignment-baseline","middle");
+    });
+
     // add title
     this.svg.append("text")
             .attr("x", (this.width / 2))             
@@ -130,6 +152,22 @@ export class StackedHistogramComponent implements OnInit {
             .style("font-size", "16px") 
             .style("text-decoration", "underline")  
             .text(this.chartTitle);
+
+    // axis labels
+    this.svg.append("text")             
+            .attr("transform",
+                  "translate(" + (this.width/2) + " ," + 
+                                (this.height - this.margin.bottom + 30) + ")")
+            .style("text-anchor", "middle")
+            .text(this.valueXName);
+
+    this.svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", this.margin.left - 45)
+            .attr("x", 0 - (this.height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text(this.valueYName);  
   }
 
 }

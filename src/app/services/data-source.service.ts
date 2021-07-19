@@ -8,7 +8,7 @@ export class DataSourceService {
 
   constructor(  ) { }
 
-  private storage = window.sessionStorage;
+  private storage = window.localStorage;
   private _sourceList = new BehaviorSubject<number[]>([]);
 
   getStoredSourceList(): number[] {

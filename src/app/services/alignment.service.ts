@@ -10,7 +10,7 @@ export class AlignmentService {
 
   private readonly _ids = new BehaviorSubject<number[]>(null);
   private _mode: string = null;
-  private storage = window.sessionStorage;
+  private storage = window.localStorage;
 
   get idsToAlign(): number[] {
     const storedIds = this.storage.getItem('idsToAlign');

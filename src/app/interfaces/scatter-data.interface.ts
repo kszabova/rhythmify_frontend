@@ -1,4 +1,5 @@
 export interface IScatterData {
     x: number,
-    y: number
+    y: number,
+    group: string
 }

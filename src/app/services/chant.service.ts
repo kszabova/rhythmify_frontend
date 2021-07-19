@@ -70,10 +70,12 @@ export class ChantService {
     return this.http.post(`${this._baseUrl}/align/`, formData);
   }
 
+  //REMOVE
   getAlignedTexts(data: number[]): Observable<any> {
     return this.http.post(`${this._baseUrl}/align-text/`, data);
   }
 
+  //REMOVVE
   updateSelection(data: number[]): Observable<any> {
     return this.http.post(`${this._baseUrl}/selectDatasets/`, data);
   }
