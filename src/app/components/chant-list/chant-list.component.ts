@@ -156,6 +156,10 @@ export class ChantListComponent implements OnInit, OnDestroy {
 
   createDataset(): void {
     let selected = this.getSelected();
+    if (selected.length < 1) {
+      alert("Select at least one chant");
+      return;
+    }
     let datasetName: string;
 
     const dialogRef = this.dialog.open(
