@@ -73,8 +73,18 @@
         <br>
         <mat-checkbox [(ngModel)]="showHeaders" class="header-checkbox">Show headers</mat-checkbox><br>
         <mat-checkbox [(ngModel)]="showText" class="text-checkbox">Show text</mat-checkbox><br>
-        <mat-checkbox [(ngModel)]="showColors" class="color-checkbox">Show colors</mat-checkbox><br>
-        <mat-checkbox [(ngModel)]="showConservation" class="conservation-checkbox">Show conservation</mat-checkbox><br>
+        <mat-checkbox
+            [(ngModel)]="showColors"
+            (ngModelChange)="showConservation = false"
+            class="color-checkbox">
+            Show colors
+        </mat-checkbox><br>
+        <mat-checkbox
+            [(ngModel)]="showConservation"
+            (ngModelChange)="showColors = false"
+            class="conservation-checkbox">
+            Show conservation
+        </mat-checkbox><br>
         <button mat-raised-button (click)="downloadAligned()" color="primary" class="download-button">Download</button>
     </div>
     <ng-template #progressSpinner>
