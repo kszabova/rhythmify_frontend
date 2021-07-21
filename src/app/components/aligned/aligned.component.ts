@@ -124,7 +124,6 @@ export class AlignedComponent implements OnInit {
           this.aligned.success.volpianos);
       this.conservationProfile = conservation["conservationProfile"];
       this.conservationOfSet = conservation["conservationOfSet"];
-      console.log(this.conservationOfSet);
       this.conservationChanged = false;
     }
 
