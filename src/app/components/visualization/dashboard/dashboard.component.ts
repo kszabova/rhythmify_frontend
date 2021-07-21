@@ -12,12 +12,6 @@ import { ChantService } from 'src/app/services/chant.service';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  melodyLengthHistTitle = "Melody Length";
-  melodyLengthHistData: number[];
-
-  textLengthHistTitle = "Text Length";
-  textLengthHistData: number[];
-
   melodyStackedHistData: IStackedHistogram[];
   melodyStackedHistTitle = "Melody Length by Genre";
   melodyStackedHistGroupName = "dataset";
@@ -48,18 +42,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe(
         (all_data: any) => {
-          console.log("new data");
-          console.log(all_data.length);
           if (all_data === null || all_data.length === 0) {
             return;
           }
           let data = all_data.slice(0, 10000);
-          this.melodyLengthHistData = data.map(
-            chant => chant.volpiano.split("---").length
-          );
-          this.textLengthHistData = data.map(
-            chant => chant.full_text.split(" ").length
-          );
           this.melodyStackedHistData = data.map(
             chant => ({
               "value": chant.volpiano.split("---").length,
@@ -70,12 +56,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
               "value": chant.full_text.split(" ").length,
               "group": chant.dataset_name
           }));
-          // this.scatterPlotData = data.map(
-          //   chant => ({
-          //     "x": chant.volpiano.split('-').join('').length,
-          //     "y": chant.full_text.split(" ").length
-          //   })
-          // );
           this.multiScatterData = data
               .map(
                 chant => ({

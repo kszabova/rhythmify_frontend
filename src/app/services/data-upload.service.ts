@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ChantService } from './chant.service';
 import { DataSourceListService } from './data-source-list.service';
 
 @Injectable({
@@ -10,17 +10,15 @@ import { DataSourceListService } from './data-source-list.service';
 export class DataUploadService {
 
   constructor(
-    private httpClient: HttpClient,
-    private dataSourceListService: DataSourceListService
+    private dataSourceListService: DataSourceListService,
+    private chantService: ChantService
   ) { }
 
   uploadDataset(fileToUpload: File, datasetName: string): Observable<boolean> {
-    const endpoint = 'http://localhost:8000/api/chants/upload/';
     const formData: FormData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
     formData.append('name', datasetName);
-    return this.httpClient
-      .post(endpoint, formData)
+    return this.chantService.uploadData(formData)
       .pipe(map(() => { 
         this.dataSourceListService.refreshSources();
         return true;

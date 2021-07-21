@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ChantService } from 'src/app/services/chant.service';
-import { DataSourceService } from 'src/app/services/data-source.service';
 import { DataUploadService } from 'src/app/services/data-upload.service';
 import { MissingDatasetNameDialogComponent } from '../dialogs/missing-dataset-name-dialog/missing-dataset-name-dialog.component';
 import { UploadSuccessfulDialogComponent } from '../dialogs/upload-successful-dialog/upload-successful-dialog.component';

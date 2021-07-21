@@ -23,8 +23,4 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(['/chants', {'incipit': incipit}]);
   }
 
-  resetChantList(): void {
-    //this.chantService.setList();
-  }
-
 }

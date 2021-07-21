@@ -25,19 +25,6 @@ export class ChantService {
   private readonly _chantList = new BehaviorSubject<IChant[]>(null);
   private readonly _baseUrl = CONFIG['BACKEND_URL'];
 
-  // TODO remove
-  getAll(): Observable<any> {
-    return this.dataSourceService.getSourceList()
-      .pipe(
-        switchMap(dataSources => this.http.post(`${this._baseUrl}/`, dataSources))
-      );
-  }
-
-  // TODO remove
-  create(data: any): Observable<any> {
-    return this.http.post(this._baseUrl, data);
-  }
-
   getChant(id: number): Observable<IChantPrecomputed> {
     return this.http.get<IChantPrecomputed>(`${this._baseUrl}/${id}`);
   }
@@ -70,16 +57,6 @@ export class ChantService {
     return this.http.post(`${this._baseUrl}/align/`, formData);
   }
 
-  //REMOVE
-  getAlignedTexts(data: number[]): Observable<any> {
-    return this.http.post(`${this._baseUrl}/align-text/`, data);
-  }
-
-  //REMOVVE
-  updateSelection(data: number[]): Observable<any> {
-    return this.http.post(`${this._baseUrl}/selectDatasets/`, data);
-  }
-
   getDataSources(): Observable<any> {
     return this.http.get(`${this._baseUrl}/sources`);
   }
@@ -90,5 +67,9 @@ export class ChantService {
 
   createDataset(data: FormData): Observable<any> {
     return this.http.post(`${this._baseUrl}/create-dataset/`, data);
+  }
+
+  uploadData(data: FormData): Observable<any> {
+    return this.http.post(`${this._baseUrl}/upload/`, data);
   }
 }

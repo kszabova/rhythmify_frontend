@@ -14,20 +14,24 @@ import { DownloadService } from 'src/app/services/download.service';
 })
 export class AlignedComponent implements OnInit {
 
-  aligned: any;
   idsToAlign: number[];
+  alignmentMode: string;
+
+  aligned: any;
   blob: Blob;
   visibleDetails: {[id: number]: boolean} = {};
   alignmentPresent: boolean[] = [];
   alignmentUncollapsed: boolean[] = [];
+
   showColors: boolean = false;
   showHeaders: boolean = true;
   showConservation: boolean = false;
   showText: boolean = true;
-  mode: string;
+
   conservationProfile: number[][][][];
   conservationOfSet: number;
   conservationChanged = true;
+
   displayMode: string = "volpiano";
 
   constructor(
@@ -40,11 +44,11 @@ export class AlignedComponent implements OnInit {
 
   ngOnInit(): void {
     this.idsToAlign = this.alignmentService.idsToAlign;
-    this.mode = this.alignmentService.getMode();
+    this.alignmentMode = this.alignmentService.getMode();
 
     const formData: FormData = new FormData();
     formData.append('idsToAlign', JSON.stringify(this.idsToAlign));
-    formData.append('mode', this.mode);
+    formData.append('mode', this.alignmentMode);
 
     this.chantService.getAlignment(formData).subscribe(
       response => {
